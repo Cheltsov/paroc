@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Расчет изоляции плоскостей</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="{% static 'mycalc/css/main.css' %}"/>
+  </head>
+  <body class="main loading">
+    <header class="head-cont">
+      <div class="wrapper">
+        <div class="head">
+          <div class="head-logo"><a href="/"><img src="{% static 'mycalc/img/index-logo.jpg' %}" alt=""/></a></div>
+          <div class="head-text">
+            <div class="head-text__top">Программа расчёта тепловой изоляции PAROC</div>
+            <div class="head-text__bot">Расчёты выполняются согласно СП 61.13330.2012</div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrapper">
+        <ul>
+          <li><a class="fancybox" href="#form-1">Всплывающее окно</a></li>
+          <li><a class="fancybox" href="#form-2">Всплывающее окно 2</a></li>
+          <li><a class="fancybox" href="#form-3">Всплывающее окно 3</a></li>
+        </ul><br><br>
+      </div>
+    </main>
+    <div class="popup" id="form-1">
+      <div class="form__title"> <span>Последний сохранённый результат<br> расчёта будет перезаписан</span><img src="{% static 'mycalc/img/form-logo.png' %}" alt=""/></div>
+      <form action="#">
+        <div class="form__submit">
+          <div class="form__submi">
+            <div class="form__submit-btn">
+              <input class="default-btn" type="submit" value="Сохранить"/><a class="btn" href="">Отменить</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="popup" id="form-2">
+      <div class="form__title"> <span>Для сохранения результата расчёта просьба<br> заполнить форму. Вы сможете загрузить<br> сохранённый результат в удобное вам<br> время по e-mail.</span><img src="{% static 'mycalc/img/form-logo.png' %}" alt=""/></div>
+      <form action="#">
+        <div class="form__inputs" style="max-width: 525px">
+          <div class="form__inputs-input">
+            <div class="default-input">
+              <input class="default-input__input" type="text" placeholder="Николай Владимирович Аношкин" value="Николай Владимирович Аношкин"/>
+              <label class="default-input__label">Имя</label>
+              <div class="default-input__error">
+                <div class="error-text"><!-- текст ошибки --></div>
+              </div>
+            </div>
+          </div>
+          <div class="form__inputs-input">
+            <div class="default-input">
+              <input class="default-input__input" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email" placeholder="mail@yandex.ru"/>
+              <label class="default-input__label">E-mail</label>
+              <div class="default-input__error">
+                <div class="error-text"><!-- текст ошибки --></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form__submit">
+          <div class="form__submi">
+            <div class="form__submit-btn">
+              <input class="default-btn" type="submit" value="Сохранить"/><a class="btn" href="">Отменить</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="popup form-result" id="form-3">
+      <div class="form__title"> <span>Введите свой E-mail для открытия последнего<br> сохранённого результата расчёта</span><img src="{% static 'mycalc/img/form-logo.png' %}" alt=""/></div>
+      <form action="#">
+        <div class="form__inputs-result">
+          <div class="form__inputs-input">
+            <div class="default-input">
+              <input class="default-input__input" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email" placeholder="mail@yandex.ru"/>
+              <label class="default-input__label">E-mail</label>
+              <div class="default-input__error">
+                <div class="error-text"><!-- текст ошибки --></div>
+              </div>
+            </div>
+          </div><a class="default-btn" href="">Отменить</a>
+        </div>
+      </form>
+    </div>
+    <div class="total-results-cont">
+      <div class="wrapper">
+        <div class="total-results">
+          <div class="total-results__list">
+            <div class="total-results__item">
+              <div class="total-results__item-title">Точный расчет толщины изоляции</div>
+              <div class="total-results__item-num">0.0 мм</div>
+            </div>
+            <div class="total-results__item">
+              <div class="total-results__item-title">Рекомендуемая толщина для выбранной изоляции</div>
+              <div class="total-results__item-num">0.0 мм</div>
+            </div>
+            <div class="total-results__item">
+              <div class="total-results__item-title">Тепловые потери согласно СП</div>
+              <div class="total-results__item-num">Вт/м^2</div>
+            </div>
+            <div class="total-results__item">
+              <div class="total-results__item-title">Допустимая температура внешнего слоя согласно СП</div>
+              <div class="total-results__item-num">°C</div>
+            </div>
+            <div class="total-results__item">
+              <div class="total-results__item-title">Температура поверхности внешнего слоя изоляции</div>
+              <div class="total-results__item-num">°C</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="wrapper">
+        <div class="footer-text">Данная программа рассчитывает характеристики системы с технической изоляцией PAROC и носит рекомендательный характер.<br> Paroc Group не несет ответственность за прямой или косвенный ущерб, в результате использования данной программыес</div>
+      </div>
+    </footer>
+    <script src="{% static 'mycalc/js/vendors.js' %}"></script>
+    <script src="{% static 'mycalc/js/base.js' %}"></script>
+    <script src="{% static 'mycalc/js/common.js' %}"></script>
+  </body>
+</html>

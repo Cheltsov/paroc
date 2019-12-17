@@ -125,3 +125,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'mycalc/../static'),)
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mycalc/../media')
+MEDIA_ROOT_W = os.path.join(BASE_DIR, 'media')

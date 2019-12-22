@@ -1,8 +1,11 @@
 def input_in_dict(data_dict, data):
-    new_dict = {}
     for key in data_dict.keys():
-        new_dict[key] = data[key].value
-    return new_dict
+        if key in data:
+            data_dict[key] = data[key]
+        else:
+            print("dict 'data' have not a key like " + key)
+            data_dict[key] = None
+    return data_dict
 
 
 def input_in_sheet(sheet, data):

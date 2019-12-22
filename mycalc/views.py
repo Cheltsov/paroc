@@ -5,7 +5,13 @@ from django.template.loader import get_template
 from django.templatetags.static import static
 from paroc.settings import MEDIA_ROOT_W
 import mycalc.additional_functions as af
+from mycalc.data import data_pipes as pipes
+from mycalc.data import data_planes as planes
+from mycalc.data import data_containers as containers
+from openpyxl import load_workbook
 import codecs
+import cgitb
+import cgi
 
 
 # Create your views here.
@@ -38,36 +44,35 @@ def form(request):
 
 def add(request):
     if request.method == 'POST':
-        print(request.POST)
+        dirty_data = request.POST
+        data_type = request.POST.getlist('type')
+
+        # Первый символ верхнего регистра в сооветствии с названиями таблиц
+        sheet_name = data_type[0][0].upper() + data_type[0][1:]
+
+        data = {}
+        for k, v in dirty_data.items():
+            data[k[5:-1]] = v
+        print(data)
+
+        data_dicts = {'Trub': pipes.data,
+                      'Plosk': planes.data,
+                      'Emk': containers.data
+                      }
+
+        empty_dict = af.input_in_dict(data_dicts[sheet_name], data)
+
+        filename = 'media/Калькулятор Парок ТИ 19_12_17.xlsm'  # todo заменить txt файл на xlsm
+        wb = load_workbook(filename=filename, read_only=False)
+
+        sheet = wb.get_sheet_by_name(sheet_name)
+        af.input_in_sheet(sheet, empty_dict)
+
+        wb.save(filename='media/second-book.xlsx')
+
         return HttpResponse("post")
     else:
         return HttpResponse("no post")
-    # from data import data_pipes as pipes
-    # from data import data_planes as planes
-    # from data import data_containers as containers
-    # from openpyxl import load_workbook
-    # import cgi
-    # import cgitb
-    #
-    # cgitb.enable()  # for troubleshooting
-    # data = cgi.FieldStorage()  # the cgi library gets vars from html
-    #
-    # sheet_names = ['Trub', 'Plosk', 'Emk']
-    # data_dicts = [pipes.data, planes.data, containers.data]
-    # num_of_sheets = len(sheet_names)
-    #
-    # empty_dicts = []
-    # for i in range(num_of_sheets):
-    #     empty_dicts.append(af.input_in_dict(data_dicts[i], data))
-    #
-    # filename = '../media/Калькулятор Парок ТИ 19_12_17.xlsm'  # todo заменить txt файл на xlsm
-    # wb = load_workbook(filename=filename, read_only=False)
-    #
-    # for i in range(len(sheet_names)):
-    #     sheet = wb.get_sheet_by_name(sheet_names[i])
-    #     af.input_in_sheet(sheet, empty_dicts[i])
-    #
-    # wb.save(filename='../media/second-book.xlsx')
 
 
 def other_page_js(request, page):

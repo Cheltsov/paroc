@@ -60,10 +60,5 @@ data = {
     'L_Plosk_T_Iz_Man': None,
     'L_Plosk_T_Iz_SP_Man': None,
 
-    'L_Plosk_Section_Name': None,
     'CB_Plosk_Section': None,
-    'L_Plosk_SecNum': None,
-    'B_P_SecAdd': None,
-    'B_P_SecDel': None,
-    'B_Plosk_Report': None,
 }

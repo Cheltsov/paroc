@@ -92,10 +92,5 @@ data = {
     'L_T_Iz_Peremerz': None,
     'L_Q_SP_Peremerz': None,
 
-    'L_Section_Name': None,
     'CB_Section': None,
-    'L_SecNum': None,
-    'B_SecAdd': None,
-    'B_SecDel': None,
-    'B_Trub_Report': None,
 }

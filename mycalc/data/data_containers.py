@@ -76,10 +76,5 @@ data = {
     'L_Emk_T_Iz_Man': None,
     'L_Emk_T_Iz_SP_Man': None,
 
-    'L_Emk_Name': None,
     'CB_Emk': None,
-    'L_EmkNum': None,
-    'B_EmkAdd': None,
-    'B_EmkDel': None,
-    'B_EmkReport': None,
 }

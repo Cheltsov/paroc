@@ -87,9 +87,9 @@ def other_page_form_js(request, page):
 def other_page_main_js(request, page):
     return redirect('/static/mycalc/js/' + page)
 
+
 def add_trub(request):
     if request.method == 'POST':
-
         dirty_data = request.POST
 
         data = {}
@@ -144,16 +144,29 @@ def add_trub(request):
 
         wb.save(filename)
 
+        flags = {
+            '1': 'Trub_Calc_Norm',
+            '2': 'Trub_Calc_T',
+            '3': 'Trub_Calc_MaxT',
+            '4': 'Trub_Calc_Cond',
+            '5': 'Trub_Calc_Permerz',
+            '6': 'Trub_Calc_Man',
+        }
+
+        flag = data['flat_isol']
+
+        macro_run(flags[flag])
+
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
 
-def macro_run(request):
+
+def macro_run(macros_name):
     from datetime import datetime
     import win32com.client as wincl
     import os
     from os.path import join, abspath
-
     now = datetime.now()
 
     filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
@@ -170,11 +183,12 @@ def macro_run(request):
 
     if os.path.exists(excel_path):
         workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
-        excel_macro.Application.Run("Trub_Calc_Norm")
+        excel_macro.Application.Run(macros_name)
         workbook.Save()
         excel_macro.Application.Quit()
         del excel_macro
-    return HttpResponse('g')
+
+    return 'true'
 
 
 def add_plosk(request):
@@ -220,9 +234,21 @@ def add_plosk(request):
 
         wb.save(filename)
 
+        flags = {
+            1: 'Plosk_Calc_Norm',
+            2: 'Plosk_Calc_MaxT',
+            3: 'Plosk_Calc_Cond',
+            4: 'Plosk_Calc_Man',
+        }
+
+        flag = data['flat_isol']
+
+        macro_run(flags[flag])
+
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
+
 
 def add_emk(request):
     if request.method == 'POST':
@@ -274,6 +300,18 @@ def add_emk(request):
         sheet.cell(row=79, column=column_index_from_string('B')).value = data['CB_Emk']
 
         wb.save(filename)
+
+        flags = {
+            '1': 'Emk_Calc_Norm',
+            '2': 'Emk_Calc_T',
+            '3': 'Emk_Calc_MaxT',
+            '4': 'Emk_Calc_Cond',
+            '5': 'Emk_Calc_Man',
+        }
+
+        flag = data['flat_isol']
+
+        macro_run(flags[flag])
 
         return HttpResponse('true')
     else:

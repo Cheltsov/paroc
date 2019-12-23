@@ -211,7 +211,6 @@ def add_plosk(request):
         sheet.cell(row=27, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_MaxT']
 
         sheet.cell(row=36, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_Cond']
-        sheet.cell(row=37, column=column_index_from_string('B')).value = data['B_P_Calc_MaxT']
 
         sheet.cell(row=46, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_Man']
         sheet.cell(row=47, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_W']

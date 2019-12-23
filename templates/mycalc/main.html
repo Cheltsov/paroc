@@ -1958,7 +1958,7 @@
             <div class="isolation__sloy-row">
                 <div class="isolation__sloy-el id_is" style="display:none">`+id+`</div>
                 <div class="isolation__sloy-el name_is">`+name+`</div>
-                <div class="isolation__sloy-el temp_is">`+temp+` мм</div>
+                <div class="isolation__sloy-el temp_is"><span class='temp_is_span'>`+temp+`</span> мм</div>
                 <div class="isolation__sloy-el"></div>
             </div>`);
             $('#divtable_layer_'+type).show();
@@ -1992,8 +1992,12 @@
                 sloi_trub.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
+            });
+            sloi_tmp = "";
+            sloi_plosk.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
             });
 
             data = {
@@ -2032,14 +2036,14 @@
                 "CB_Trub_Iz_Peremerz": $('select[name="CB_Trub_Iz_Peremerz"]').val(),
                 "L_Trub_StopMove": $('input[name="L_Trub_StopMove"]').val(),
                 // Ручной ввод
-                'LB_Trub_Iz': sloi_trub,
+                'LB_Trub_Iz': sloi_tmp,
                 "CB_Trub_Iz_Man": $('select[name="CB_Trub_Iz_Man"]').val(),
                 "CB_Trub_Iz_W": $('input[name="CB_Trub_Iz_W"]').val(),
                 // Секции
                 "CB_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Trub_Methods": (parseInt($('.solation-top-turb').children('.active').attr('data-id')) - 1)
-
+                "MP_Trub_Methods": (parseInt($('.solation-top-turb').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-turb').children('.active').attr('data-id')
             };
             console.log(data);
             SentAjax(data, 'trub');
@@ -2055,8 +2059,12 @@
                 sloi_plosk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
+            });
+            sloi_tmp = "";
+            sloi_plosk.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
             });
 
             data = {
@@ -2081,14 +2089,14 @@
                 "CB_Plosk_Iz_Cond": $('select[name="CB_Plosk_Iz_Cond"]').val(),
                 "L_Plosk_Hum": $('input[name="L_Plosk_Hum"]').val(),
                 // Ручной ввод
-                'LB_Plosk_Iz': sloi_plosk,
+                'LB_Plosk_Iz': sloi_tmp,
                 "CB_Plosk_Iz_Man": $('select[name="CB_Plosk_Iz_Man"]').val(),
                 "CB_Plosk_Iz_W": $('input[name="CB_Plosk_Iz_W"]').val(),
                 // Секции
                 "CB_Plosk_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Plosk_Methods": (parseInt($('.solation-top-plosk').children('.active').attr('data-id')) - 1)
-
+                "MP_Plosk_Methods": (parseInt($('.solation-top-plosk').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-plosk').children('.active').attr('data-id')
             };
             console.log(data);
             SentAjax(data, 'plosk');
@@ -2103,9 +2111,14 @@
                 sloi_emk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
             });
+            sloi_tmp = "";
+            sloi_plosk.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
+            });
+
 
             data = {
                 //  ОКРУЖАЮЩАЯ СРЕДА И ПАРАМЕТРЫ НОСИТЕЛЯ
@@ -2136,14 +2149,14 @@
                 "CB_Emk_Iz_Cond": $('select[name="CB_Emk_Iz_Cond"]').val(),
                 "L_Emk_Hum": $('input[name="L_Emk_Hum"]').val(),
                 // Ручной ввод
-                'LB_Emk_Iz': sloi_emk,
+                'LB_Emk_Iz': sloi_tmp,
                 "CB_Emk_Iz_Man": $('select[name="CB_Emk_Iz_Man"]').val(),
                 "CB_Emk_Iz_W": $('input[name="CB_Emk_Iz_W"]').val(),
                 // Секции
                 "CB_Emk": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Emk_Methods": (parseInt($('.solation-top-emk').children('.active').attr('data-id')) - 1)
-
+                "MP_Emk_Methods": (parseInt($('.solation-top-emk').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-emk').children('.active').attr('data-id')
             };
             console.log(data);
             SentAjax(data,'emk');
@@ -2151,8 +2164,15 @@
         });
 
         function SentAjax($data, type) {
+
+            switch (type) {
+                case 'trub': var_url = "/add_trub/"; break;
+                case 'plosk': var_url = "/add_plosk/"; break;
+                case 'emk': var_url = "/add_emk/"; break;
+            }
+
             $.ajax({
-                url: '/add_trub/',
+                url: var_url,
                 type: 'POST',
                 data: {'data': $data, 'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(), 'type':type},
                 success:function(response){

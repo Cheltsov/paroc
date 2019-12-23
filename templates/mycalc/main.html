@@ -2009,12 +2009,12 @@
                 "cb_Usl_D": $('input[name="cb_Usl_D"]').val(),
                 "L_Trub_Length": $('input[name="L_Trub_Length"]').val(),
                 // ДОПОЛНИТЕЛЬНЫЕ ПАРАМЕТРЫ
-                "ChB_UsePoteri": $('input[name="ChB_UsePoteri"]').val(),
+                "ChB_UsePoteri": $('input[name="ChB_UsePoteri"]').val() == "on" ?'1':'0',
                 "CB_Trub_Krepezh": $('select[name="CB_Trub_Krepezh"]').val(),
                 "CB_Trub_Dir": $('select[name="CB_Trub_Dir"]').val(),
-                "ChB_Trub_Koltsa": $('input[name="ChB_Trub_Koltsa"]').val(),
+                "ChB_Trub_Koltsa": $('input[name="ChB_Trub_Koltsa"]').val() == "on" ?'1':'0',
                 "L_Trub_Koltsa_Poteri": $('input[name="L_Trub_Koltsa_Poteri"]').val(),
-                "ChB_Trub_5000": $('input[name="ChB_Trub_5000"]').val(),
+                "ChB_Trub_5000": $('input[name="ChB_Trub_5000"]').val() == "on" ?'1':'0',
                 "L_Trub_D": $('input[name="L_Trub_D"]').val(),
                 "L_Trub_WWidth": $('input[name="L_Trub_WWidth"]').val(),
                 // СН
@@ -2152,7 +2152,7 @@
 
         function SentAjax($data, type) {
             $.ajax({
-                url: '/add/',
+                url: '/add_trub/',
                 type: 'POST',
                 data: {'data': $data, 'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(), 'type':type},
                 success:function(response){

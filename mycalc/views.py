@@ -161,36 +161,6 @@ def add_trub(request):
     else:
         return HttpResponse('no post')
 
-
-def macro_run(macros_name):
-    from datetime import datetime
-    import win32com.client as wincl
-    import os
-    from os.path import join, abspath
-    now = datetime.now()
-
-    filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
-    wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
-    sheet = wb.get_sheet_by_name('communication')
-    sheet.cell(row=1, column=column_index_from_string('B')).value = "result_"+now.strftime("%d_%m_%Y %H_%M_%S")
-    wb.save(filename)
-
-    data_path = join('.', "media/cal.xlsm")
-    data_path = abspath(data_path)
-
-    excel_macro = wincl.DispatchEx("Excel.application")
-    excel_path = os.path.expanduser(data_path)
-
-    if os.path.exists(excel_path):
-        workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
-        excel_macro.Application.Run(macros_name)
-        workbook.Save()
-        excel_macro.Application.Quit()
-        del excel_macro
-
-    return 'true'
-
-
 def add_plosk(request):
     if request.method == 'POST':
 
@@ -236,9 +206,9 @@ def add_plosk(request):
 
         flags = {
             1: 'Plosk_Calc_Norm',
-            2: 'Plosk_Calc_MaxT',
-            3: 'Plosk_Calc_Cond',
-            4: 'Plosk_Calc_Man',
+            3: 'Plosk_Calc_MaxT',
+            4: 'Plosk_Calc_Cond',
+            6: 'Plosk_Calc_Man',
         }
 
         flag = data['flat_isol']
@@ -248,7 +218,6 @@ def add_plosk(request):
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
-
 
 def add_emk(request):
     if request.method == 'POST':
@@ -306,7 +275,7 @@ def add_emk(request):
             '2': 'Emk_Calc_T',
             '3': 'Emk_Calc_MaxT',
             '4': 'Emk_Calc_Cond',
-            '5': 'Emk_Calc_Man',
+            '6': 'Emk_Calc_Man',
         }
 
         flag = data['flat_isol']
@@ -316,3 +285,32 @@ def add_emk(request):
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
+
+def macro_run(macros_name):
+    from datetime import datetime
+    import win32com.client as wincl
+    import os
+    from os.path import join, abspath
+    now = datetime.now()
+
+    filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
+    wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
+    sheet = wb.get_sheet_by_name('communication')
+    sheet.cell(row=1, column=column_index_from_string('B')).value = "result_"+now.strftime("%d_%m_%Y %H_%M_%S")
+    wb.save(filename)
+
+    data_path = join('.', "media/cal.xlsm")
+    data_path = abspath(data_path)
+
+    excel_macro = wincl.DispatchEx("Excel.application")
+    excel_path = os.path.expanduser(data_path)
+
+    if os.path.exists(excel_path):
+        workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
+        print('Run macros= ' + macros_name)
+        excel_macro.Application.Run(macros_name)
+        workbook.Save()
+        excel_macro.Application.Quit()
+        del excel_macro
+
+    return 'true'

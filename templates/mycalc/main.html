@@ -1903,6 +1903,9 @@
         </div>
     </div>
 </div>
+<div class="sec_token">
+    {% csrf_token %}
+</div>
 <footer class="footer">
     <div class="wrapper">
         <div class="footer-text">Данная программа рассчитывает характеристики системы с технической изоляцией PAROC и
@@ -1955,7 +1958,7 @@
             <div class="isolation__sloy-row">
                 <div class="isolation__sloy-el id_is" style="display:none">`+id+`</div>
                 <div class="isolation__sloy-el name_is">`+name+`</div>
-                <div class="isolation__sloy-el temp_is">`+temp+` мм</div>
+                <div class="isolation__sloy-el temp_is"><span class='temp_is_span'>`+temp+`</span> мм</div>
                 <div class="isolation__sloy-el"></div>
             </div>`);
             $('#divtable_layer_'+type).show();
@@ -1989,8 +1992,12 @@
                 sloi_trub.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
+            });
+            sloi_tmp = "";
+            sloi_trub.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
             });
 
             data = {
@@ -2006,12 +2013,12 @@
                 "cb_Usl_D": $('input[name="cb_Usl_D"]').val(),
                 "L_Trub_Length": $('input[name="L_Trub_Length"]').val(),
                 // ДОПОЛНИТЕЛЬНЫЕ ПАРАМЕТРЫ
-                "ChB_UsePoteri": $('input[name="ChB_UsePoteri"]').val(),
+                "ChB_UsePoteri": $('input[name="ChB_UsePoteri"]').val() == "on" ?'1':'0',
                 "CB_Trub_Krepezh": $('select[name="CB_Trub_Krepezh"]').val(),
                 "CB_Trub_Dir": $('select[name="CB_Trub_Dir"]').val(),
-                "ChB_Trub_Koltsa": $('input[name="ChB_Trub_Koltsa"]').val(),
+                "ChB_Trub_Koltsa": $('input[name="ChB_Trub_Koltsa"]').val() == "on" ?'1':'0',
                 "L_Trub_Koltsa_Poteri": $('input[name="L_Trub_Koltsa_Poteri"]').val(),
-                "ChB_Trub_5000": $('input[name="ChB_Trub_5000"]').val(),
+                "ChB_Trub_5000": $('input[name="ChB_Trub_5000"]').val() == "on" ?'1':'0',
                 "L_Trub_D": $('input[name="L_Trub_D"]').val(),
                 "L_Trub_WWidth": $('input[name="L_Trub_WWidth"]').val(),
                 // СН
@@ -2029,16 +2036,17 @@
                 "CB_Trub_Iz_Peremerz": $('select[name="CB_Trub_Iz_Peremerz"]').val(),
                 "L_Trub_StopMove": $('input[name="L_Trub_StopMove"]').val(),
                 // Ручной ввод
-                'LB_Trub_Iz': sloi_trub,
+                'LB_Trub_Iz': sloi_tmp,
                 "CB_Trub_Iz_Man": $('select[name="CB_Trub_Iz_Man"]').val(),
                 "CB_Trub_Iz_W": $('input[name="CB_Trub_Iz_W"]').val(),
                 // Секции
                 "CB_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Trub_Methods": (parseInt($('.solation-top-turb').children('.active').attr('data-id')) - 1)
-
+                "MP_Trub_Methods": (parseInt($('.solation-top-turb').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-turb').children('.active').attr('data-id')
             };
             console.log(data);
+            SentAjax(data, 'trub');
             return false;
         });
 
@@ -2051,8 +2059,12 @@
                 sloi_plosk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
+            });
+            sloi_tmp = "";
+            sloi_plosk.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
             });
 
             data = {
@@ -2077,16 +2089,17 @@
                 "CB_Plosk_Iz_Cond": $('select[name="CB_Plosk_Iz_Cond"]').val(),
                 "L_Plosk_Hum": $('input[name="L_Plosk_Hum"]').val(),
                 // Ручной ввод
-                'LB_Plosk_Iz': sloi_plosk,
+                'LB_Plosk_Iz': sloi_tmp,
                 "CB_Plosk_Iz_Man": $('select[name="CB_Plosk_Iz_Man"]').val(),
                 "CB_Plosk_Iz_W": $('input[name="CB_Plosk_Iz_W"]').val(),
                 // Секции
                 "CB_Plosk_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Plosk_Methods": (parseInt($('.solation-top-plosk').children('.active').attr('data-id')) - 1)
-
+                "MP_Plosk_Methods": (parseInt($('.solation-top-plosk').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-plosk').children('.active').attr('data-id')
             };
             console.log(data);
+            SentAjax(data, 'plosk');
             return false;
         });
 
@@ -2098,9 +2111,14 @@
                 sloi_emk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
                 })
             });
+            sloi_tmp = "";
+            sloi_emk.forEach(function(el){
+                sloi_tmp += el.id+';'+el.temp+';';
+            });
+
 
             data = {
                 //  ОКРУЖАЮЩАЯ СРЕДА И ПАРАМЕТРЫ НОСИТЕЛЯ
@@ -2131,24 +2149,32 @@
                 "CB_Emk_Iz_Cond": $('select[name="CB_Emk_Iz_Cond"]').val(),
                 "L_Emk_Hum": $('input[name="L_Emk_Hum"]').val(),
                 // Ручной ввод
-                'LB_Emk_Iz': sloi_emk,
+                'LB_Emk_Iz': sloi_tmp,
                 "CB_Emk_Iz_Man": $('select[name="CB_Emk_Iz_Man"]').val(),
                 "CB_Emk_Iz_W": $('input[name="CB_Emk_Iz_W"]').val(),
                 // Секции
                 "CB_Emk": $('select[name="sections"] option:selected').text(),
                 // Вкладка
-                "MP_Emk_Methods": (parseInt($('.solation-top-emk').children('.active').attr('data-id')) - 1)
-
+                "MP_Emk_Methods": (parseInt($('.solation-top-emk').children('.active').attr('data-id')) - 1),
+                "flat_isol": $('.solation-top-emk').children('.active').attr('data-id')
             };
             console.log(data);
+            SentAjax(data,'emk');
             return false;
         });
 
-        function SentAjax($data) {
+        function SentAjax($data, type) {
+
+            switch (type) {
+                case 'trub': var_url = "/add_trub/"; break;
+                case 'plosk': var_url = "/add_plosk/"; break;
+                case 'emk': var_url = "/add_emk/"; break;
+            }
+
             $.ajax({
-                url: '',
-                type: 'post',
-                data: $data,
+                url: var_url,
+                type: 'POST',
+                data: {'data': $data, 'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(), 'type':type},
                 success:function(response){
                     console.log(response)
                 }

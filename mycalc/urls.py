@@ -5,6 +5,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('add/', views.add, name='add'),
+
+    path('macro_run/', views.macro_run, name='macro_run'),
+    path('add_trub/', views.add_trub, name='add_trub'),
+    path('add_plosk/', views.add_plosk, name='add_plosk'),
+    path('add_emk/', views.add_emk, name='add_emk'),
+
     path('main/', views.main, name='main'),
     path('form/', views.form, name='form'),
     path('/form/js/0.js', views.index, name='index'),

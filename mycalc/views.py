@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.templatetags.static import static
+
 from paroc.settings import MEDIA_ROOT_W
 import mycalc.additional_functions as af
 from mycalc.data import data_pipes as pipes
@@ -10,9 +11,8 @@ from mycalc.data import data_planes as planes
 from mycalc.data import data_containers as containers
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
+from datetime import datetime
 import codecs
-import cgitb
-import cgi
 
 
 # Create your views here.
@@ -142,7 +142,10 @@ def add_trub(request):
 
         sheet.cell(row=91, column=column_index_from_string('B')).value = data['CB_Section']
 
-        wb.save(filename)
+        now = datetime.now()
+        temp_cal = 'media/cal' + now.strftime("%d_%m_%Y %H_%M_%S") + '.xlsm'
+        wb.save(temp_cal)
+        wb.close()
 
         flags = {
             '1': 'Trub_Calc_Norm',
@@ -155,11 +158,13 @@ def add_trub(request):
 
         flag = data['flat_isol']
 
-        macro_run(flags[flag])
+        result = macro_run(flags[flag], temp_cal)
+        print(result)
 
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
+
 
 def add_plosk(request):
     if request.method == 'POST':
@@ -202,18 +207,22 @@ def add_plosk(request):
 
         sheet.cell(row=60, column=column_index_from_string('B')).value = data['CB_Plosk_Section']
 
-        wb.save(filename)
+        now = datetime.now()
+        temp_cal = 'media/cal' + now.strftime("%d_%m_%Y %H_%M_%S") + '.xlsm'
+        wb.save(temp_cal)
+        wb.close()
 
         flags = {
-            1: 'Plosk_Calc_Norm',
-            3: 'Plosk_Calc_MaxT',
-            4: 'Plosk_Calc_Cond',
-            6: 'Plosk_Calc_Man',
+            '1': 'Plosk_Calc_Norm',
+            '3': 'Plosk_Calc_MaxT',
+            '4': 'Plosk_Calc_Cond',
+            '6': 'Plosk_Calc_Man',
         }
 
         flag = data['flat_isol']
 
-        macro_run(flags[flag])
+        result = macro_run(flags[flag], temp_cal)
+        print(result)
 
         return HttpResponse('true')
     else:
@@ -268,7 +277,10 @@ def add_emk(request):
 
         sheet.cell(row=79, column=column_index_from_string('B')).value = data['CB_Emk']
 
-        wb.save(filename)
+        now = datetime.now()
+        temp_cal = 'media/cal' + now.strftime("%d_%m_%Y %H_%M_%S") + '.xlsm'
+        wb.save(temp_cal)
+        wb.close()
 
         flags = {
             '1': 'Emk_Calc_Norm',
@@ -280,26 +292,30 @@ def add_emk(request):
 
         flag = data['flat_isol']
 
-        macro_run(flags[flag])
+        result = macro_run(flags[flag], temp_cal)
+        print(result)
 
         return HttpResponse('true')
     else:
         return HttpResponse('no post')
 
-def macro_run(macros_name):
+
+def macro_run(macros_name, cal_empty_copy):
     from datetime import datetime
     import win32com.client as wincl
     import os
     from os.path import join, abspath
     now = datetime.now()
 
-    filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
+    filename = cal_empty_copy
     wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
     sheet = wb.get_sheet_by_name('communication')
-    sheet.cell(row=1, column=column_index_from_string('B')).value = "result_"+now.strftime("%d_%m_%Y %H_%M_%S")
+    result_file = "result_" + now.strftime("%d_%m_%Y %H_%M_%S")
+    sheet.cell(row=1, column=column_index_from_string('B')).value = result_file
+
     wb.save(filename)
 
-    data_path = join('.', "media/cal.xlsm")
+    data_path = join('.', filename)
     data_path = abspath(data_path)
 
     excel_macro = wincl.DispatchEx("Excel.application")
@@ -313,4 +329,16 @@ def macro_run(macros_name):
         excel_macro.Application.Quit()
         del excel_macro
 
-    return 'true'
+    result_file = 'media/' + result_file + '.xlsx'
+    wb = load_workbook(filename=result_file, data_only=True, read_only=False, keep_vba=True)
+    sheet = wb.get_sheet_by_name('Протокол')
+
+    result_list = ['some value',  # todo
+                   sheet.cell(row=28, column=column_index_from_string('G')).value,
+                   sheet.cell(row=29, column=column_index_from_string('G')).value,
+                   sheet.cell(row=30, column=column_index_from_string('G')).value,
+                   sheet.cell(row=31, column=column_index_from_string('G')).value]
+
+    os.remove(data_path)
+
+    return result_list

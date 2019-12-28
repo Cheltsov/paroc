@@ -365,7 +365,7 @@
                         </div>
                         <div class="isolation-bot tabs__content" data-id="5">
                             <div class="isolation-info">Предотвращение замерзания вещества</div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id = "isl_hide_1">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -425,7 +425,7 @@
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
                             <div class="isolation-info">Предотвращение замерзания</div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id = "isl_hide_2">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -455,12 +455,15 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" id="insulation_trub" name="CB_Trub_Iz_Man">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}" data-tol="{{ ins.tol }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="default-input"><span>мм</span>
-                                    <input class="default-input__input" type="text" value="30" id="temp_trub" name="CB_Trub_Iz_W"/>
+
+                                    <select class="default-select__select" id="temp_trub" name="CB_Trub_Iz_W">
+                                    </select>
+
                                     <label class="default-input__label">Толщина</label>
                                     <div class="default-input__error">
                                         <div class="error-text"><!-- текст ошибки --></div>
@@ -489,7 +492,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="results">
+                    <div class="trub_result" id = "trub_result">
                         <div class="results-top">
                             <div class="title">Результат</div>
                             <div class="title-icon"
@@ -498,23 +501,23 @@
                         <div class="results__list">
                             <div class="results__item">
                                 <div class="results__item-title">Точный расчет толщины изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id = "accurate-calculation">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Рекомендуемая толщина для выбранной изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id = "recommended-thickness">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Тепловые потери согласно СП</div>
-                                <div class="results__item-num">Вт/м^2</div>
+                                <div class="results__item-num" id = "heat-loss">Вт/м^2</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Допустимая температура внешнего слоя согласно СП</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id = "permissible-temperature">°C</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Температура поверхности внешнего слоя изоляции</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id = "surface-temperature">°C</div>
                             </div>
                         </div>
                         <div class="results__bot"><a class="default-btn" href="">Сформировать итоговую ведомость</a><a
@@ -755,7 +758,7 @@
                             <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
                                 61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
                             </div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_3">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -804,7 +807,7 @@
                         </div>
                         <div class="isolation-bot tabs__content" data-id="3">
                             <div class="isolation-info">Соблюдение требований безопасности</div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_4">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -853,7 +856,7 @@
                             <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
                                 оборудования<br> или трубопровода
                             </div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_5">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -912,7 +915,7 @@
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_6">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -938,20 +941,27 @@
                                 </div>
                             </div>
                             <div class="isolation-row">
+
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
+
                                     <select class="default-select__select" id="insulation_plosk" name="CB_Plosk_Iz_Man">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}" data-tol="{{ins.tol}}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
+
                                 </div>
                                 <div class="default-input"><span>мм</span>
-                                    <input class="default-input__input" type="text" value="50" id="temp_plosk" name="CB_Plosk_Iz_W"/>
+
+                                    <select class="default-select__select" id = "temp_plosk" name = "CB_Plosk_Iz_W">
+                                    </select>
+
                                     <label class="default-input__label">Толщина</label>
                                     <div class="default-input__error">
                                         <div class="error-text"><!-- текст ошибки --></div>
                                     </div>
+
                                 </div>
                                 <a href="" class="add_layer" data-type="plosk">Добавить слой</a>
                             </div>
@@ -976,7 +986,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="results">
+
+                    <div class="plosk_result" id = "plosk_result">
                         <div class="results-top">
                             <div class="title">Результат</div>
                             <div class="title-icon"
@@ -985,23 +996,23 @@
                         <div class="results__list">
                             <div class="results__item">
                                 <div class="results__item-title">Точный расчет толщины изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id="plosk_accurate-calculation">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Рекомендуемая толщина для выбранной изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id="plosk_recommended-thickness">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Тепловые потери согласно СП</div>
-                                <div class="results__item-num">Вт/м^2</div>
+                                <div class="results__item-num" id="plosk_heat-loss">Вт/м^2</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Допустимая температура внешнего слоя согласно СП</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id="plosk_permissible-temperature">°C</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Температура поверхности внешнего слоя изоляции</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id="plosk_surface-temperature">°C</div>
                             </div>
                         </div>
                         <div class="results__bot"><a class="default-btn" href="">Сформировать итоговую ведомость</a><a
@@ -1219,7 +1230,7 @@
                             <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
                                 61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
                             </div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_7">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1270,7 +1281,7 @@
                             <div class="isolation-info">Расчет толщины изоляции по заданному снижению (повышению)
                                 температуры<br> вещества, хранимого в емкости
                             </div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_8">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1339,7 +1350,7 @@
                         </div>
                         <div class="isolation-bot tabs__content" data-id="3">
                             <div class="isolation-info">Соблюдение требований безопасности</div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_9">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1391,7 +1402,7 @@
                             <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
                                 оборудования<br> или трубопровода
                             </div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_10">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1448,7 +1459,7 @@
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_11">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1512,32 +1523,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="results">
+                    <div class="emk-result" id = "emk_result">
                         <div class="results-top">
                             <div class="title">Результат</div>
                             <div class="title-icon"
                                  style="color: #ffe5e5; background-image: url('{% static 'mycalc/img/ico-file.png' %}')"></div>
                         </div>
+
                         <div class="results__list">
                             <div class="results__item">
                                 <div class="results__item-title">Точный расчет толщины изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id="emk_accurate-calculation">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Рекомендуемая толщина для выбранной изоляции</div>
-                                <div class="results__item-num">0.0 мм</div>
+                                <div class="results__item-num" id="emk_recommended-thickness">0.0 мм</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Тепловые потери согласно СП</div>
-                                <div class="results__item-num">Вт/м^2</div>
+                                <div class="results__item-num" id="emk_heat-loss">Вт/м^2</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Допустимая температура внешнего слоя согласно СП</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id="emk_permissible-temperature">°C</div>
                             </div>
                             <div class="results__item">
                                 <div class="results__item-title">Температура поверхности внешнего слоя изоляции</div>
-                                <div class="results__item-num">°C</div>
+                                <div class="results__item-num" id="emk_surface-temperature">°C</div>
                             </div>
                         </div>
                         <div class="results__bot"><a class="default-btn" href="">Сформировать итоговую ведомость</a><a
@@ -1721,7 +1733,7 @@
                         </div>
                         <div class="isolation-bot tabs__content active" data-id="1">
                             <div class="isolation-info">Предотвращение замерзания</div>
-                            <div class="isolation-results">
+                            <div class="isolation-results" id="isl_hide_12">
                                 <div class="isolation-results__top">
                                     <div class="title">Результат</div>
                                 </div>
@@ -1803,7 +1815,7 @@
                         <div class="isolation-bot tabs__content" data-id="4"></div>
                         <div class="isolation-bot tabs__content" data-id="6"></div>
                     </div>
-                    <div class="results">
+                    <div class="emk-results">
                         <div class="results-top">
                             <div class="title">Результат</div>
                             <div class="title-icon"
@@ -1875,7 +1887,7 @@
         </form>
     </div>
 </main>
-<div class="total-results-cont">
+<div class="total-results-cont" id = "total_result">
     <div class="wrapper">
         <div class="total-results">
             <div class="total-results__list">
@@ -1980,8 +1992,30 @@
     });
 </script>
 
+<div id="ins" style="display: none">{{ insulations|safe }}</div>
 
 <script>
+
+    $(document).ready(function(){
+        $('#trub_result').hide();
+        $('#plosk_result').hide();
+        $('#emk_result').hide();
+        $('#total_result').hide(); // ??????
+
+        $('#isl_hide_1').hide();
+        $('#isl_hide_2').hide();
+        $('#isl_hide_3').hide();
+        $('#isl_hide_4').hide();
+        $('#isl_hide_5').hide();
+        $('#isl_hide_6').hide();
+        $('#isl_hide_7').hide();
+        $('#isl_hide_8').hide();
+        $('#isl_hide_9').hide();
+        $('#isl_hide_10').hide();
+        $('#isl_hide_11').hide();
+        $('#isl_hide_12').hide();
+    });
+
     $(document).ready(function () {
 
         $('.get_result_calc').click(function (e) {
@@ -2038,7 +2072,7 @@
                 // Ручной ввод
                 'LB_Trub_Iz': sloi_tmp,
                 "CB_Trub_Iz_Man": $('select[name="CB_Trub_Iz_Man"]').val(),
-                "CB_Trub_Iz_W": $('input[name="CB_Trub_Iz_W"]').val(),
+                "CB_Trub_Iz_W": $('select[name="CB_Trub_Iz_W"]').val(),
                 // Секции
                 "CB_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
@@ -2151,7 +2185,7 @@
                 // Ручной ввод
                 'LB_Emk_Iz': sloi_tmp,
                 "CB_Emk_Iz_Man": $('select[name="CB_Emk_Iz_Man"]').val(),
-                "CB_Emk_Iz_W": $('input[name="CB_Emk_Iz_W"]').val(),
+                "CB_Emk_Iz_W": $('[name="CB_Emk_Iz_W"]').val(),
                 // Секции
                 "CB_Emk": $('select[name="sections"] option:selected').text(),
                 // Вкладка
@@ -2176,13 +2210,117 @@
                 type: 'POST',
                 data: {'data': $data, 'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(), 'type':type},
                 success:function(response){
-                    console.log(response)
+                    console.log(response);
+                    if(response == 'false'){
+                        return false;
+                    }
+                    else{
+                        let data = JSON.parse(response);
+                        console.log(data);
+                        if(data['type'] === 'T'){
+                            $('#accurate-calculation').html(data['accurate-calculation']);
+                            $('#recommended-thickness').html(data['recommended-thickness']);
+                            $('#heat-loss').text(data['heat-loss']);
+                            $('#permissible-temperature').text(data['permissible-temperature']);
+                            $('#surface-temperature').text(data['surface-temperature']);
+                            $('#trub_result').show();
+                        }
+
+                        if(data['type'] === 'P') {
+                            $('#plosk_accurate-calculation').html(data['accurate-calculation']);
+                            $('#plosk_recommended-thickness').html(data['recommended-thickness']);
+                            $('#plosk_heat-loss').text(data['heat-loss']);
+                            $('#plosk_permissible-temperature').text(data['permissible-temperature']);
+                            $('#plosk_surface-temperature').text(data['surface-temperature']);
+                            $('#plosk_result').show();
+                        }
+
+                        if(data['type'] === 'E') {
+                            $('#emk_accurate-calculation').html(data['accurate-calculation']);
+                            $('#emk_recommended-thickness').html(data['recommended-thickness']);
+                            $('#emk_heat-loss').text(data['heat-loss']);
+                            $('#emk_permissible-temperature').text(data['permissible-temperature']);
+                            $('#emk_surface-temperature').text(data['surface-temperature']);
+                             $('#emk_result').show();
+                        }
+
+
+
+
+
+                        $('#total_result').show();
+
+
+
+                    }
+
                 }
             });
         }
 
 
+
+        $('#insulation_trub').change(function(){
+            id_isol = $(this).children('option:selected').attr('data-tol');
+            console.log(id_isol);
+            arr_tmp = explode(", ", id_isol);
+
+            $("#temp_trub").empty();
+            arr_tmp.forEach(function(item, index){
+                $("#temp_trub").append("<option value='"+index+"'>"+item+"</option>")
+            })
+        });
+
+        $('#insulation_plosk').change(function () {
+            id_isol = $(this).children('option:selected').attr('data-tol');
+            console.log(id_isol);
+            arr_tmp = explode(", ", id_isol);
+
+            $("#temp_plosk").empty();
+            arr_tmp.forEach(function (item, index) {
+                $("#temp_plosk").append("<option value='"+index+"'>"+item+"</option>")
+            })
+        });
+
+
     });
+
+    function explode( delimiter, string ) {	// Split a string by string
+    //
+    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   improved by: kenneth
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+
+    var emptyArray = { 0: '' };
+
+    if ( arguments.length != 2
+        || typeof arguments[0] == 'undefined'
+        || typeof arguments[1] == 'undefined' )
+    {
+        return null;
+    }
+
+    if ( delimiter === ''
+        || delimiter === false
+        || delimiter === null )
+    {
+        return false;
+    }
+
+    if ( typeof delimiter == 'function'
+        || typeof delimiter == 'object'
+        || typeof string == 'function'
+        || typeof string == 'object' )
+    {
+        return emptyArray;
+    }
+
+    if ( delimiter === true ) {
+        delimiter = '1';
+    }
+
+    return string.toString().split ( delimiter.toString() );
+}
 </script>
 
 

@@ -1,5 +1,3 @@
-import json
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
@@ -13,8 +11,11 @@ from mycalc.data import data_planes as planes
 from mycalc.data import data_containers as containers
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
+from mycalc.additional_functions import to_json
 from datetime import datetime
-import codecs
+import codecs, json
+import schedule
+import time
 
 
 # Create your views here.
@@ -27,21 +28,22 @@ def main(request):
     regions = f.read().split('\r\n')
     regions = sorted(regions)
 
-    with open("media/insulations.json") as f1:
-        insulations = json.load(f1)
+    # f = codecs.open(MEDIA_ROOT_W + '\\insulations.txt', "r", "utf_8_sig")
+    with open("media/insulations.json") as file1:
+        insulations = json.load(file1)
 
-    with open("media/insulations_plosk.json") as f2:
-        insulations_plosk = json.load(f2)
-
-
-    #print(insulations["insulations"][0]["tol"])
-    #print(insulations_plosk["insulations_plosk"][0]["tol"])
+    # f = codecs.open(MEDIA_ROOT_W + '\\insulations_plosk.txt', "r", "utf_8_sig")
+    # insulations_plosk = f.read().split('\r\n')
+    # _insulations_plosk = to_json('Изоляция плоскостей', insulations_plosk, 43)
+    with open("media/insulations_plosk.json") as file2:
+        insulations_plosk = json.load(file2)
 
     context = {
         'regions': regions,
-        'insulations': insulations["insulations"],
-        'insulations_plosk': insulations_plosk["insulations_plosk"]
+        'insulations': insulations,
+        'insulations_plosk': insulations_plosk
     }
+
     return render(request, 'mycalc/main.html', context)
 
 
@@ -145,11 +147,13 @@ def add_trub(request):
 
         sheet.cell(row=77, column=column_index_from_string('B')).value = data['CB_Trub_Iz_Man']
         sheet.cell(row=78, column=column_index_from_string('B')).value = data['CB_Trub_Iz_W']
+        sheet.cell(row=79, column=column_index_from_string('B')).value = data['LB_Trub_Iz']
 
         sheet.cell(row=91, column=column_index_from_string('B')).value = data['CB_Section']
 
         now = datetime.now()
         temp_cal = 'media/temp_files/cal' + now.strftime("%d_%m_%Y %H_%M_%S") + '.xlsm'
+        print(now.strftime("%d_%m_%Y %H_%M_%S"))
         wb.save(temp_cal)
         wb.close()
 
@@ -164,7 +168,7 @@ def add_trub(request):
 
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], temp_cal)
+        result = macro_run(flags[flag], temp_cal)  # запихать в json
         print(result)
 
         return HttpResponse(json.dumps(result))
@@ -314,15 +318,16 @@ def macro_run(macros_name, cal_empty_copy):
     from os.path import join, abspath
     now = datetime.now()
 
-    for_checking = filename = cal_empty_copy
+    filename = cal_empty_copy
     wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
     sheet = wb.get_sheet_by_name('communication')
     result_file = "result_" + now.strftime("%d_%m_%Y %H_%M_%S")
+    for_checking = filename
     sheet.cell(row=1, column=column_index_from_string('B')).value = result_file
 
     wb.save(filename)
 
-    data_path = join('', filename)
+    data_path = join(',', filename)
     data_path = abspath(data_path)
 
     excel_macro = wincl.DispatchEx("Excel.application")
@@ -344,8 +349,7 @@ def macro_run(macros_name, cal_empty_copy):
                    'heat-loss': sheet.cell(row=28, column=column_index_from_string('G')).value,
                    'recommended-thickness': sheet.cell(row=29, column=column_index_from_string('G')).value,
                    'permissible-temperature': sheet.cell(row=30, column=column_index_from_string('G')).value,
-                   'surface-temperature': sheet.cell(row=31, column=column_index_from_string('G')).value,
-                   'type': macros_name[0]}
+                   'surface-temperature': sheet.cell(row=31, column=column_index_from_string('G')).value}
 
     path_to_dir = 'media/temp_files'
 

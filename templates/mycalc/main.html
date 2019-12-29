@@ -6,6 +6,7 @@
     <title>Расчет изоляции труб</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1"/>
+    <!--<meta name = "_token" content="{{ csrf_token }}">-->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="{% static 'mycalc/css/main.css' %}"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -264,7 +265,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Trub_Iz_Norm">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -284,7 +285,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Trub_Iz_T">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -318,7 +319,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Trub_Iz_MaxT">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -345,7 +346,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="B_Trub_Iz_Cond">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -405,7 +406,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Trub_Iz_Peremerz">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -794,7 +795,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Plosk_Iz_Norm">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -841,7 +842,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Plosk_Iz_MaxT">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -896,7 +897,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Plosk_Iz_Cond">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1266,10 +1267,13 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Emk_Iz_Norm">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}" data-tol = "{{ins.tol}}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
+
+                                
+
                                 <a href="" name="B_E_Calc_Norm" class="get_result_calc_emk">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
@@ -1319,7 +1323,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Emk_Iz_T">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1387,7 +1391,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Emk_Iz_MaxT">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1440,7 +1444,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" name="CB_Emk_Iz_Cond">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1489,12 +1493,15 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" id="insulation_emk" name="CB_Emk_Iz_Man">
                                         {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins }}</option>
+                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="default-input"><span>мм</span>
-                                    <input class="default-input__input" type="text" value="30" id="temp_emk" name="CB_Emk_Iz_W"/>
+
+                                    <select class="default-select__select" id="temp_emk" name="CB_Emk_Iz_W">
+                                    </select>
+
                                     <label class="default-input__label">Толщина</label>
                                     <div class="default-input__error">
                                         <div class="error-text"><!-- текст ошибки --></div>
@@ -1915,9 +1922,11 @@
         </div>
     </div>
 </div>
+
 <div class="sec_token">
     {% csrf_token %}
 </div>
+
 <footer class="footer">
     <div class="wrapper">
         <div class="footer-text">Данная программа рассчитывает характеристики системы с технической изоляцией PAROC и
@@ -1927,8 +1936,17 @@
     </div>
 </footer>
 
+
 <script>
+
+    //$(function () {
+    //    $.ajaxSetup({
+    //        headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+    //    });
+    //});
+
     $(document).ready(function(){
+
 
         if($('select[name="sections"]').children('option').length == 0){
             $('select[name="sections"]').hide();
@@ -1963,14 +1981,15 @@
 
             id = $('select#'+name_layer+' option:selected').val();
             name = $('select#'+name_layer+' option:selected').text();
-            temp = $('input#'+temp_layer).val();
+            temp = $('select#'+temp_layer).val();
+            temp_name = $('select#'+temp_layer).children('option:selected').text();
 
             name_table = '#table_layer_'+type;
             $(name_table).append(`
             <div class="isolation__sloy-row">
                 <div class="isolation__sloy-el id_is" style="display:none">`+id+`</div>
                 <div class="isolation__sloy-el name_is">`+name+`</div>
-                <div class="isolation__sloy-el temp_is"><span class='temp_is_span'>`+temp+`</span> мм</div>
+                <div class="isolation__sloy-el temp_is"><span class='temp_is_span' data-val='`+temp+`'>`+temp_name+`</span> мм</div>
                 <div class="isolation__sloy-el"></div>
             </div>`);
             $('#divtable_layer_'+type).show();
@@ -1992,7 +2011,6 @@
     });
 </script>
 
-<div id="ins" style="display: none">{{ insulations|safe }}</div>
 
 <script>
 
@@ -2026,7 +2044,7 @@
                 sloi_trub.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').attr('data-val')
                 })
             });
             sloi_tmp = "";
@@ -2093,7 +2111,7 @@
                 sloi_plosk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').attr('data-val')
                 })
             });
             sloi_tmp = "";
@@ -2125,7 +2143,7 @@
                 // Ручной ввод
                 'LB_Plosk_Iz': sloi_tmp,
                 "CB_Plosk_Iz_Man": $('select[name="CB_Plosk_Iz_Man"]').val(),
-                "CB_Plosk_Iz_W": $('input[name="CB_Plosk_Iz_W"]').val(),
+                "CB_Plosk_Iz_W": $('select[name="CB_Plosk_Iz_W"]').val(),
                 // Секции
                 "CB_Plosk_Section": $('select[name="sections"] option:selected').text(),
                 // Вкладка
@@ -2145,7 +2163,7 @@
                 sloi_emk.push({
                     'id': $(this).children('.id_is').text(),
                     'name': $(this).children('.name_is').text(),
-                    'temp': $(this).children('.temp_is').children('.temp_is_span').text()
+                    'temp': $(this).children('.temp_is').children('.temp_is_span').attr('data-val')
                 })
             });
             sloi_tmp = "";
@@ -2279,6 +2297,17 @@
             $("#temp_plosk").empty();
             arr_tmp.forEach(function (item, index) {
                 $("#temp_plosk").append("<option value='"+index+"'>"+item+"</option>")
+            })
+        });
+
+        $('#insulation_emk').change(function () {
+            id_isol = $(this).children('option:selected').attr('data-tol');
+            console.log(id_isol);
+            arr_tmp = explode(", ", id_isol);
+
+            $("#temp_emk").empty();
+            arr_tmp.forEach(function (item, index) {
+                $("#temp_emk").append("<option value='"+index+"'>"+item+"</option>")
             })
         });
 

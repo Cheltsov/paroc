@@ -25,7 +25,7 @@ SECRET_KEY = 'f+!u85&hfb%k!#70e1julqg=5+lbzlz5rhswb(vg%2q7p@h(#5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -121,8 +121,40 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'mycalc/../static'),)
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, 'static')
+)
+
+STATIC_ROOT = 'C:/paroc/static/'
+
+#STATICFILES_STORAGE = 'paroc.storage.S3Storage'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mycalc/../media')
 MEDIA_ROOT_W = os.path.join(BASE_DIR, 'media')
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'colored': {
+            'format': '[%(asctime)s] - %(levelname)s - %(message)s \n',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

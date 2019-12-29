@@ -15,14 +15,19 @@ from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
 from datetime import datetime
 import codecs
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
 def index(request):
+    logger.info(request)
     return render(request, 'mycalc/index.html')
 
 
 def main(request):
+    logger.info(request)
     f = codecs.open(MEDIA_ROOT_W + '\\regions.txt', "r", "utf_8_sig")
     regions = f.read().split('\r\n')
     regions = sorted(regions)
@@ -34,7 +39,7 @@ def main(request):
         insulations_plosk = json.load(f2)
 
 
-    #print(insulations["insulations"][0]["tol"])
+    #print(insulations["insulations"][0]["name"])
     #print(insulations_plosk["insulations_plosk"][0]["tol"])
 
     context = {
@@ -46,6 +51,7 @@ def main(request):
 
 
 def form(request):
+    logger.info(request)
     return render(request, 'mycalc/form.html')
 
 
@@ -83,18 +89,22 @@ def add(request):
 
 
 def other_page_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
 def other_page_form_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
 def other_page_main_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
 def add_trub(request):
+    logger.info(request)
     if request.method == 'POST':
         dirty_data = request.POST
 
@@ -167,12 +177,15 @@ def add_trub(request):
         result = macro_run(flags[flag], temp_cal)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
 def add_plosk(request):
+    logger.info(request)
     if request.method == 'POST':
 
         dirty_data = request.POST
@@ -230,12 +243,15 @@ def add_plosk(request):
         result = macro_run(flags[flag], temp_cal)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
 def add_emk(request):
+    logger.info(request)
     if request.method == 'POST':
 
         dirty_data = request.POST
@@ -302,15 +318,20 @@ def add_emk(request):
         result = macro_run(flags[flag], temp_cal)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
 def macro_run(macros_name, cal_empty_copy):
+
+    cal_empty_copy = "media/temp_files/cal30_12_2019 02_18_59.xlsm"
+
     from datetime import datetime
     import win32com.client as wincl
-    import os
+    import os, pythoncom
     from os.path import join, abspath
     now = datetime.now()
 
@@ -325,16 +346,26 @@ def macro_run(macros_name, cal_empty_copy):
     data_path = join('', filename)
     data_path = abspath(data_path)
 
-    excel_macro = wincl.DispatchEx("Excel.application")
-    excel_path = os.path.expanduser(data_path)
+    pythoncom.CoInitialize()
+    try:
+        excel_macro = wincl.DispatchEx("Excel.application")
+        excel_path = os.path.expanduser(data_path)
 
-    if os.path.exists(excel_path):
         workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
         print('Run macros= ' + macros_name)
         excel_macro.Application.Run(macros_name)
         workbook.Save()
         excel_macro.Application.Quit()
         del excel_macro
+    finally:
+        pythoncom.CoUninitialize()
+
+
+    #if os.path.exists(excel_path):
+
+        
+
+
 
     result_file = 'media/temp_files/' + result_file + '.xlsx'
     wb = load_workbook(filename=result_file, data_only=True, read_only=False, keep_vba=True)

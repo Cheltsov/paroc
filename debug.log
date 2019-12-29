@@ -1,0 +1,391 @@
+Internal Server Error: /add_plosk/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 224, in add_plosk
+    sheet.cell(row=47, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_W']
+KeyError: 'CB_Plosk_Iz_W'
+Internal Server Error: /add_plosk/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 224, in add_plosk
+    sheet.cell(row=47, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_W']
+KeyError: 'CB_Plosk_Iz_W'
+Internal Server Error: /add_plosk/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 224, in add_plosk
+    sheet.cell(row=47, column=column_index_from_string('B')).value = data['CB_Plosk_Iz_W']
+KeyError: 'CB_Plosk_Iz_W'
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Not Found: /favicon.ico
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Not Found: /index.action
+Not Found: /login.action
+Not Found: /index.do
+Not Found: /index.jsp
+Not Found: /login.do
+Not Found: /login.jsp
+Not Found: /main.jsp
+Not Found: /default.jsp
+Forbidden (CSRF cookie not set.): /
+Not Found: /index.action
+Not Found: /login.action
+Not Found: /index.do
+Not Found: /index.jsp
+Not Found: /login.do
+Not Found: /login.jsp
+Not Found: /main.jsp
+Not Found: /default.jsp
+Not Found: /register.jsp
+Not Found: /login/login.jsp
+Not Found: /login/indexAction.action
+Not Found: /indexAction.action
+Forbidden (CSRF cookie not set.): /
+Not Found: /index.action
+Not Found: /login.action
+Forbidden (CSRF cookie not set.): /
+Not Found: /index.action
+Not Found: /login.action
+Not Found: /index.do
+Forbidden (CSRF cookie not set.): /
+Not Found: /index.action
+Not Found: /login.action
+Not Found: /index.do
+Not Found: /index.jsp
+Not Found: /login.do
+Not Found: /login.jsp
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Not Found: /robots.txt
+Not Found: /favicon.ico
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 331, in macro_run
+    import os, pythomcom
+ModuleNotFoundError: No module named 'pythomcom'
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 347, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    pythoncom.CoInitialize(0)
+TypeError: CoInitialize() takes exactly 0 arguments (1 given)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 346, in macro_run
+    pythoncom.CoInitialize(0)
+TypeError: CoInitialize() takes exactly 0 arguments (1 given)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 348, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 351, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 351, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 351, in macro_run
+    excel_macro = wincl.DispatchEx("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 113, in DispatchEx
+    dispatch = pythoncom.CoCreateInstanceEx(clsid, None, clsctx, serverInfo, (pythoncom.IID_IDispatch,))[0]
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)
+Internal Server Error: /add_trub/
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\win32com\client\dynamic.py", line 89, in _GetGoodDispatch
+    IDispatch = pythoncom.connect(IDispatch)
+pywintypes.com_error: (-2147221021, 'Операция недоступна', None, None)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\python\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\python\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File ".\mycalc\views.py", line 177, in add_trub
+    result = macro_run(flags[flag], temp_cal)
+  File ".\mycalc\views.py", line 351, in macro_run
+    excel_macro = wincl.Dispatch("Excel.application")
+  File "C:\python\lib\site-packages\win32com\client\__init__.py", line 95, in Dispatch
+    dispatch, userName = dynamic._GetGoodDispatchAndUserName(dispatch,userName,clsctx)
+  File "C:\python\lib\site-packages\win32com\client\dynamic.py", line 114, in _GetGoodDispatchAndUserName
+    return (_GetGoodDispatch(IDispatch, clsctx), userName)
+  File "C:\python\lib\site-packages\win32com\client\dynamic.py", line 91, in _GetGoodDispatch
+    IDispatch = pythoncom.CoCreateInstance(IDispatch, None, clsctx, pythoncom.IID_IDispatch)
+pywintypes.com_error: (-2147024891, 'Отказано в доступе.', None, None)

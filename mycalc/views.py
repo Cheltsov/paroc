@@ -1,28 +1,27 @@
-import json
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from django.template import TemplateDoesNotExist
-from django.template.loader import get_template
-from django.templatetags.static import static
+from django.http import FileResponse
 
 from paroc.settings import MEDIA_ROOT_W
 import mycalc.additional_functions as af
-from mycalc.data import data_pipes as pipes
-from mycalc.data import data_planes as planes
-from mycalc.data import data_containers as containers
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
 from datetime import datetime
 import codecs
+import shutil
+import json
+
+import logging
+logger = logging.getLogger(__name__)
 
 
-# Create your views here.
 def index(request):
+    logger.info(request)
     return render(request, 'mycalc/index.html')
 
 
 def main(request):
+    logger.info(request)
     f = codecs.open(MEDIA_ROOT_W + '\\regions.txt', "r", "utf_8_sig")
     regions = f.read().split('\r\n')
     regions = sorted(regions)
@@ -34,9 +33,6 @@ def main(request):
         insulations_plosk = json.load(f2)
 
 
-    #print(insulations["insulations"][0]["tol"])
-    #print(insulations_plosk["insulations_plosk"][0]["tol"])
-
     context = {
         'regions': regions,
         'insulations': insulations["insulations"],
@@ -46,55 +42,31 @@ def main(request):
 
 
 def form(request):
+    logger.info(request)
     return render(request, 'mycalc/form.html')
 
 
-def add(request):
-    if request.method == 'POST':
-        dirty_data = request.POST
-        data_type = request.POST.getlist('type')
-
-        # Первый символ верхнего регистра в сооветствии с названиями таблиц
-        sheet_name = data_type[0][0].upper() + data_type[0][1:]
-
-        data = {}
-        for k, v in dirty_data.items():
-            data[k[5:-1]] = v
-        print(data)
-
-        data_dicts = {'Trub': pipes.data,
-                      'Plosk': planes.data,
-                      'Emk': containers.data
-                      }
-
-        empty_dict = af.input_in_dict(data_dicts[sheet_name], data)
-
-        filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
-        wb = load_workbook(filename=filename, read_only=False)
-
-        sheet = wb.get_sheet_by_name(sheet_name)
-        af.input_in_sheet(sheet, empty_dict)
-
-        wb.save(filename='media/second-book.xlsx')
-
-        return HttpResponse("post")
-    else:
-        return HttpResponse("no post")
-
-
 def other_page_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
 def other_page_form_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
 def other_page_main_js(request, page):
+    logger.info(request)
     return redirect('/static/mycalc/js/' + page)
 
 
+def add(request):
+    pass
+
+
 def add_trub(request):
+    logger.info(request)
     if request.method == 'POST':
         dirty_data = request.POST
 
@@ -102,7 +74,7 @@ def add_trub(request):
         for k, v in dirty_data.items():
             data[k[5:-1]] = v
 
-        filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
+        filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
 
         sheet = wb.get_sheet_by_name('Trub')
@@ -162,17 +134,36 @@ def add_trub(request):
             '6': 'Trub_Calc_Man',
         }
 
+        Trub_Calc_Norm = {'4': 29, '1': 30, '2': 31, '5': 32, '3': 1, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_T = {'1': 32, '8': 33, '2': 34, '3': 35, '4': 36, '5': 37, '7': 1, '6': 1}
+        Trub_Calc_MaxT = {'1': 28, '2': 29, '3': 30, '4': 31, '5': 32, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_Cond = {'1': 30, '2': 31, '3': 32, '4': 33, '5': 34, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_Permerz = {'1': 30, '4': 31, '5': 32, '2': 33, '3': 34, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_Man = {'4': 33, '5': 34, '2': 35, '3': 36, '6': 37, '1': 1, '7': 1, '8': 1}
+
+        flags_data = {
+            '1': Trub_Calc_Norm,
+            '2': Trub_Calc_T,
+            '3': Trub_Calc_MaxT,
+            '4': Trub_Calc_Cond,
+            '5': Trub_Calc_Permerz,
+            '6': Trub_Calc_Man,
+        }
+
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], temp_cal)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 0)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
 def add_plosk(request):
+    logger.info(request)
     if request.method == 'POST':
 
         dirty_data = request.POST
@@ -181,7 +172,7 @@ def add_plosk(request):
         for k, v in dirty_data.items():
             data[k[5:-1]] = v
 
-        filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
+        filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
 
         sheet = wb.get_sheet_by_name('Plosk')
@@ -225,17 +216,33 @@ def add_plosk(request):
             '6': 'Plosk_Calc_Man',
         }
 
-        flag = data['flat_isol']
+        Plosk_Calc_Norm = {'4': 24, '1': 25, '2': 26, '3': 27, '5': 1, '6': 1, '7': 1, '8': 1}
+        Plosk_Calc_MaxT = {'1': 24, '2': 25, '3': 26, '4': 27, '5': 28, '6': 1, '7': 1, '8': 1}
+        Plosk_Calc_Cond = {'1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1}  # todo
+        Plosk_Calc_Man = {'1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1}  # todo
 
-        result = macro_run(flags[flag], temp_cal)
+        flags_data = {
+            '1': Plosk_Calc_Norm,
+            '3': Plosk_Calc_MaxT,
+            '4': Plosk_Calc_Cond,
+            '6': Plosk_Calc_Man,
+        }
+
+        flag = data['flat_isol']
+        print(data['flat_isol'])
+
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 1)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
 def add_emk(request):
+    logger.info(request)
     if request.method == 'POST':
 
         dirty_data = request.POST
@@ -244,7 +251,7 @@ def add_emk(request):
         for k, v in dirty_data.items():
             data[k[5:-1]] = v
 
-        filename = 'media/cal.xlsm'  # todo заменить txt файл на xlsm
+        filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
 
         sheet = wb.get_sheet_by_name('Plosk')
@@ -297,22 +304,41 @@ def add_emk(request):
             '6': 'Emk_Calc_Man',
         }
 
+        Emk_Calc_Norm = {'4': 26, '5': 27, '1': 28, '2': 29, '3': 30, '6': 1, '7': 1, '8': 1}
+        Emk_Calc_T = {'1': 29, '2': 30, '3': 31, '4': 32, '5': 33, '6': 34, '7': 1, '8': 1}
+        Emk_Calc_MaxT = {'1': 26, '2': 27, '3': 28, '4': 29, '5': 30, '6': 1, '7': 31, '8': 1}
+        Emk_Calc_Cond = {'1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1}
+        Emk_Calc_Man = {'4': 30, '5': 31, '7': 32, '2': 33, '3': 34, '6': 35, '1': 1, '8': 1}
+
+        flags_data = {
+            '1': Emk_Calc_Norm,
+            '2': Emk_Calc_T,
+            '3': Emk_Calc_MaxT,
+            '4': Emk_Calc_Cond,
+            '6': Emk_Calc_Man,
+        }
+
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], temp_cal)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 2)
         print(result)
 
+        logger.debug(HttpResponse)
         return HttpResponse(json.dumps(result))
     else:
+        logger.error(HttpResponse)
         return HttpResponse('no post')
 
 
-def macro_run(macros_name, cal_empty_copy):
+def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
+
     from datetime import datetime
     import win32com.client as wincl
-    import os
+    import os, pythoncom
     from os.path import join, abspath
     now = datetime.now()
+
+    print(macro_data)
 
     for_checking = filename = cal_empty_copy
     wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
@@ -325,31 +351,72 @@ def macro_run(macros_name, cal_empty_copy):
     data_path = join('', filename)
     data_path = abspath(data_path)
 
-    excel_macro = wincl.DispatchEx("Excel.application")
-    excel_path = os.path.expanduser(data_path)
+    pythoncom.CoInitialize()
+    try:
+        excel_macro = wincl.DispatchEx("Excel.application")
+        excel_path = os.path.expanduser(data_path)
 
-    if os.path.exists(excel_path):
         workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
-        print('Run macros= ' + macros_name)
+        print('Run macro = ' + macros_name)
+
+        fill_data_macros = ['Fill_Data_Form_Trub', 'Fill_Data_Form_Plosk', 'Fill_Data_Form_Emk']
+        excel_macro.Application.Run(fill_data_macros[first_macro_name])
         excel_macro.Application.Run(macros_name)
+
         workbook.Save()
         excel_macro.Application.Quit()
         del excel_macro
+    finally:
+        pythoncom.CoUninitialize()
 
     result_file = 'media/temp_files/' + result_file + '.xlsx'
+
     wb = load_workbook(filename=result_file, data_only=True, read_only=False, keep_vba=True)
+
     sheet = wb.get_sheet_by_name('Протокол')
 
-    result_list = {'accurate-calculation': None,
-                   'heat-loss': sheet.cell(row=28, column=column_index_from_string('G')).value,
-                   'recommended-thickness': sheet.cell(row=29, column=column_index_from_string('G')).value,
-                   'permissible-temperature': sheet.cell(row=30, column=column_index_from_string('G')).value,
-                   'surface-temperature': sheet.cell(row=31, column=column_index_from_string('G')).value,
-                   'type': macros_name[0]}
+    result_list = {
+                   'recommended-thickness': sheet.cell(row=macro_data['1'], column=column_index_from_string('G')).value,  #1 Рекомендуемая толщина выбанной изоляции
+                   'permissible-temperature': sheet.cell(row=macro_data['2'], column=column_index_from_string('G')).value,  #2 Максимально допустимая температура поверхности изоляции
+                   'surface-temperature': sheet.cell(row=macro_data['3'], column=column_index_from_string('G')).value,  #3 Расчётная температура поверхности изоляции
+                   'heat-loss-SP': sheet.cell(row=macro_data['4'], column=column_index_from_string('G')).value,  #4 Тепловые потери согласно нормам СП
+                   'estimated-heat-loss': sheet.cell(row=macro_data['5'], column=column_index_from_string('G')).value,  #5 Расчётные тепловые потери
+                   'layer-temperature': sheet.cell(row=macro_data['6'], column=column_index_from_string('G')).value,  #6 Температура на границе слоя
+                   'total-estimated-heat-loss': sheet.cell(row=macro_data['7'], column=column_index_from_string('G')).value,  #7 Полные расчётные тепловые потери
+                   'final-temperature': sheet.cell(row=macro_data['8'], column=column_index_from_string('G')).value,  #8 Конечная температура теплоносителя
+
+                   'type': macros_name[0],
+                   'macro-name': macros_name
+    }
 
     path_to_dir = 'media/temp_files'
+
+    if os.path.exists('media/Ведомость.xlsx'):
+        os.remove(os.path.join('media/Ведомость.xlsx'))
+    shutil.copyfile(result_file, 'media/Ведомость.xlsx')
 
     if for_checking[18:20] == "02":
         af.remove_files(path_to_dir)
 
     return result_list
+
+
+def download(request):
+    return FileResponse(open('C:/paroc/media/Ведомость.xlsx', 'rb'))
+
+
+'recommended-thickness'
+'permissible-temperature'
+'surface-temperature'
+'heat-loss-SP'
+'estimated-heat-loss'
+'layer-temperature'
+'total-estimated-heat-loss'
+
+#Рекомендуемая толщина выбанной изоляции
+#Максимально допустимая температура поверхности изоляции
+#Расчётная температура поверхности изоляции
+#Тепловые потери согласно нормам СП
+#Расчётные тепловые потери
+#Температура на границе слоя
+#Полные расчётные тепловые потери

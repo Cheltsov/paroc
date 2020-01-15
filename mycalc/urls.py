@@ -4,8 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('add/', views.add, name='add'),
-
+    path('download/', views.download),
     path('macro_run/', views.macro_run, name='macro_run'),
     path('add_trub/', views.add_trub, name='add_trub'),
     path('add_plosk/', views.add_plosk, name='add_plosk'),
@@ -13,7 +12,7 @@ urlpatterns = [
 
     path('main/', views.main, name='main'),
     path('form/', views.form, name='form'),
-    path('/form/js/0.js', views.index, name='index'),
+    path('form/js/0.js', views.index, name='index'),
     path('', views.index, name='index'),
 
     path('js/<str:page>', views.other_page_js, name='other_page_js'),

@@ -1,6 +1,6 @@
 { "insulations": [
   {"id": 0,
-    "name": "PAROC Pro Wired Mat 80 -",
+    "name": "PAROC Pro Wired Mat 80",
     "tol": "30, 40, 50, 60, 70, 80, 10, 120"
   },
   { "id": 1,

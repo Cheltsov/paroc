@@ -7,11 +7,14 @@ import mycalc.additional_functions as af
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
 from datetime import datetime
+from django import template
+import feedparser
 import codecs
 import shutil
 import json
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -31,7 +34,6 @@ def main(request):
 
     with open("media/insulations_plosk.json") as f2:
         insulations_plosk = json.load(f2)
-
 
     context = {
         'regions': regions,
@@ -331,7 +333,6 @@ def add_emk(request):
 
 
 def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
-
     from datetime import datetime
     import win32com.client as wincl
     import os, pythoncom
@@ -376,17 +377,25 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
     sheet = wb.get_sheet_by_name('Протокол')
 
     result_list = {
-                   'recommended-thickness': sheet.cell(row=macro_data['1'], column=column_index_from_string('G')).value,  #1 Рекомендуемая толщина выбанной изоляции
-                   'permissible-temperature': sheet.cell(row=macro_data['2'], column=column_index_from_string('G')).value,  #2 Максимально допустимая температура поверхности изоляции
-                   'surface-temperature': sheet.cell(row=macro_data['3'], column=column_index_from_string('G')).value,  #3 Расчётная температура поверхности изоляции
-                   'heat-loss-SP': sheet.cell(row=macro_data['4'], column=column_index_from_string('G')).value,  #4 Тепловые потери согласно нормам СП
-                   'estimated-heat-loss': sheet.cell(row=macro_data['5'], column=column_index_from_string('G')).value,  #5 Расчётные тепловые потери
-                   'layer-temperature': sheet.cell(row=macro_data['6'], column=column_index_from_string('G')).value,  #6 Температура на границе слоя
-                   'total-estimated-heat-loss': sheet.cell(row=macro_data['7'], column=column_index_from_string('G')).value,  #7 Полные расчётные тепловые потери
-                   'final-temperature': sheet.cell(row=macro_data['8'], column=column_index_from_string('G')).value,  #8 Конечная температура теплоносителя
+        'recommended-thickness': sheet.cell(row=macro_data['1'], column=column_index_from_string('G')).value,
+        # 1 Рекомендуемая толщина выбанной изоляции
+        'permissible-temperature': sheet.cell(row=macro_data['2'], column=column_index_from_string('G')).value,
+        # 2 Максимально допустимая температура поверхности изоляции
+        'surface-temperature': sheet.cell(row=macro_data['3'], column=column_index_from_string('G')).value,
+        # 3 Расчётная температура поверхности изоляции
+        'heat-loss-SP': sheet.cell(row=macro_data['4'], column=column_index_from_string('G')).value,
+        # 4 Тепловые потери согласно нормам СП
+        'estimated-heat-loss': sheet.cell(row=macro_data['5'], column=column_index_from_string('G')).value,
+        # 5 Расчётные тепловые потери
+        'layer-temperature': sheet.cell(row=macro_data['6'], column=column_index_from_string('G')).value,
+        # 6 Температура на границе слоя
+        'total-estimated-heat-loss': sheet.cell(row=macro_data['7'], column=column_index_from_string('G')).value,
+        # 7 Полные расчётные тепловые потери
+        'final-temperature': sheet.cell(row=macro_data['8'], column=column_index_from_string('G')).value,
+        # 8 Конечная температура теплоносителя
 
-                   'type': macros_name[0],
-                   'macro-name': macros_name
+        'type': macros_name[0],
+        'macro-name': macros_name
     }
 
     path_to_dir = 'media/temp_files'
@@ -405,6 +414,28 @@ def download(request):
     return FileResponse(open('C:/paroc/media/Ведомость.xlsx', 'rb'))
 
 
+register = template.Library()
+
+
+@register.inclusion_tag('Wd5PageApp/rssfeed.djhtml')
+def pull_feed(request, feed_url, posts_to_show=5):
+    try:
+        feed = feedparser.parse(feed_url)
+        posts = []
+        for i in range(posts_to_show):
+            pub_date = feed['entries'][i].updated_parsed
+            published = datetime.date(pub_date[0], pub_date[1], pub_date[2])
+            posts.append({
+                'title': feed['entries'][i].title,
+                'summary': feed['entries'][i].summary,
+                'link': feed['entries'][i].link,
+                'date': published,
+            })
+    except:
+        pass
+    return {'posts': posts}
+
+
 'recommended-thickness'
 'permissible-temperature'
 'surface-temperature'
@@ -413,10 +444,10 @@ def download(request):
 'layer-temperature'
 'total-estimated-heat-loss'
 
-#Рекомендуемая толщина выбанной изоляции
-#Максимально допустимая температура поверхности изоляции
-#Расчётная температура поверхности изоляции
-#Тепловые потери согласно нормам СП
-#Расчётные тепловые потери
-#Температура на границе слоя
-#Полные расчётные тепловые потери
+# Рекомендуемая толщина выбанной изоляции
+# Максимально допустимая температура поверхности изоляции
+# Расчётная температура поверхности изоляции
+# Тепловые потери согласно нормам СП
+# Расчётные тепловые потери
+# Температура на границе слоя
+# Полные расчётные тепловые потери

@@ -262,17 +262,23 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Trub_Iz_Norm">
+
+                                    <select id="this_select" class="default-select__select" name="CB_Trub_Iz_Norm">
+                                        <option selected></option>
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
+                                            <option value="{{ forloop.counter0 }}" name="{{ ins.name }}">{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
+
+
+
                                 </div>
                                 <a href="" name="B_Calc_Norm" class="get_result_calc">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img1" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="2">
@@ -282,7 +288,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Trub_Iz_T">
+                                    <select id="CB_Trub_Iz_T!" class="default-select__select" name="CB_Trub_Iz_T">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -306,7 +312,8 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                    <img id="paste-img2" src="{% static 'mycalc/img/photos/null' %}" alt="image"/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="3">
@@ -332,8 +339,9 @@
                                 <a href="" name="B_Calc_MaxT" class="get_result_calc">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img3" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="4">
@@ -359,8 +367,9 @@
                                 <a href="" name="B_Calc_Cond" class="get_result_calc">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img4" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="5">
@@ -419,8 +428,9 @@
                                 <a href="" name="B_Calc_Permerz" class="get_result_calc">Расчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img5" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
@@ -455,7 +465,7 @@
                                     <div class="default-input__label">Изоляция</div>
                                     <select class="default-select__select" id="insulation_trub" name="CB_Trub_Iz_Man">
                                         {% for ins in insulations %}
-                                            <option value="{{ forloop.counter0 }}" data-tol="{{ ins.tol }}">{{ ins.name }}</option>
+                                            <option value="{{ forloop.counter0 }}" data-tol="{{ ins.tol }}" >{{ ins.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -487,8 +497,9 @@
                                 </div>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img6" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -826,8 +837,9 @@
                                 <a href="" class="get_result_calc_plosk" name="B_P_Calc_Norm">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img7" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="3">
@@ -873,8 +885,9 @@
                                 <a href="" name="B_P_Calc_MaxT" class="get_result_calc_plosk">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img8" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="4">
@@ -935,8 +948,9 @@
                                 <a href="" class="get_result_calc_plosk" name="B_P_Calc_Cond">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img9" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
@@ -1006,8 +1020,9 @@
                                 </div>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img10" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1321,13 +1336,12 @@
                                     </select>
                                 </div>
 
-
-
                                 <a href="" name="B_E_Calc_Norm" class="get_result_calc_emk">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img11" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="2">
@@ -1397,8 +1411,9 @@
                                 </div>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img12" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="3">
@@ -1447,8 +1462,9 @@
                                 <a href="" name="B_E_Calc_MaxT" class="get_result_calc_emk">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img13" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="4">
@@ -1507,8 +1523,9 @@
                                 <a href="" name="B_E_Calc_Cond" class="get_result_calc_emk">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img14" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="6">
@@ -1574,8 +1591,9 @@
                                 </div>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img15" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1886,8 +1904,9 @@
                                 </div>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                        src="{% static 'mycalc/img/photos/isolation.jpg' %}" alt=""/></div>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img16" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="2"></div>
@@ -2010,6 +2029,8 @@
         </div>
     </div>
 </footer>
+
+
 
 
 <script>
@@ -2580,6 +2601,34 @@
 }
 </script>
 
+
+<script>
+
+    $(document).ready(function(){
+        $("select.default-select__select").change(function(){
+            let selectedIns = $(this).children("option:selected").text() + ".jpg";
+            link = "/static/mycalc/img/photos/";
+            document.getElementById("paste-img1").src = link + selectedIns;
+            document.getElementById("paste-img2").src = link + selectedIns;
+            document.getElementById("paste-img3").src = link + selectedIns;
+            document.getElementById("paste-img4").src = link + selectedIns;
+            document.getElementById("paste-img5").src = link + selectedIns;
+            document.getElementById("paste-img6").src = link + selectedIns;
+            document.getElementById("paste-img7").src = link + selectedIns;
+            document.getElementById("paste-img8").src = link + selectedIns;
+            document.getElementById("paste-img9").src = link + selectedIns;
+            document.getElementById("paste-img10").src = link + selectedIns;
+            document.getElementById("paste-img11").src = link + selectedIns;
+            document.getElementById("paste-img12").src = link + selectedIns;
+            document.getElementById("paste-img13").src = link + selectedIns;
+            document.getElementById("paste-img14").src = link + selectedIns;
+            document.getElementById("paste-img15").src = link + selectedIns;
+            document.getElementById("paste-img16").src = link + selectedIns;
+
+        });
+    });
+
+</script>
 
 
 

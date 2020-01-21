@@ -158,8 +158,9 @@ def add_trub(request):
         }
 
         flag = data['flat_isol']
+        time = now.strftime("%d_%m_%Y %H_%M_%S")
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 0, error)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 0, error, time)
         print(result)
 
         logger.debug(HttpResponse)
@@ -242,7 +243,9 @@ def add_plosk(request):
         flag = data['flat_isol']
         print(data['flat_isol'])
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 1, error)
+        time = now.strftime("%d_%m_%Y %H_%M_%S")
+
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 1, error, time)
         print(result)
 
         logger.debug(HttpResponse)
@@ -335,7 +338,9 @@ def add_emk(request):
 
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 2, error)
+        time = now.strftime("%d_%m_%Y %H_%M_%S")
+
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 2, error, time)
         print(result)
 
         logger.debug(HttpResponse)
@@ -345,7 +350,7 @@ def add_emk(request):
         return HttpResponse('no post')
 
 
-def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error):
+def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error, time):
     import win32com.client as wincl
     import os, pythoncom
     from os.path import join, abspath
@@ -357,7 +362,8 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error):
     for_checking = filename = cal_empty_copy
     wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
     sheet = wb.get_sheet_by_name('communication')
-    result_file = "result_" + now.strftime("%d_%m_%Y %H_%M_%S")
+    result_file = "result_" + time
+    print(result_file)
     sheet.cell(row=1, column=column_index_from_string('B')).value = result_file
 
     wb.save(filename)
@@ -367,7 +373,7 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error):
 
     pythoncom.CoInitialize()
     try:
-        excel_macro = wincl.DispatchEx("Excel.application")
+        excel_macro = wincl.Dispatch("Excel.application")
         excel_path = os.path.expanduser(data_path)
 
         workbook = excel_macro.Workbooks.Open(Filename=excel_path, ReadOnly=1)
@@ -415,9 +421,9 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error):
 
     path_to_dir = 'media/temp_files'
 
-    if os.path.exists('media/Ведомость.xlsx'):
-        os.remove(os.path.join('media/Ведомость.xlsx'))
-    shutil.copyfile(result_file, 'media/Ведомость.xlsx')
+    if os.path.exists('media/Statement.xlsx'):
+        os.remove(os.path.join('media/Statement.xlsx'))
+    shutil.copyfile(result_file, 'media/Statement.xlsx')
 
     if for_checking[18:20] == "02":
         af.remove_files(path_to_dir)
@@ -443,7 +449,7 @@ def make_result_file(request):
         name = af.hash_word(word)
         path = "media/download/" + name + ".xlsx"
 
-        shutil.copyfile('media/Ведомость.xlsx', path)
+        shutil.copyfile('media/Statement.xlsx', path)
 
         path = '/'+path
         print("data ----", path)
@@ -455,18 +461,3 @@ def make_result_file(request):
         return HttpResponse('no post')
 
 
-'recommended-thickness'
-'permissible-temperature'
-'surface-temperature'
-'heat-loss-SP'
-'estimated-heat-loss'
-'layer-temperature'
-'total-estimated-heat-loss'
-
-# Рекомендуемая толщина выбанной изоляции
-# Максимально допустимая температура поверхности изоляции
-# Расчётная температура поверхности изоляции
-# Тепловые потери согласно нормам СП
-# Расчётные тепловые потери
-# Температура на границе слоя
-# Полные расчётные тепловые потери

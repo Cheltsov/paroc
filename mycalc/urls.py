@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('download/', views.download),
+    path('make_result_file/', views.make_result_file, name='make_result_file'),
     path('macro_run/', views.macro_run, name='macro_run'),
     path('add_trub/', views.add_trub, name='add_trub'),
     path('add_plosk/', views.add_plosk, name='add_plosk'),

@@ -1,14 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
-from django.http import FileResponse
+from django.http import HttpResponse
 
 from paroc.settings import MEDIA_ROOT_W
 import mycalc.additional_functions as af
 from openpyxl import load_workbook
 from openpyxl.utils import column_index_from_string
-from datetime import datetime
 from django import template
-import feedparser
 import codecs
 import shutil
 import json
@@ -16,6 +13,10 @@ import json
 import logging
 
 logger = logging.getLogger(__name__)
+
+from datetime import datetime
+
+now = datetime.now()
 
 
 def index(request):
@@ -79,6 +80,10 @@ def add_trub(request):
         filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
 
+        error = ''
+        err_sheet = wb.get_sheet_by_name('communication')
+        error = err_sheet.cell(row=2, column=column_index_from_string('B')).value
+
         sheet = wb.get_sheet_by_name('Trub')
 
         sheet.cell(row=2, column=column_index_from_string('B')).value = data['CB_Trub_Region']
@@ -138,8 +143,8 @@ def add_trub(request):
 
         Trub_Calc_Norm = {'4': 29, '1': 30, '2': 31, '5': 32, '3': 1, '6': 1, '7': 1, '8': 1}
         Trub_Calc_T = {'1': 32, '8': 33, '2': 34, '3': 35, '4': 36, '5': 37, '7': 1, '6': 1}
-        Trub_Calc_MaxT = {'1': 28, '2': 29, '3': 30, '4': 31, '5': 32, '6': 1, '7': 1, '8': 1}
-        Trub_Calc_Cond = {'1': 30, '2': 31, '3': 32, '4': 33, '5': 34, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_MaxT = {'1': 29, '2': 30, '3': 31, '4': 32, '5': 33, '6': 1, '7': 1, '8': 1}
+        Trub_Calc_Cond = {'1': 31, '2': 32, '3': 33, '4': 34, '5': 35, '6': 1, '7': 1, '8': 1}
         Trub_Calc_Permerz = {'1': 30, '4': 31, '5': 32, '2': 33, '3': 34, '6': 1, '7': 1, '8': 1}
         Trub_Calc_Man = {'4': 33, '5': 34, '2': 35, '3': 36, '6': 37, '1': 1, '7': 1, '8': 1}
 
@@ -154,7 +159,7 @@ def add_trub(request):
 
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 0)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 0, error)
         print(result)
 
         logger.debug(HttpResponse)
@@ -176,6 +181,10 @@ def add_plosk(request):
 
         filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
+
+        error = ''
+        err_sheet = wb.get_sheet_by_name('communication')
+        error = err_sheet.cell(row=2, column=column_index_from_string('B')).value
 
         sheet = wb.get_sheet_by_name('Plosk')
 
@@ -233,7 +242,7 @@ def add_plosk(request):
         flag = data['flat_isol']
         print(data['flat_isol'])
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 1)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 1, error)
         print(result)
 
         logger.debug(HttpResponse)
@@ -255,6 +264,10 @@ def add_emk(request):
 
         filename = 'media/cal.xlsm'
         wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
+
+        error = ''
+        err_sheet = wb.get_sheet_by_name('communication')
+        error = err_sheet.cell(row=2, column=column_index_from_string('B')).value
 
         sheet = wb.get_sheet_by_name('Plosk')
 
@@ -307,7 +320,7 @@ def add_emk(request):
         }
 
         Emk_Calc_Norm = {'4': 26, '5': 27, '1': 28, '2': 29, '3': 30, '6': 1, '7': 1, '8': 1}
-        Emk_Calc_T = {'1': 29, '2': 30, '3': 31, '4': 32, '5': 33, '6': 34, '7': 1, '8': 1}
+        Emk_Calc_T = {'1': 29, '2': 30, '3': 31, '4': 32, '5': 33, '6': 1, '7': 34, '8': 1}
         Emk_Calc_MaxT = {'1': 26, '2': 27, '3': 28, '4': 29, '5': 30, '6': 1, '7': 31, '8': 1}
         Emk_Calc_Cond = {'1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1}
         Emk_Calc_Man = {'4': 30, '5': 31, '7': 32, '2': 33, '3': 34, '6': 35, '1': 1, '8': 1}
@@ -322,7 +335,7 @@ def add_emk(request):
 
         flag = data['flat_isol']
 
-        result = macro_run(flags[flag], flags_data[flag], temp_cal, 2)
+        result = macro_run(flags[flag], flags_data[flag], temp_cal, 2, error)
         print(result)
 
         logger.debug(HttpResponse)
@@ -332,14 +345,14 @@ def add_emk(request):
         return HttpResponse('no post')
 
 
-def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
-    from datetime import datetime
+def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name, error):
     import win32com.client as wincl
     import os, pythoncom
     from os.path import join, abspath
-    now = datetime.now()
 
     print(macro_data)
+
+    print('error: ', error)
 
     for_checking = filename = cal_empty_copy
     wb = load_workbook(filename=filename, data_only=True, read_only=False, keep_vba=True)
@@ -394,6 +407,8 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
         'final-temperature': sheet.cell(row=macro_data['8'], column=column_index_from_string('G')).value,
         # 8 Конечная температура теплоносителя
 
+        'error': error,
+
         'type': macros_name[0],
         'macro-name': macros_name
     }
@@ -410,30 +425,34 @@ def macro_run(macros_name, macro_data, cal_empty_copy, first_macro_name):
     return result_list
 
 
-def download(request):
-    return FileResponse(open('C:/paroc/media/Ведомость.xlsx', 'rb'))
-
-
 register = template.Library()
+temp = "nothing"
 
 
-@register.inclusion_tag('Wd5PageApp/rssfeed.djhtml')
-def pull_feed(request, feed_url, posts_to_show=5):
-    try:
-        feed = feedparser.parse(feed_url)
-        posts = []
-        for i in range(posts_to_show):
-            pub_date = feed['entries'][i].updated_parsed
-            published = datetime.date(pub_date[0], pub_date[1], pub_date[2])
-            posts.append({
-                'title': feed['entries'][i].title,
-                'summary': feed['entries'][i].summary,
-                'link': feed['entries'][i].link,
-                'date': published,
-            })
-    except:
-        pass
-    return {'posts': posts}
+def make_result_file(request):
+    logger.info(request)
+    if request.method == 'POST':
+        print('make_result_file')
+        dirty_data = request.POST
+
+        data = {}
+        for k, v in dirty_data.items():
+            data[k[5:-1]] = v
+
+        word = data["name"] + data["email"] + data["phone"] + now.strftime("%d_%m_%Y %H_%M_%S")
+        name = af.hash_word(word)
+        path = "media/download/" + name + ".xlsx"
+
+        shutil.copyfile('media/Ведомость.xlsx', path)
+
+        path = '/'+path
+        print("data ----", path)
+
+        logger.debug(HttpResponse)
+        return HttpResponse(path)
+    else:
+        logger.error(HttpResponse)
+        return HttpResponse('no post')
 
 
 'recommended-thickness'

@@ -52,3 +52,11 @@ def remove_files(path_to_dir):
         os.remove(os.path.join(path_to_dir, f))
         count += 1
     print('Удалено ' + str(count) + ' файлов с расштрением .xlsx')
+
+
+def hash_word(word):
+    import hashlib
+    word = word.encode('utf-8')
+    h = hashlib.sha1(word)
+    print(h.hexdigest())
+    return h.hexdigest()

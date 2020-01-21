@@ -24,7 +24,7 @@
 </header>
 <main id="content">
     <div class="wrapper">
-        <form action="">
+        <form id="my-form" action="">
             <div class="main-tabs">
                 <div class="main-tabs__top">
                     <div class="main-tabs__tab active" data-id="1">
@@ -43,34 +43,37 @@
                         <figure><img src="{% static 'mycalc/img/ico-tab-4.png' %}" alt=""/></figure>
                         <div class="main-tabs__tab-title">Открыть последнее<br> сохранение</div>
                     </div>
-                    <div class="main-tabs__tab" data-id="5">
-                        <figure><img src="{% static 'mycalc/img/ico-tab-5.png' %}" alt=""/></figure>
-                        <div class="main-tabs__tab-title">Очистить форму</div>
+                    <div id="clear_btn">
+                        <div class="clear_tab">
+                            <figure><img src="{% static 'mycalc/img/ico-tab-5.png' %}" alt=""/></figure>
+                            <div  class="main-tabs__tab-title" type="submit">Очистить форму</div>
+                        </div>
                     </div>
                 </div>
-                <div class="main-tabs__content active" data-id="1">
+                <div class="main-tabs__content active" data-id="1" id = "block1">
+                <div class="first_filter">
                     <div class="section tabs">
                         <div class="section-top">
                             <div class="section-top__el tabs__tab active" data-id="1"><span>Секция 1</span></div>
-                        </div>
-                        <div class="section-bot tabs__content active" data-id="1">
-                            <div class="section-label">Название</div>
-                            <div class="section-input">
-                                <input type="text" name="name_section" class="name_section"/>
+                                </div>
+                                <div class="section-bot tabs__content active" data-id="1">
+                                    <div class="section-label">Название</div>
+                                    <div class="section-input">
+                                        <input type="text" name="name_section" class="name_section"/>
+                                    </div>
+                                    <div class="section-btn">
+                                        <div class="default-btn add_section" >Добавить следующую секцию</div>
+                                    </div>
+                                    <div class="section-btn">
+                                        <div class="btn del_cur_section">Удалить текущую секцию</div>
+                                    </div>
+                                </div>
+                                <div class="arr_section">
+                                    <select name="sections" id="">
+                                    </select>
+                                </div>
                             </div>
-                            <div class="section-btn">
-                                <div class="default-btn add_section" >Добавить следующую секцию</div>
-                            </div>
-                            <div class="section-btn">
-                                <div class="btn del_cur_section">Удалить текущую секцию</div>
-                            </div>
-                        </div>
-                        <div class="arr_section">
-                            <select name="sections" id="">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="characteristic">
+                        <div class="characteristic">
                         <input class="default-input__input--checkbox" type="checkbox" id="90" />
                         <label class="default-input__label--checkbox" for="90">Показать дополнительные параметры</label>
                         <div class="characteristic__list">
@@ -84,7 +87,7 @@
                                 <div class="characteristic__item-filter">
                                     <div class="default-select">
                                         <div class="default-input__label">Регион прокладки</div>
-                                        <select class="default-select__select" name="CB_Trub_Region">
+                                        <select id="_CB_Trub_Region" class="default-select__select" name="CB_Trub_Region">
                                             <option value="0">Европейская часть России</option>
                                             <option value="1">Урал</option>
                                             <option value="2">Западная Сибирь</option>
@@ -104,7 +107,7 @@
                                         </select>
                                     </div>
                                     <div class="default-input"><span>°C</span>
-                                        <input class="default-input__input" type="text" value="20" name="L_Trub_T_Sredi"/>
+                                        <input id="L_Trub_T_Sredi" class="default-input__input" type="text" value="20" name="L_Trub_T_Sredi"/>
                                         <label class="default-input__label">Температура окружающей среды</label>
                                         <div class="default-input__error">
                                             <div class="error-text"><!-- текст ошибки --></div>
@@ -241,6 +244,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                     <div class="isolation tabs">
                         <div class="isolation-head">
                             <div class="title">Изоляция</div>
@@ -263,8 +267,7 @@
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
 
-                                    <select id="this_select" class="default-select__select" name="CB_Trub_Iz_Norm">
-                                        <option selected></option>
+                                    <select id="this_select" class="default-select_for_img" name="CB_Trub_Iz_Norm">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}" name="{{ ins.name }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -277,8 +280,10 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img1" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img1" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="isolation-bot tabs__content" data-id="2">
@@ -288,7 +293,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select id="CB_Trub_Iz_T!" class="default-select__select" name="CB_Trub_Iz_T">
+                                    <select id="CB_Trub_Iz_T!" class="default-select_for_img" name="CB_Trub_Iz_T">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -311,8 +316,8 @@
                                 <a href="" name="B_Calc_T" class="get_result_calc">Рассчитать</a>
                             </div>
                             <div class="isolation-gallery">
-                                <div class="isolation-gallery__img"><img
-                                    <img id="paste-img2" src="{% static 'mycalc/img/photos/null' %}" alt="image"/>
+                                <div class="isolation-gallery__img">
+                                    <img id="paste-img2" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +328,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Trub_Iz_MaxT">
+                                    <select class="default-select_for_img" name="CB_Trub_Iz_MaxT">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -340,7 +345,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img3" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img3" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +356,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="B_Trub_Iz_Cond">
+                                    <select class="default-select_for_img" name="B_Trub_Iz_Cond">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -368,7 +373,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img4" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img4" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -412,7 +417,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Trub_Iz_Peremerz">
+                                    <select class="default-select_for_img" name="CB_Trub_Iz_Peremerz">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -429,7 +434,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img5" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img5" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -463,7 +468,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" id="insulation_trub" name="CB_Trub_Iz_Man">
+                                    <select class="default-select_for_img" id="insulation_trub" name="CB_Trub_Iz_Man">
                                         {% for ins in insulations %}
                                             <option value="{{ forloop.counter0 }}" data-tol="{{ ins.tol }}" >{{ ins.name }}</option>
                                         {% endfor %}
@@ -498,7 +503,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img6" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img6" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Wired Mat 80.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -541,11 +546,11 @@
                                 <div class="results__item-title">Температура на границе слоя</div>
                                 <div class="results__item-num" id = "layer-temperature">°C</div>
                             </div>
-
+                            <!-- текст ошибки
                             <div class="results__item" id = "ex-total-estimated-heat-loss">
                                 <div class="results__item-title">Полные расчётные тепловые потери</div>
                                 <div class="results__item-num" id = "total-estimated-heat-loss">°C</div>
-                            </div>
+                            </div> -->
 
                             <div class="results__item" id = "ex-final-temperature">
                                 <div class="results__item-title">Конечная температура теплоносителя</div>
@@ -556,9 +561,11 @@
 
 
                         <div class="results__bot">
-                            <a class="default-btn" href="../download/" download="Итоговая ведомость.xlsx">Сформировать итоговую ведомость</a>
-                            <a class="btn ico-pdf" href="">протокол расчета</a></div>
+                            <a class="default-btn" download href="/media/Ведомость.xlsx" >Сформировать итоговую ведомость</a>
+                            <a class="" href=""></a></div>
                         </div>
+
+
                     <div class="save-result">
                         <div class="save-result__top">
                             <div class="title">Сохранение результатов</div>
@@ -567,14 +574,14 @@
                         </div>
                         <div class="save-result__bot">
                             <div class="default-input">
-                                <input class="default-input__input" type="text" value="Иван"/>
+                                <input id="input-name1" class="default-input__input" type="text" value="Иван"/>
                                 <label class="default-input__label">Имя</label>
                                 <div class="default-input__error">
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input" type="email"
+                                <input id="input-email1" class="default-input__input" type="email"
                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email"
                                        value="info@mail.ru" placeholder="info@mail.ru"/>
                                 <label class="default-input__label">Почта</label>
@@ -583,7 +590,7 @@
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input phone" type="tel" inputmode="tel"
+                                <input id="input-phone1" class="default-input__input phone" type="tel" inputmode="tel"
                                        pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value=""
                                        placeholder="+7 (900) 123-12-13"/>
                                 <label class="default-input__label">Телефон</label>
@@ -591,553 +598,566 @@
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
-                            <input class="default-btn" type="submit" value="Сохранить результат"/>
+                            <input id="save-btn1" class="default-btn" type="submit" value="Сохранить результат"/>
                         </div>
                     </div>
+
                 </div>
-                <div class="main-tabs__content" data-id="2">
-                    <div class="section">
-                        <div class="section-top">
-                            <div class="section-top__el"><span>Секция 1</span></div>
+
+                <div class="main-tabs__content" data-id="2" id = "block2">
+                    <div class="second_filter">
+                        <div class="section">
+                            <div class="section-top">
+                                <div class="section-top__el" ><span>Секция 2</span></div>
+                            </div>
+
+
+                            <div class="section-bot" >
+                                <div class="section-label">Название</div>
+                                <div class="section-input">
+                                    <input type="text" name="name_section" class="name_section"/>
+                                </div>
+                                <div class="section-btn">
+                                    <div class="default-btn add_section">Добавить следующую секцию</div>
+                                </div>
+                                <div class="section-btn">
+                                    <div class="btn del_cur_section">Удалить текущую секцию</div>
+                                </div>
+                            </div>
+
+
+                            <div class="arr_section">
+                                <select name="sections" id="">
+                                </select>
+                            </div>
                         </div>
-                        <div class="section-bot">
-                            <div class="section-label">Название</div>
-                            <div class="section-input">
-                                <input type="text" name="name_section" class="name_section"/>
+                        <div class="characteristic">
+                            {% comment %}<input class="default-input__input--checkbox" type="checkbox" id="91"/>
+                            <label class="default-input__label--checkbox" for="91">Показать дополнительные параметры</label>{% endcomment %}
+                            <div class="characteristic__list">
+                                <div class="characteristic__item">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
+                                        </div>
+                                        <div class="title-icon"
+                                             style="color: #e6f6fe; background-image: url('{% static "mycalc/img/ico-pipe-1.png" %}')"></div>
+                                    </div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Регион прокладки</div>
+                                            <select class="default-select__select" name="CB_Plosk_Region">
+                                                <option value="0">Европейская часть России</option>
+                                                <option value="1">Урал</option>
+                                                <option value="2">Западная Сибирь</option>
+                                                <option value="3">Восточная Сибирь</option>
+                                                <option value="4">Дальний Восток</option>
+                                                <option value="5">Районы Крайнего Севера</option>
+                                                {% for reg in regions %}
+                                                    <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Внешняя среда</div>
+                                            <select class="default-select__select" name="CB_Plosk_Sreda">
+                                                <option value="0">Открытый воздух</option>
+                                                <option value="1">Помещение</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="20" name="L_Plosk_T_Sredi"/>
+                                            <label class="default-input__label">Температура окружающей среды</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="100" name="L_Plosk_NosT"/>
+                                            <label class="default-input__label">Начальная температура носителя</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>м/c</span>
+                                            <input class="default-input__input" type="text" value="10" name="L_Plosk_WindSpeed"/>
+                                            <label class="default-input__label">Скорость ветра</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="characteristic__item">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Параметры плоскости</div>
+                                        <div class="title-icon"
+                                             style="color: #fee6e6; background-image: url('{% static 'mycalc/img/ico-pipe-2.png' %}')"></div>
+                                    </div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Материал</div>
+                                            <select class="default-select__select" name="CB_Plosk_Mater">
+                                                <option value="0">Металл</option>
+                                                <option value="1">Не металл</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Внешнее покрытие</div>
+                                            <select class="default-select__select" name="CB_Plosk_VneshPokr">
+                                                <option value="0">Без покровного слоя</option>
+                                                <option value="1">Битум</option>
+                                                <option value="2">Черный метал</option>
+                                                <option value="3">Чугун</option>
+                                                <option value="4">Оцинкованная сталь</option>
+                                                <option value="5">Краска</option>
+                                                <option value="6">Резина</option>
+                                                <option value="7">Нержавеющая сталь</option>
+                                                <option value="8">Алюминий</option>
+                                                <option value="9">Алюмоцинк</option>
+                                                <option value="10">ПВХ</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input"><span>м</span>
+                                            <input class="default-input__input" type="text" value="1" name="L_Plosk_Width"/>
+                                            <label class="default-input__label">Ширина</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>м</span>
+                                            <input class="default-input__input" type="text" value="1" name="L_Plosk_Length"/>
+                                            <label class="default-input__label">Длинна</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>мм</span>
+                                            <input class="default-input__input" type="text" value="3" name="L_Plosk_WWidth"/>
+                                            <label class="default-input__label">Толщина стенки</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="2904" name="ChB_Plosk_5000"/>
+                                            <label class="default-input__label--checkbox" for="2904">Наработка системы более
+                                                5000 часов</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="characteristic__item characteristic__item--dop" style="display: none">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Дополнительные параметры</div>
+                                        <div class="title-icon"
+                                             style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-pipe-3.png' %}')"></div>
+                                    </div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Способ крепления</div>
+                                            <select class="default-select__select">
+                                                <option value="1">Подвижные опоры</option>
+                                                <option value="2">Подвижные опоры 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Направление секции</div>
+                                            <select class="default-select__select">
+                                                <option value="1">Горизонтальное</option>
+                                                <option value="2">Вертикальное</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="190"/>
+                                            <label class="default-input__label--checkbox" for="190">Учесть потери через
+                                                опорные кольца покровного слоя</label>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="290"/>
+                                            <label class="default-input__label--checkbox" for="290">Учитывать дополнительные
+                                                теплопотери в СН</label>
+                                        </div>
+                                        <div class="default-input"><span>%</span>
+                                            <input class="default-input__input" type="text" value="25"/>
+                                            <label class="default-input__label">Потери на кольцах</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="390"/>
+                                            <label class="default-input__label--checkbox" for="390">Наработка системы более
+                                                5000 часов</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="section-btn">
-                                <div class="default-btn add_section">Добавить следующую секцию</div>
-                            </div>
-                            <div class="section-btn">
-                                <div class="btn del_cur_section">Удалить текущую секцию</div>
-                            </div>
-                        </div>
-                        <div class="arr_section">
-                            <select name="sections" id="">
-                            </select>
                         </div>
                     </div>
-                    <div class="characteristic">
-                        {% comment %}<input class="default-input__input--checkbox" type="checkbox" id="91"/>
-                        <label class="default-input__label--checkbox" for="91">Показать дополнительные параметры</label>{% endcomment %}
-                        <div class="characteristic__list">
-                            <div class="characteristic__item">
-                                <div class="characteristic__item-top">
-                                    <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
-                                    </div>
-                                    <div class="title-icon"
-                                         style="color: #e6f6fe; background-image: url('{% static "mycalc/img/ico-pipe-1.png" %}')"></div>
+                        <div class="isolation tabs">
+                            <div class="isolation-head">
+                                <div class="title">Изоляция</div>
+                                <div class="title-icon"
+                                     style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-isolation.png' %}')"></div>
+                            </div>
+                            <div class="isolation-top solation-top-plosk">
+                                <div class="tabs__tab active" data-id="1">СН</div>
+                                <div class="tabs__tab" data-id="3">ТБ</div>
+                                <div class="tabs__tab" data-id="4">ПК</div>
+                                <div class="tabs__tab" data-id="6">Ручной расчет</div>
+                            </div>
+                            <div class="isolation-bot tabs__content active" data-id="1">
+                                <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
+                                    61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
                                 </div>
-                                <div class="characteristic__item-filter">
+                                <div class="isolation-results" id="isl_hide_3">
+                                    <div class="isolation-results__top">
+                                        <div class="title">Результат</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
+                                        <div class="isolation-results__num">17</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
+                                            (мм):
+                                        </div>
+                                        <div class="isolation-results__num">13.3</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
+                                        <div class="isolation-results__num">21.4</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
+                                            СП (°C)
+                                        </div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Температура поверхности внешнего слоя изоляции
+                                            (°C)
+                                        </div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                </div>
+                                <div class="isolation-row">
                                     <div class="default-select">
-                                        <div class="default-input__label">Регион прокладки</div>
-                                        <select class="default-select__select" name="CB_Plosk_Region">
-                                            <option value="0">Европейская часть России</option>
-                                            <option value="1">Урал</option>
-                                            <option value="2">Западная Сибирь</option>
-                                            <option value="3">Восточная Сибирь</option>
-                                            <option value="4">Дальний Восток</option>
-                                            <option value="5">Районы Крайнего Севера</option>
-                                            {% for reg in regions %}
-                                                <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
+                                        <div class="default-input__label">Изоляция</div>
+                                        <select class="default-select_for_img" name="CB_Plosk_Iz_Norm">
+                                            {% for ins in insulations_plosk %}
+                                                <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
-                                    <div class="default-select">
-                                        <div class="default-input__label">Внешняя среда</div>
-                                        <select class="default-select__select" name="CB_Plosk_Sreda">
-                                            <option value="0">Открытый воздух</option>
-                                            <option value="1">Помещение</option>
-                                        </select>
-                                    </div>
-                                    <div class="default-input"><span>°C</span>
-                                        <input class="default-input__input" type="text" value="20" name="L_Plosk_T_Sredi"/>
-                                        <label class="default-input__label">Температура окружающей среды</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>°C</span>
-                                        <input class="default-input__input" type="text" value="100" name="L_Plosk_NosT"/>
-                                        <label class="default-input__label">Начальная температура носителя</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>м/c</span>
-                                        <input class="default-input__input" type="text" value="10" name="L_Plosk_WindSpeed"/>
-                                        <label class="default-input__label">Скорость ветра</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
+                                    <a href="" class="get_result_calc_plosk" name="B_P_Calc_Norm">Рассчитать</a>
+                                </div>
+                                <div class="isolation-gallery">
+                                    <div class="isolation-gallery__img">
+                                        <img id="paste-img7" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="characteristic__item">
-                                <div class="characteristic__item-top">
-                                    <div class="characteristic__item-title">Параметры плоскости</div>
-                                    <div class="title-icon"
-                                         style="color: #fee6e6; background-image: url('{% static 'mycalc/img/ico-pipe-2.png' %}')"></div>
+                            <div class="isolation-bot tabs__content" data-id="3">
+                                <div class="isolation-info">Соблюдение требований безопасности</div>
+                                <div class="isolation-results" id="isl_hide_4">
+                                    <div class="isolation-results__top">
+                                        <div class="title">Результат</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
+                                        <div class="isolation-results__num">17</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
+                                            (мм):
+                                        </div>
+                                        <div class="isolation-results__num">13.3</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
+                                        <div class="isolation-results__num">21.4</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
+                                            СП (°C)
+                                        </div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Расчетные тепловые потери (Вт/м^2)</div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
                                 </div>
-                                <div class="characteristic__item-filter">
+                                <div class="isolation-row">
                                     <div class="default-select">
-                                        <div class="default-input__label">Материал</div>
-                                        <select class="default-select__select" name="CB_Plosk_Mater">
-                                            <option value="0">Металл</option>
-                                            <option value="1">Не металл</option>
+                                        <div class="default-input__label">Изоляция</div>
+                                        <select class="default-select_for_img" name="CB_Plosk_Iz_MaxT">
+                                            {% for ins in insulations_plosk %}
+                                                <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
-                                    <div class="default-select">
-                                        <div class="default-input__label">Внешнее покрытие</div>
-                                        <select class="default-select__select" name="CB_Plosk_VneshPokr">
-                                            <option value="0">Без покровного слоя</option>
-                                            <option value="1">Битум</option>
-                                            <option value="2">Черный метал</option>
-                                            <option value="3">Чугун</option>
-                                            <option value="4">Оцинкованная сталь</option>
-                                            <option value="5">Краска</option>
-                                            <option value="6">Резина</option>
-                                            <option value="7">Нержавеющая сталь</option>
-                                            <option value="8">Алюминий</option>
-                                            <option value="9">Алюмоцинк</option>
-                                            <option value="10">ПВХ</option>
-                                        </select>
-                                    </div>
-                                    <div class="default-input"><span>м</span>
-                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Width"/>
-                                        <label class="default-input__label">Ширина</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>м</span>
-                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Length"/>
-                                        <label class="default-input__label">Длинна</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>мм</span>
-                                        <input class="default-input__input" type="text" value="3" name="L_Plosk_WWidth"/>
-                                        <label class="default-input__label">Толщина стенки</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="2904" name="ChB_Plosk_5000"/>
-                                        <label class="default-input__label--checkbox" for="2904">Наработка системы более
-                                            5000 часов</label>
+                                    <a href="" name="B_P_Calc_MaxT" class="get_result_calc_plosk">Рассчитать</a>
+                                </div>
+                                <div class="isolation-gallery">
+                                    <div class="isolation-gallery__img">
+                                        <img id="paste-img8" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="characteristic__item characteristic__item--dop" style="display: none">
-                                <div class="characteristic__item-top">
-                                    <div class="characteristic__item-title">Дополнительные параметры</div>
-                                    <div class="title-icon"
-                                         style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-pipe-3.png' %}')"></div>
+                            <div class="isolation-bot tabs__content" data-id="4">
+                                <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
+                                    оборудования<br> или трубопровода
                                 </div>
-                                <div class="characteristic__item-filter">
+                                <div class="isolation-results" id="isl_hide_5">
+                                    <div class="isolation-results__top">
+                                        <div class="title">Результат</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
+                                        <div class="isolation-results__num">17</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
+                                            (мм):
+                                        </div>
+                                        <div class="isolation-results__num">13.3</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Температура поверхности внешнего слоя изоляции
+                                            °C
+                                        </div>
+                                        <div class="isolation-results__num">21.4</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Расчетные тепловые потери (Вт/м)</div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
+                                            СП (°C)
+                                        </div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                </div>
+                                <div class="isolation-row">
                                     <div class="default-select">
-                                        <div class="default-input__label">Способ крепления</div>
-                                        <select class="default-select__select">
-                                            <option value="1">Подвижные опоры</option>
-                                            <option value="2">Подвижные опоры 2</option>
+                                        <div class="default-input__label">Изоляция</div>
+                                        <select class="default-select_for_img" name="CB_Plosk_Iz_Cond">
+                                            {% for ins in insulations_plosk %}
+                                                <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
+                                            {% endfor %}
                                         </select>
-                                    </div>
-                                    <div class="default-select">
-                                        <div class="default-input__label">Направление секции</div>
-                                        <select class="default-select__select">
-                                            <option value="1">Горизонтальное</option>
-                                            <option value="2">Вертикальное</option>
-                                        </select>
-                                    </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="190"/>
-                                        <label class="default-input__label--checkbox" for="190">Учесть потери через
-                                            опорные кольца покровного слоя</label>
-                                    </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="290"/>
-                                        <label class="default-input__label--checkbox" for="290">Учитывать дополнительные
-                                            теплопотери в СН</label>
                                     </div>
                                     <div class="default-input"><span>%</span>
-                                        <input class="default-input__input" type="text" value="25"/>
-                                        <label class="default-input__label">Потери на кольцах</label>
+                                        <input class="default-input__input" type="text" value="70" name="L_Plosk_Hum"/>
+                                        <label class="default-input__label">Влажность</label>
                                         <div class="default-input__error">
                                             <div class="error-text"><!-- текст ошибки --></div>
                                         </div>
                                     </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="390"/>
-                                        <label class="default-input__label--checkbox" for="390">Наработка системы более
-                                            5000 часов</label>
+                                    <a href="" class="get_result_calc_plosk" name="B_P_Calc_Cond">Рассчитать</a>
+                                </div>
+                                <div class="isolation-gallery">
+                                    <div class="isolation-gallery__img">
+                                        <img id="paste-img9" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="isolation-bot tabs__content" data-id="6">
+                                <div class="isolation-results" id="isl_hide_6">
+                                    <div class="isolation-results__top">
+                                        <div class="title">Результат</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м^2):</div>
+                                        <div class="isolation-results__num">17</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Расчётные тепловые потери (Вт/м^2):</div>
+                                        <div class="isolation-results__num">13.3</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">T пов-ти внешнего слоя изоляции (°C):</div>
+                                        <div class="isolation-results__num">21.4</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Допустимая T согласно СП (°C):</div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                    <div class="isolation-results__row">
+                                        <div class="isolation-results__title">Полные тепловые потери (Вт):</div>
+                                        <div class="isolation-results__num">55</div>
+                                    </div>
+                                </div>
+                                <div class="isolation-row">
+
+                                    <div class="default-select">
+                                        <div class="default-input__label">Изоляция</div>
+
+                                        <select class="default-select_for_img" id="insulation_plosk" name="CB_Plosk_Iz_Man">
+                                            {% for ins in insulations_plosk %}
+                                                <option value="{{ forloop.counter0 }}" data-tol="{{ins.tol}}">{{ ins.name }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                    <div class="default-input"><span>мм</span>
+
+                                        <select class="default-select__select" id = "temp_plosk" name = "CB_Plosk_Iz_W">
+                                        </select>
+
+                                        <label class="default-input__label">Толщина</label>
+                                        <div class="default-input__error">
+                                            <div class="error-text"><!-- текст ошибки --></div>
+                                        </div>
+
+                                    </div>
+                                    <a href="" class="add_layer" data-type="plosk">Добавить слой</a>
+                                </div>
+                                <div class="isolation__sloy-cont" id="divtable_layer_plosk">
+                                    <div class="isolation__sloy">
+                                        <div class="isolation__sloy-top">
+                                            <div class="isolation__sloy-el">Изоляция</div>
+                                            <div class="isolation__sloy-el">Толщина</div>
+                                            <div class="isolation__sloy-el">Температура</div>
+                                        </div>
+                                        <div class="isolation__sloy-info" id="table_layer_plosk">
+                                        </div>
+                                    </div>
+                                    <div class="isolation__sloy-bot"><a class="btn del-layer" data-type="plosk" href="">Удалить внешний слой</a>
+                                        <a class="btn del-all-layer" data-type="plosk" href="">Удалить все слой</a>
+                                        <input class="default-btn get_result_calc_plosk" type="submit" value="Расчитать"/>
+                                    </div>
+                                </div>
+                                <div class="isolation-gallery">
+                                    <div class="isolation-gallery__img">
+                                        <img id="paste-img10" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="isolation tabs">
-                        <div class="isolation-head">
-                            <div class="title">Изоляция</div>
-                            <div class="title-icon"
-                                 style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-isolation.png' %}')"></div>
-                        </div>
-                        <div class="isolation-top solation-top-plosk">
-                            <div class="tabs__tab active" data-id="1">СН</div>
-                            <div class="tabs__tab" data-id="3">ТБ</div>
-                            <div class="tabs__tab" data-id="4">ПК</div>
-                            <div class="tabs__tab" data-id="6">Ручной расчет</div>
-                        </div>
-                        <div class="isolation-bot tabs__content active" data-id="1">
-                            <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
-                                61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
+
+                        <div class="plosk_result" id = "plosk_result">
+                            <div class="results-top">
+                                <div class="title">Результат</div>
+                                <div class="title-icon"
+                                     style="color: #ffe5e5; background-image: url('{% static 'mycalc/img/ico-file.png' %}')"></div>
                             </div>
-                            <div class="isolation-results" id="isl_hide_3">
-                                <div class="isolation-results__top">
-                                    <div class="title">Результат</div>
+
+
+                            <div class="results__list">
+                                <div class="results__item" id = "ex-plosk-recommended-thickness">
+                                    <div class="results__item-title">Рекомендуемая толщина выбанной изоляции</div>
+                                    <div class="results__item-num" id = "plosk-recommended-thickness">0.0 мм</div>
                                 </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
-                                    <div class="isolation-results__num">17</div>
+
+                                <div class="results__item" id = "ex-plosk-permissible-temperature">
+                                    <div class="results__item-title">Максимально допустимая температура поверхности изоляции</div>
+                                    <div class="results__item-num" id = "plosk-permissible-temperature">0.0 мм</div>
                                 </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
-                                        (мм):
-                                    </div>
-                                    <div class="isolation-results__num">13.3</div>
+
+                                <div class="results__item" id = "ex-plosk-surface-temperature">
+                                    <div class="results__item-title">Расчётная температура поверхности изоляции</div>
+                                    <div class="results__item-num" id = "plosk-surface-temperature">Вт/м^2</div>
                                 </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
-                                    <div class="isolation-results__num">21.4</div>
+
+                                <div class="results__item" id = "ex-plosk-heat-loss-SP">
+                                    <div class="results__item-title">Тепловые потери согласно нормам СП</div>
+                                    <div class="results__item-num" id = "plosk-heat-loss-SP">°C</div>
                                 </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
-                                        СП (°C)
-                                    </div>
-                                    <div class="isolation-results__num">55</div>
+
+                                <div class="results__item" id = "ex-plosk-estimated-heat-loss">
+                                    <div class="results__item-title">Расчётные тепловые потери</div>
+                                    <div class="results__item-num" id = "plosk-estimated-heat-loss">°C</div>
                                 </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Температура поверхности внешнего слоя изоляции
-                                        (°C)
-                                    </div>
-                                    <div class="isolation-results__num">55</div>
+
+                                <div class="results__item" id = "ex-plosk-layer-temperature">
+                                    <div class="results__item-title">Температура на границе слоя</div>
+                                    <div class="results__item-num" id = "plosk-layer-temperature">°C</div>
+                                </div>
+
+                                <div class="results__item" id = "ex-plosk-total-estimated-heat-loss">
+                                    <div class="results__item-title">Полные расчётные тепловые потери</div>
+                                    <div class="results__item-num" id = "plosk-total-estimated-heat-loss">°C</div>
+                                </div>
+
+                                <div class="results__item" id = "ex-plosk-final-temperature">
+                                    <div class="results__item-title">Конечная температура теплоносителя</div>
+                                    <div class="results__item-num" id = "plosk-final-temperature">°C</div>
                                 </div>
                             </div>
-                            <div class="isolation-row">
-                                <div class="default-select">
-                                    <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Plosk_Iz_Norm">
-                                        {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <a href="" class="get_result_calc_plosk" name="B_P_Calc_Norm">Рассчитать</a>
-                            </div>
-                            <div class="isolation-gallery">
-                                <div class="isolation-gallery__img">
-                                    <img id="paste-img7" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
-                                </div>
+
+
+                            <div class="results__bot">
+                                <a class="default-btn" download href="/media/Ведомость.xlsx">Сформировать итоговую ведомость</a>
+                                <a class="" href=""></a>
                             </div>
                         </div>
-                        <div class="isolation-bot tabs__content" data-id="3">
-                            <div class="isolation-info">Соблюдение требований безопасности</div>
-                            <div class="isolation-results" id="isl_hide_4">
-                                <div class="isolation-results__top">
-                                    <div class="title">Результат</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
-                                    <div class="isolation-results__num">17</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
-                                        (мм):
-                                    </div>
-                                    <div class="isolation-results__num">13.3</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
-                                    <div class="isolation-results__num">21.4</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
-                                        СП (°C)
-                                    </div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Расчетные тепловые потери (Вт/м^2)</div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
+
+
+                        <div class="save-result">
+                            <div class="save-result__top">
+                                <div class="title">Сохранение результатов</div>
+                                <div class="title-icon"
+                                     style="color: #e6f6fe; background-image: url('{% static 'mycalc/img/ico-save.png' %}')"></div>
                             </div>
-                            <div class="isolation-row">
-                                <div class="default-select">
-                                    <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Plosk_Iz_MaxT">
-                                        {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <a href="" name="B_P_Calc_MaxT" class="get_result_calc_plosk">Рассчитать</a>
-                            </div>
-                            <div class="isolation-gallery">
-                                <div class="isolation-gallery__img">
-                                    <img id="paste-img8" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="isolation-bot tabs__content" data-id="4">
-                            <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
-                                оборудования<br> или трубопровода
-                            </div>
-                            <div class="isolation-results" id="isl_hide_5">
-                                <div class="isolation-results__top">
-                                    <div class="title">Результат</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Точный расчет толщины изоляции (мм):</div>
-                                    <div class="isolation-results__num">17</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Рекомендуемая толщина для выбранной изоляции
-                                        (мм):
-                                    </div>
-                                    <div class="isolation-results__num">13.3</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Температура поверхности внешнего слоя изоляции
-                                        °C
-                                    </div>
-                                    <div class="isolation-results__num">21.4</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м)</div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Расчетные тепловые потери (Вт/м)</div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Допустимая температура внешнего слоя согласно
-                                        СП (°C)
-                                    </div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                            </div>
-                            <div class="isolation-row">
-                                <div class="default-select">
-                                    <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Plosk_Iz_Cond">
-                                        {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="default-input"><span>%</span>
-                                    <input class="default-input__input" type="text" value="70" name="L_Plosk_Hum"/>
-                                    <label class="default-input__label">Влажность</label>
+                            <div class="save-result__bot">
+                                <div class="default-input">
+                                    <input id="input-name2" class="default-input__input" type="text" value="Иван"/>
+                                    <label class="default-input__label">Имя</label>
                                     <div class="default-input__error">
                                         <div class="error-text"><!-- текст ошибки --></div>
                                     </div>
                                 </div>
-                                <a href="" class="get_result_calc_plosk" name="B_P_Calc_Cond">Рассчитать</a>
-                            </div>
-                            <div class="isolation-gallery">
-                                <div class="isolation-gallery__img">
-                                    <img id="paste-img9" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="isolation-bot tabs__content" data-id="6">
-                            <div class="isolation-results" id="isl_hide_6">
-                                <div class="isolation-results__top">
-                                    <div class="title">Результат</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Тепловые потери согласно СП (Вт/м^2):</div>
-                                    <div class="isolation-results__num">17</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Расчётные тепловые потери (Вт/м^2):</div>
-                                    <div class="isolation-results__num">13.3</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">T пов-ти внешнего слоя изоляции (°C):</div>
-                                    <div class="isolation-results__num">21.4</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Допустимая T согласно СП (°C):</div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                                <div class="isolation-results__row">
-                                    <div class="isolation-results__title">Полные тепловые потери (Вт):</div>
-                                    <div class="isolation-results__num">55</div>
-                                </div>
-                            </div>
-                            <div class="isolation-row">
-
-                                <div class="default-select">
-                                    <div class="default-input__label">Изоляция</div>
-
-                                    <select class="default-select__select" id="insulation_plosk" name="CB_Plosk_Iz_Man">
-                                        {% for ins in insulations_plosk %}
-                                            <option value="{{ forloop.counter0 }}" data-tol="{{ins.tol}}">{{ ins.name }}</option>
-                                        {% endfor %}
-                                    </select>
-
-                                </div>
-                                <div class="default-input"><span>мм</span>
-
-                                    <select class="default-select__select" id = "temp_plosk" name = "CB_Plosk_Iz_W">
-                                    </select>
-
-                                    <label class="default-input__label">Толщина</label>
+                                <div class="default-input">
+                                    <input id="input-email2" class="default-input__input" type="email"
+                                           pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email"
+                                           value="info@mail.ru" placeholder="info@mail.ru"/>
+                                    <label class="default-input__label">Почта</label>
                                     <div class="default-input__error">
                                         <div class="error-text"><!-- текст ошибки --></div>
                                     </div>
-
                                 </div>
-                                <a href="" class="add_layer" data-type="plosk">Добавить слой</a>
-                            </div>
-                            <div class="isolation__sloy-cont" id="divtable_layer_plosk">
-                                <div class="isolation__sloy">
-                                    <div class="isolation__sloy-top">
-                                        <div class="isolation__sloy-el">Изоляция</div>
-                                        <div class="isolation__sloy-el">Толщина</div>
-                                        <div class="isolation__sloy-el">Температура</div>
-                                    </div>
-                                    <div class="isolation__sloy-info" id="table_layer_plosk">
+                                <div class="default-input">
+                                    <input id="input-phone2" class="default-input__input phone" type="tel" inputmode="tel"
+                                           pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value=""
+                                           placeholder="+7 (900) 123-12-13"/>
+                                    <label class="default-input__label">Телефон</label>
+                                    <div class="default-input__error">
+                                        <div class="error-text"><!-- текст ошибки --></div>
                                     </div>
                                 </div>
-                                <div class="isolation__sloy-bot"><a class="btn del-layer" data-type="plosk" href="">Удалить внешний слой</a>
-                                    <a class="btn del-all-layer" data-type="plosk" href="">Удалить все слой</a>
-                                    <input class="default-btn get_result_calc_plosk" type="submit" value="Расчитать"/>
-                                </div>
-                            </div>
-                            <div class="isolation-gallery">
-                                <div class="isolation-gallery__img">
-                                    <img id="paste-img10" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="plosk_result" id = "plosk_result">
-                        <div class="results-top">
-                            <div class="title">Результат</div>
-                            <div class="title-icon"
-                                 style="color: #ffe5e5; background-image: url('{% static 'mycalc/img/ico-file.png' %}')"></div>
-                        </div>
-
-
-                        <div class="results__list">
-                            <div class="results__item" id = "ex-plosk-recommended-thickness">
-                                <div class="results__item-title">Рекомендуемая толщина выбанной изоляции</div>
-                                <div class="results__item-num" id = "plosk-recommended-thickness">0.0 мм</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-permissible-temperature">
-                                <div class="results__item-title">Максимально допустимая температура поверхности изоляции</div>
-                                <div class="results__item-num" id = "plosk-permissible-temperature">0.0 мм</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-surface-temperature">
-                                <div class="results__item-title">Расчётная температура поверхности изоляции</div>
-                                <div class="results__item-num" id = "plosk-surface-temperature">Вт/м^2</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-heat-loss-SP">
-                                <div class="results__item-title">Тепловые потери согласно нормам СП</div>
-                                <div class="results__item-num" id = "plosk-heat-loss-SP">°C</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-estimated-heat-loss">
-                                <div class="results__item-title">Расчётные тепловые потери</div>
-                                <div class="results__item-num" id = "plosk-estimated-heat-loss">°C</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-layer-temperature">
-                                <div class="results__item-title">Температура на границе слоя</div>
-                                <div class="results__item-num" id = "plosk-layer-temperature">°C</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-total-estimated-heat-loss">
-                                <div class="results__item-title">Полные расчётные тепловые потери</div>
-                                <div class="results__item-num" id = "plosk-total-estimated-heat-loss">°C</div>
-                            </div>
-
-                            <div class="results__item" id = "ex-plosk-final-temperature">
-                                <div class="results__item-title">Конечная температура теплоносителя</div>
-                                <div class="results__item-num" id = "plosk-final-temperature">°C</div>
+                                <input id="save-btn2" class="default-btn" type="submit" value="Сохранить результат"/>
                             </div>
                         </div>
 
-
-                        <div class="results__bot">
-                            <a class="default-btn" href="../download/" download="Итоговая ведомость.xlsx">Сформировать итоговую ведомость</a>
-                            <a class="btn ico-pdf" href="">протокол расчета</a>
-                        </div>
-                    </div>
-                    <div class="save-result">
-                        <div class="save-result__top">
-                            <div class="title">Сохранение результатов</div>
-                            <div class="title-icon"
-                                 style="color: #e6f6fe; background-image: url('{% static 'mycalc/img/ico-save.png' %}')"></div>
-                        </div>
-                        <div class="save-result__bot">
-                            <div class="default-input">
-                                <input class="default-input__input" type="text" value="Иван"/>
-                                <label class="default-input__label">Имя</label>
-                                <div class="default-input__error">
-                                    <div class="error-text"><!-- текст ошибки --></div>
-                                </div>
-                            </div>
-                            <div class="default-input">
-                                <input class="default-input__input" type="email"
-                                       pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email"
-                                       value="info@mail.ru" placeholder="info@mail.ru"/>
-                                <label class="default-input__label">Почта</label>
-                                <div class="default-input__error">
-                                    <div class="error-text"><!-- текст ошибки --></div>
-                                </div>
-                            </div>
-                            <div class="default-input">
-                                <input class="default-input__input phone" type="tel" inputmode="tel"
-                                       pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value=""
-                                       placeholder="+7 (900) 123-12-13"/>
-                                <label class="default-input__label">Телефон</label>
-                                <div class="default-input__error">
-                                    <div class="error-text"><!-- текст ошибки --></div>
-                                </div>
-                            </div>
-                            <input class="default-btn" type="submit" value="Сохранить результат"/>
-                        </div>
-                    </div>
                 </div>
-                <div class="main-tabs__content" data-id="3">
-                    <div class="section">
-                        <div class="section-top">
-                            <div class="section-top__el"><span>Секция 1</span></div>
+
+                <div class="main-tabs__content" data-id="3" id = "block3">
+                    <div class="third_filter">
+                        <div class="section">
+                            <div class="section-top">
+                                <div class="section-top__el"><span>Секция 3</span></div>
+                            </div>
+                            <div class="section-bot">
+                                <div class="section-label">Название</div>
+                                <div class="section-input">
+                                    <input type="text" name="name_section" class="name_section"/>
+                                </div>
+                                <div class="section-btn">
+                                    <div class="default-btn add_section">Добавить следующую секцию</div>
+                                </div>
+                                <div class="section-btn">
+                                    <div class="btn del_cur_section">Удалить текущую секцию</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="section-bot">
-                            <div class="section-label">Название</div>
-                            <div class="section-input">
-                                <input type="text" name="name_section" class="name_section"/>
-                            </div>
-                            <div class="section-btn">
-                                <div class="default-btn add_section">Добавить следующую секцию</div>
-                            </div>
-                            <div class="section-btn">
-                                <div class="btn del_cur_section">Удалить текущую секцию</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="characteristic">
+                        <div class="characteristic">
                         <div class="characteristic__list">
                             <div class="characteristic__item">
                                 <div class="characteristic__item-top">
@@ -1278,6 +1298,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                     <div class="isolation tabs">
                         <div class="isolation-head">
                             <div class="title">Изоляция</div>
@@ -1328,8 +1349,8 @@
                             </div>
                             <div class="isolation-row">
                                 <div class="default-select">
-                                    <div class="default-input__label">Изоляция !</div>
-                                    <select class="default-select__select" name="CB_Emk_Iz_Norm">
+                                    <div class="default-input__label">Изоляция</div>
+                                    <select class="default-select_for_img" name="CB_Emk_Iz_Norm">
                                         {% for ins in insulations_plosk %}
                                             <option value="{{ forloop.counter0 }}" data-tol = "{{ins.tol}}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -1340,7 +1361,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img11" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img11" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -1384,7 +1405,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Emk_Iz_T">
+                                    <select class="default-select_for_img" name="CB_Emk_Iz_T">
                                         {% for ins in insulations_plosk %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -1412,7 +1433,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img12" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img12" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -1453,7 +1474,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Emk_Iz_MaxT">
+                                    <select class="default-select_for_img" name="CB_Emk_Iz_MaxT">
                                         {% for ins in insulations_plosk %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -1463,7 +1484,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img13" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img13" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -1507,7 +1528,7 @@
                             <div class="isolation-row">
                                 <div class="default-select">
                                     <div class="default-input__label">Изоляция</div>
-                                    <select class="default-select__select" name="CB_Emk_Iz_Cond">
+                                    <select class="default-select_for_img" name="CB_Emk_Iz_Cond">
                                         {% for ins in insulations_plosk %}
                                             <option value="{{ forloop.counter0 }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -1524,7 +1545,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img14" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img14" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -1556,8 +1577,8 @@
                             </div>
                             <div class="isolation-row">
                                 <div class="default-select">
-                                    <div class="default-input__label">Изоляция !</div>
-                                    <select class="default-select__select" id="insulation_emk" name="CB_Plosk_Iz_Man">
+                                    <div class="default-input__label">Изоляция</div>
+                                    <select class="default-select_for_img" id="insulation_emk" name="CB_Plosk_Iz_Man">
                                         {% for ins in insulations_plosk %}
                                             <option value="{{ forloop.counter0 }}" data-tol="{{ ins.tol }}">{{ ins.name }}</option>
                                         {% endfor %}
@@ -1592,7 +1613,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img15" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img15" class="my-img" src="{% static 'mycalc/img/photos/PAROC Pro Slab 40.jpg' %}" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -1649,10 +1670,12 @@
 
 
                         <div class="results__bot">
-                            <a class="default-btn" href="../download/" download="Итоговая ведомость.xlsx">Сформировать итоговую ведомость</a>
-                            <a class="btn ico-pdf" href="">протокол расчета</a>
+                            <a class="default-btn" download href="/media/Ведомость.xlsx">Сформировать итоговую ведомость</a>
+                            <a class="" href=""></a>
                         </div>
                     </div>
+
+
                     <div class="save-result">
                         <div class="save-result__top">
                             <div class="title">Сохранение результатов</div>
@@ -1661,14 +1684,14 @@
                         </div>
                         <div class="save-result__bot">
                             <div class="default-input">
-                                <input class="default-input__input" type="text" value="Иван"/>
+                                <input id="input-name3" class="default-input__input" type="text" value="Иван"/>
                                 <label class="default-input__label">Имя</label>
                                 <div class="default-input__error">
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input" type="email"
+                                <input id="input-email3" class="default-input__input" type="email"
                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email"
                                        value="info@mail.ru" placeholder="info@mail.ru"/>
                                 <label class="default-input__label">Почта</label>
@@ -1677,7 +1700,7 @@
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input phone" type="tel" inputmode="tel"
+                                <input id="input-phone3" class="default-input__input phone" type="tel" inputmode="tel"
                                        pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value=""
                                        placeholder="+7 (900) 123-12-13"/>
                                 <label class="default-input__label">Телефон</label>
@@ -1685,19 +1708,22 @@
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
-                            <input class="default-btn" type="submit" value="Сохранить результат"/>
+                            <input id="save-btn3" class="default-btn" type="submit" value="Сохранить результат"/>
                         </div>
                     </div>
+
                 </div>
+
                 {% comment %}<div class="main-tabs__content" data-id="4">
+
                     <div class="section">
                         <div class="section-top">
-                            <div class="section-top__el"><span>Секция 1</span></div>
+                            <div class="section-top__el"><span>Секция 2</span></div>
                         </div>
                         <div class="section-bot">
                             <div class="section-label">Название</div>
                             <div class="section-input">
-                                <input type="text"/>
+                                <input type="text" name="name_section" class="name_section"/>
                             </div>
                             <div class="section-btn">
                                 <div class="default-btn">Добавить следующую секцию</div>
@@ -1905,7 +1931,7 @@
                             </div>
                             <div class="isolation-gallery">
                                 <div class="isolation-gallery__img">
-                                    <img id="paste-img16" src="{% static 'mycalc/img/photos/null' %}" alt=""/>
+                                    <img id="paste-img16" class="my-img" src="" alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -1943,10 +1969,12 @@
                             </div>
                         </div>
                         <div class="results__bot">
-                            <a class="default-btn" href="../download/" download="Итоговая ведомость.xlsx">Сформировать итоговую ведомость</a>
-                            <a class="btn ico-pdf" href="">протокол расчета</a>
+                            <a class="default-btn" download href="/media/Ведомость.xlsx">Сформировать итоговую ведомость</a>
+                            <a class="" href=""></a>
                         </div>
                     </div>
+
+
                     <div class="save-result">
                         <div class="save-result__top">
                             <div class="title">Сохранение результатов</div>
@@ -1955,14 +1983,14 @@
                         </div>
                         <div class="save-result__bot">
                             <div class="default-input">
-                                <input class="default-input__input" type="text" value="Иван"/>
+                                <input id="input-name4" class="default-input__input" type="text" value="Иван"/>
                                 <label class="default-input__label">Имя</label>
                                 <div class="default-input__error">
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input" type="email"
+                                <input id="input-email4" class="default-input__input" type="email"
                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email"
                                        value="info@mail.ru" placeholder="info@mail.ru"/>
                                 <label class="default-input__label">Почта</label>
@@ -1971,7 +1999,7 @@
                                 </div>
                             </div>
                             <div class="default-input">
-                                <input class="default-input__input phone" type="tel" inputmode="tel"
+                                <input id="input-phone4" class="default-input__input phone" type="tel" inputmode="tel"
                                        pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value=""
                                        placeholder="+7 (900) 123-12-13"/>
                                 <label class="default-input__label">Телефон</label>
@@ -1979,43 +2007,109 @@
                                     <div class="error-text"><!-- текст ошибки --></div>
                                 </div>
                             </div>
-                            <input class="default-btn" type="submit" value="Сохранить результат"/>
+                            <input id="save-btn4" class="default-btn" type="submit" value="Сохранить результат"/>
                         </div>
                     </div>
+
                 </div>{% endcomment %}
-                {% comment %}<div class="main-tabs__content" data-id="5"></div>{% endcomment %}
+                {% comment %}{% endcomment %}
+
+                <div class="main-tabs__content" data-id="4">
+                    <div class="save-result">
+                        <div class="save-result__top">
+                            <div class="title">Сохраненный результат</div>
+                            <div class="title-icon" style="color: #e6f6fe; background-image: url('/static/mycalc/img/ico-save.png')"></div>
+                        </div>
+                        <div class="save-result__bot">
+                            <div class="default-input">
+                                <label id="saved-name" class="default-input__input" type="text" value="Иван"></label>
+                                <label class="default-input__label">Имя</label>
+                                <div class="default-input__error">
+                                    <div class="error-text"><!-- текст ошибки --></div>
+                                </div>
+                            </div>
+                            <div class="default-input">
+                                <label id="saved-email" class="default-input__input" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" inputmode="email" value="info@mail.ru" placeholder="info@mail.ru"></label>
+                                <label class="default-input__label">Почта</label>
+                                <div class="default-input__error">
+                                    <div class="error-text"><!-- текст ошибки --></div>
+                                </div>
+                            </div>
+                            <div class="default-input">
+                                <label id="saved-phone" class="default-input__input phone" type="tel" inputmode="tel" pattern="\+7\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{2}-[0-9]{2}" value="" placeholder="+7 (900) 123-12-13"></label>
+                                <label class="default-input__label">Телефон</label>
+                                <div class="default-input__error">
+                                    <div class="error-text"><!-- текст ошибки --></div>
+                                </div>
+                            </div>
+
+
+                            <div class="results__bot">
+                                <a id="download-hash" class="default-btn" download="" href="/media/download/">Скачать файл</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
         </form>
     </div>
 </main>
+
+
+
+
 <div class="total-results-cont" id = "total_result">
     <div class="wrapper">
         <div class="total-results">
             <div class="total-results__list">
-                <div class="total-results__item">
-                    <div class="total-results__item-title">Точный расчет толщины изоляции</div>
-                    <div class="total-results__item-num">0.0 мм</div>
+                <div class="total-results__item" id = "ex-total-recommended-thickness">
+                    <div class="total-results__item-title">Рекомендуемая толщина выбанной изоляции</div>
+                    <div class="total-results__item-num" id = "total-recommended-thickness">0.0 мм</div>
                 </div>
-                <div class="total-results__item">
-                    <div class="total-results__item-title">Рекомендуемая толщина для выбранной изоляции</div>
-                    <div class="total-results__item-num">0.0 мм</div>
+
+                <div class="total-results__item" id = "ex-total-permissible-temperature">
+                    <div class="total-results__item-title">Максимально допустимая температура поверхности изоляции</div>
+                    <div class="total-results__item-num" id = "total-permissible-temperature">0.0 мм</div>
                 </div>
-                <div class="total-results__item">
-                    <div class="total-results__item-title">Тепловые потери согласно СП</div>
-                    <div class="total-results__item-num">Вт/м^2</div>
+
+                <div class="total-results__item" id = "ex-total-surface-temperature">
+                    <div class="total-results__item-title">Расчётная температура поверхности изоляции</div>
+                    <div class="total-results__item-num" id = "total-surface-temperature">Вт/м^2</div>
                 </div>
-                <div class="total-results__item">
-                    <div class="total-results__item-title">Допустимая температура внешнего слоя согласно СП</div>
-                    <div class="total-results__item-num">°C</div>
+
+                <div class="total-results__item" id = "ex-total-heat-loss-SP">
+                    <div class="total-results__item-title">Тепловые потери согласно нормам СП</div>
+                    <div class="total-results__item-num" id = "total-heat-loss-SP">°C</div>
                 </div>
-                <div class="total-results__item">
-                    <div class="total-results__item-title">Температура поверхности внешнего слоя изоляции</div>
-                    <div class="total-results__item-num">°C</div>
+
+                <div class="total-results__item" id = "ex-total-estimated-heat-loss">
+                    <div class="total-results__item-title">Расчётные тепловые потери</div>
+                    <div class="total-results__item-num" id = "total-estimated-heat-loss">°C</div>
+                </div>
+
+                <div class="total-results__item" id = "ex-total-layer-temperature">
+                    <div class="total-results__item-title">Температура на границе слоя</div>
+                    <div class="total-results__item-num" id = "total-layer-temperature">°C</div>
+                </div>
+
+                <div class="total-results__item" id = "ex-total-total-estimated-heat-loss">
+                    <div class="total-results__item-title">Полные расчётные тепловые потери</div>
+                    <div class="total-results__item-num" id = "total-total-estimated-heat-loss">°C</div>
+                </div>
+
+                <div class="total-results__item" id = "ex-total-final-temperature">
+                    <div class="total-results__item-title">Конечная температура теплоносителя</div>
+                    <div class="total-results__item-num" id = "total-final-temperature">°C</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="sec_token">
     {% csrf_token %}
@@ -2114,7 +2208,7 @@
         $('#trub_result').hide();
         $('#plosk_result').hide();
         $('#emk_result').hide();
-        $('#total_result').hide(); // ??????
+        $('#total_result').hide();
 
         $('#isl_hide_1').hide();
         $('#isl_hide_2').hide();
@@ -2197,7 +2291,6 @@
             SentAjax(data, 'trub');
             return false;
         });
-
 
         $('.get_result_calc_plosk').click(function (e) {
             e.preventDefault();
@@ -2332,192 +2425,353 @@
                         let data = JSON.parse(response);
                         console.log(data);
 
+                        let all = data['recommended-thickness'] + data['permissible-temperature'] +
+                                  data['surface-temperature'] + data['heat-loss-SP'] +
+                                  data['estimated-heat-loss'] + data['layer-temperature'] +
+                                  data['total-estimated-heat-loss'] + data['final-temperature'] + 1;
+
                         if(data['type'] === 'T'){
-                            $('#recommended-thickness').html(data['recommended-thickness']);
-                            $('#permissible-temperature').html(data['permissible-temperature']);
-                            $('#surface-temperature').text(data['surface-temperature']);
-                            $('#heat-loss-SP').text(data['heat-loss-SP']);
-                            $('#estimated-heat-loss').text(data['estimated-heat-loss']);
-                            $('#layer-temperature').text(data['layer-temperature']);
-                            $('#total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
-                            $('#final-temperature').text(data['final-temperature']);
+                            console.log("all: ", all);
+                            if (all === 1) {
+                                alert("При указанных параметрах в изоляции нет необходимости.");
+                            } else {
+                                $('#recommended-thickness').html(data['recommended-thickness']);
+                                $('#permissible-temperature').html(data['permissible-temperature']);
+                                $('#surface-temperature').text(data['surface-temperature']);
+                                $('#heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#layer-temperature').text(data['layer-temperature']);
+                                $('#total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#final-temperature').text(data['final-temperature']);
 
-                            $('#trub_result').show();
+                                $('#total-recommended-thickness').html(data['recommended-thickness']);
+                                $('#total-permissible-temperature').html(data['permissible-temperature']);
+                                $('#total-surface-temperature').text(data['surface-temperature']);
+                                $('#total-heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#total-estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#total-layer-temperature').text(data['layer-temperature']);
+                                $('#total-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#total-final-temperature').text(data['final-temperature']);
 
-                            $('#ex-recommended-thickness').hide();
-                            $('#ex-permissible-temperature').hide();
-                            $('#ex-surface-temperature').hide();
-                            $('#ex-heat-loss-SP').hide();
-                            $('#ex-estimated-heat-loss').hide();
-                            $('#ex-layer-temperature').hide();
-                            $('#ex-total-estimated-heat-loss').hide();
-                            $('#ex-final-temperature').hide();
+                                $('#trub_result').show();
 
-                            if (data['macro-name'] === 'Trub_Calc_Norm'){
-                                $('#ex-recommended-thickness').show(); //1
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                            }
-                            if (data['macro-name'] === 'Trub_Calc_T'){
-                                $('#ex-recommended-thickness').show(); //1
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-surface-temperature').show(); //3
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                                $('#ex-final-temperature').show(); //8
-                            }
-                            if (data['macro-name'] === 'Trub_Calc_MaxT'){
-                                $('#ex-recommended-thickness').show(); //1
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-surface-temperature').show(); //3
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                            }
-                            if (data['macro-name'] === 'Trub_Calc_Cond'){
-                                $('#ex-recommended-thickness').show(); //1
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-surface-temperature').show(); //3
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                            }
-                            if (data['macro-name'] === 'Trub_Calc_Permerz'){
-                                $('#ex-recommended-thickness').show(); //1
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-surface-temperature').show(); //3
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                            }
-                            if (data['macro-name'] === 'Trub_Calc_Man'){
-                                $('#ex-permissible-temperature').show();  //2
-                                $('#ex-surface-temperature').show(); //3
-                                $('#ex-heat-loss-SP').show(); //4
-                                $('#ex-estimated-heat-loss').show(); //5
-                                $('#ex-layer-temperature').show(); //6
-                            }
+                                $('#ex-recommended-thickness').hide();
+                                $('#ex-permissible-temperature').hide();
+                                $('#ex-surface-temperature').hide();
+                                $('#ex-heat-loss-SP').hide();
+                                $('#ex-estimated-heat-loss').hide();
+                                $('#ex-layer-temperature').hide();
+                                $('#ex-total-estimated-heat-loss').hide();
+                                $('#ex-final-temperature').hide();
 
+                                $('#ex-total-recommended-thickness').hide();
+                                $('#ex-total-permissible-temperature').hide();
+                                $('#ex-total-surface-temperature').hide();
+                                $('#ex-total-heat-loss-SP').hide();
+                                $('#ex-total-estimated-heat-loss').hide();
+                                $('#ex-total-layer-temperature').hide();
+                                $('#ex-total-total-estimated-heat-loss').hide();
+                                $('#ex-total-final-temperature').hide();
+
+
+                                if (data['macro-name'] === 'Trub_Calc_Norm') {
+                                    $('#ex-recommended-thickness').show(); //1
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                }
+                                if (data['macro-name'] === 'Trub_Calc_T') {
+                                    $('#ex-recommended-thickness').show(); //1
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-surface-temperature').show(); //3
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+                                    $('#ex-final-temperature').show(); //8
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-final-temperature').show(); //8
+                                }
+                                if (data['macro-name'] === 'Trub_Calc_MaxT') {
+                                    $('#ex-recommended-thickness').show(); //1
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-surface-temperature').show(); //3
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                }
+                                if (data['macro-name'] === 'Trub_Calc_Cond') {
+                                    $('#ex-recommended-thickness').show(); //1
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-surface-temperature').show(); //3
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                }
+                                if (data['macro-name'] === 'Trub_Calc_Permerz') {
+                                    $('#ex-recommended-thickness').show(); //1
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-surface-temperature').show(); //3
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                }
+                                if (data['macro-name'] === 'Trub_Calc_Man') {
+                                    $('#ex-permissible-temperature').show();  //2
+                                    $('#ex-surface-temperature').show(); //3
+                                    $('#ex-heat-loss-SP').show(); //4
+                                    $('#ex-estimated-heat-loss').show(); //5
+                                    $('#ex-layer-temperature').show(); //6
+
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-layer-temperature').show(); //6
+                                }
+
+                                $('#total_result').show();
+                            }
                         }
 
                         if(data['type'] === 'P') {
-                            $('#plosk-recommended-thickness').html(data['recommended-thickness']);
-                            $('#plosk-permissible-temperature').html(data['permissible-temperature']);
-                            $('#plosk-surface-temperature').text(data['surface-temperature']);
-                            $('#plosk-heat-loss-SP').text(data['heat-loss-SP']);
-                            $('#plosk-estimated-heat-loss').text(data['estimated-heat-loss']);
-                            $('#plosk-layer-temperature').text(data['layer-temperature']);
-                            $('#plosk-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
-                            $('#plosk-final-temperature').text(data['final-temperature']);
+                            if (all === 1) {
+                                alert("При указанных параметрах в изоляции нет необходимости.");
+                            } else {
+                                $('#plosk-recommended-thickness').html(data['recommended-thickness']);
+                                $('#plosk-permissible-temperature').html(data['permissible-temperature']);
+                                $('#plosk-surface-temperature').text(data['surface-temperature']);
+                                $('#plosk-heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#plosk-estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#plosk-layer-temperature').text(data['layer-temperature']);
+                                $('#plosk-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#plosk-final-temperature').text(data['final-temperature']);
+
+                                $('#total-recommended-thickness').html(data['recommended-thickness']);
+                                $('#total-permissible-temperature').html(data['permissible-temperature']);
+                                $('#total-surface-temperature').text(data['surface-temperature']);
+                                $('#total-heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#total-estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#total-layer-temperature').text(data['layer-temperature']);
+                                $('#total-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#total-final-temperature').text(data['final-temperature']);
 
 
-                            $('#plosk_result').show();
+                                $('#plosk_result').show();
 
-                            $('#ex-plosk-recommended-thickness').hide();
-                            $('#ex-plosk-permissible-temperature').hide();
-                            $('#ex-plosk-surface-temperature').hide();
-                            $('#ex-plosk-heat-loss-SP').hide();
-                            $('#ex-plosk-estimated-heat-loss').hide();
-                            $('#ex-plosk-layer-temperature').hide();
-                            $('#ex-plosk-total-estimated-heat-loss').hide();
-                            $('#ex-plosk-final-temperature').hide();
+                                $('#ex-plosk-recommended-thickness').hide();
+                                $('#ex-plosk-permissible-temperature').hide();
+                                $('#ex-plosk-surface-temperature').hide();
+                                $('#ex-plosk-heat-loss-SP').hide();
+                                $('#ex-plosk-estimated-heat-loss').hide();
+                                $('#ex-plosk-layer-temperature').hide();
+                                $('#ex-plosk-total-estimated-heat-loss').hide();
+                                $('#ex-plosk-final-temperature').hide();
 
-                            if (data['macro-name'] === 'Plosk_Calc_Norm'){
-                                $('#ex-plosk-recommended-thickness').show(); //1
-                                $('#ex-plosk-permissible-temperature').show();  //2
-                                $('#ex-plosk-surface-temperature').show(); //3
-                                $('#ex-plosk-heat-loss-SP').show(); //4
-                            }
-                            if (data['macro-name'] === 'Plosk_Calc_MaxT'){
-                                $('#ex-plosk-recommended-thickness').show(); //1
-                                $('#ex-plosk-permissible-temperature').show();  //2
-                                $('#ex-plosk-surface-temperature').show(); //3
-                                $('#ex-plosk-heat-loss-SP').show(); //4
-                                $('#ex-plosk-estimated-heat-loss').show(); //5
-                            }
-                            if (data['macro-name'] === 'Plosk_Calc_Cond'){
-                                $('#ex-plosk-recommended-thickness').show(); //1
-                                $('#ex-plosk-permissible-temperature').show();  //2
-                                $('#ex-plosk-surface-temperature').show(); //3
-                                $('#ex-plosk-heat-loss-SP').show(); //4
-                                $('#ex-plosk-estimated-heat-loss').show(); //5
-                                $('#ex-plosk-layer-temperature').show(); //6
-                                $('#ex-plosk-total-estimated-heat-loss').show(); //7
-                            }
-                            if (data['macro-name'] === 'Plosk_Calc_Man'){
-                                $('#ex-plosk-recommended-thickness').show(); //1
-                                $('#ex-plosk-permissible-temperature').show();  //2
-                                $('#ex-plosk-surface-temperature').show(); //3
-                                $('#ex-plosk-heat-loss-SP').show(); //4
-                                $('#ex-plosk-estimated-heat-loss').show(); //5
-                                $('#ex-plosk-layer-temperature').show(); //6
-                                $('#ex-plosk-total-estimated-heat-loss').show(); //7
+                                $('#ex-total-recommended-thickness').hide();
+                                $('#ex-total-permissible-temperature').hide();
+                                $('#ex-total-surface-temperature').hide();
+                                $('#ex-total-heat-loss-SP').hide();
+                                $('#ex-total-estimated-heat-loss').hide();
+                                $('#ex-total-layer-temperature').hide();
+                                $('#ex-total-total-estimated-heat-loss').hide();
+                                $('#ex-total-final-temperature').hide();
+
+                                if (data['macro-name'] === 'Plosk_Calc_Norm') {
+                                    $('#ex-plosk-recommended-thickness').show(); //1
+                                    $('#ex-plosk-permissible-temperature').show();  //2
+                                    $('#ex-plosk-surface-temperature').show(); //3
+                                    $('#ex-plosk-heat-loss-SP').show(); //4
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                }
+                                if (data['macro-name'] === 'Plosk_Calc_MaxT') {
+                                    $('#ex-plosk-recommended-thickness').show(); //1
+                                    $('#ex-plosk-permissible-temperature').show();  //2
+                                    $('#ex-plosk-surface-temperature').show(); //3
+                                    $('#ex-plosk-heat-loss-SP').show(); //4
+                                    $('#ex-plosk-estimated-heat-loss').show(); //5
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                }
+                                if (data['macro-name'] === 'Plosk_Calc_Cond') {
+                                    $('#ex-plosk-recommended-thickness').show(); //1
+                                    $('#ex-plosk-permissible-temperature').show();  //2
+                                    $('#ex-plosk-surface-temperature').show(); //3
+                                    $('#ex-plosk-heat-loss-SP').show(); //4
+                                    $('#ex-plosk-estimated-heat-loss').show(); //5
+                                    $('#ex-plosk-layer-temperature').show(); //6
+                                    $('#ex-plosk-total-estimated-heat-loss').show(); //7
+                                }
+                                if (data['macro-name'] === 'Plosk_Calc_Man') {
+                                    $('#ex-plosk-recommended-thickness').show(); //1
+                                    $('#ex-plosk-permissible-temperature').show();  //2
+                                    $('#ex-plosk-surface-temperature').show(); //3
+                                    $('#ex-plosk-heat-loss-SP').show(); //4
+                                    $('#ex-plosk-estimated-heat-loss').show(); //5
+                                    $('#ex-plosk-layer-temperature').show(); //6
+                                    $('#ex-plosk-total-estimated-heat-loss').show(); //7
+                                }
+
+                                $('#total_result').show();
                             }
                         }
 
                         if(data['type'] === 'E') {
-                            $('#emk-recommended-thickness').html(data['recommended-thickness']);
-                            $('#emk-permissible-temperature').html(data['permissible-temperature']);
-                            $('#emk-surface-temperature').text(data['surface-temperature']);
-                            $('#emk-heat-loss-SP').text(data['heat-loss-SP']);
-                            $('#emk-estimated-heat-loss').text(data['estimated-heat-loss']);
-                            $('#emk-layer-temperature').text(data['layer-temperature']);
-                            $('#emk-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
-                            $('#emk-final-temperature').text(data['final-temperature']);
+                            console.log("all: ", all);
+                            if (all === 1) {
+                                alert("При указанных параметрах в изоляции нет необходимости.");
+                            } else {
+                                $('#emk-recommended-thickness').html(data['recommended-thickness']);
+                                $('#emk-permissible-temperature').html(data['permissible-temperature']);
+                                $('#emk-surface-temperature').text(data['surface-temperature']);
+                                $('#emk-heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#emk-estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#emk-layer-temperature').text(data['layer-temperature']);
+                                $('#emk-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#emk-final-temperature').text(data['final-temperature']);
+
+                                $('#total-recommended-thickness').html(data['recommended-thickness']);
+                                $('#total-permissible-temperature').html(data['permissible-temperature']);
+                                $('#total-surface-temperature').text(data['surface-temperature']);
+                                $('#total-heat-loss-SP').text(data['heat-loss-SP']);
+                                $('#total-estimated-heat-loss').text(data['estimated-heat-loss']);
+                                $('#total-layer-temperature').text(data['layer-temperature']);
+                                $('#total-total-estimated-heat-loss').text(data['total-estimated-heat-loss']);
+                                $('#total-final-temperature').text(data['final-temperature']);
 
 
-                             $('#emk_result').show();
+                                $('#emk_result').show();
 
-                            $('#ex-emk-recommended-thickness').hide();
-                            $('#ex-emk-permissible-temperature').hide();
-                            $('#ex-emk-surface-temperature').hide();
-                            $('#ex-emk-heat-loss-SP').hide();
-                            $('#ex-emk-estimated-heat-loss').hide();
-                            $('#ex-emk-layer-temperature').hide();
-                            $('#ex-emk-total-estimated-heat-loss').hide();
-                            $('#ex-emk-final-temperature').hide();
+                                $('#ex-emk-recommended-thickness').hide();
+                                $('#ex-emk-permissible-temperature').hide();
+                                $('#ex-emk-surface-temperature').hide();
+                                $('#ex-emk-heat-loss-SP').hide();
+                                $('#ex-emk-estimated-heat-loss').hide();
+                                $('#ex-emk-layer-temperature').hide();
+                                $('#ex-emk-total-estimated-heat-loss').hide();
+                                $('#ex-emk-final-temperature').hide();
 
-                             if (data['macro-name'] === 'Emk_Calc_Norm'){
-                                $('#ex-emk-recommended-thickness').show(); //1
-                                $('#ex-emk-permissible-temperature').show();  //2
-                                $('#ex-emk-surface-temperature').show(); //3
-                                $('#ex-emk-heat-loss-SP').show(); //4
-                                $('#ex-emk-estimated-heat-loss').show(); //5
-                            }
-                             if (data['macro-name'] === 'Emk_Calc_T'){
-                                $('#ex-emk-recommended-thickness').show(); //1
-                                $('#ex-emk-permissible-temperature').show();  //2
-                                $('#ex-emk-surface-temperature').show(); //3
-                                $('#ex-emk-heat-loss-SP').show(); //4
-                                $('#ex-emk-estimated-heat-loss').show(); //5
-                                $('#ex-emk-total-estimated-heat-loss').show(); //7
-                            }
-                             if (data['macro-name'] === 'Emk_Calc_MaxT'){
-                                $('#ex-emk-recommended-thickness').show(); //1
-                                $('#ex-emk-permissible-temperature').show();  //2
-                                $('#ex-emk-surface-temperature').show(); //3
-                                $('#ex-emk-heat-loss-SP').show(); //4
-                                $('#ex-emk-estimated-heat-loss').show(); //5
-                                $('#ex-emk-total-estimated-heat-loss').show(); //7
-                            }
-                             if (data['macro-name'] === 'Emk_Calc_Cond'){
-                                $('#ex-emk-recommended-thickness').show(); //1
-                                $('#ex-emk-permissible-temperature').show();  //2
-                                $('#ex-emk-surface-temperature').show(); //3
-                                $('#ex-emk-heat-loss-SP').show(); //4
-                                $('#ex-emk-estimated-heat-loss').show(); //5
-                                $('#ex-emk-layer-temperature').show(); //6
-                                $('#ex-emk-total-estimated-heat-loss').show(); //7
-                            }
-                             if (data['macro-name'] === 'Emk_Calc_Man'){
-                                $('#ex-emk-permissible-temperature').show();  //2
-                                $('#ex-emk-surface-temperature').show(); //3
-                                $('#ex-emk-heat-loss-SP').show(); //4
-                                $('#ex-emk-estimated-heat-loss').show(); //5
-                                $('#ex-emk-layer-temperature').show(); //6
-                                $('#ex-emk-total-estimated-heat-loss').show(); //7
+                                $('#ex-total-recommended-thickness').hide();
+                                $('#ex-total-permissible-temperature').hide();
+                                $('#ex-total-surface-temperature').hide();
+                                $('#ex-total-heat-loss-SP').hide();
+                                $('#ex-total-estimated-heat-loss').hide();
+                                $('#ex-total-layer-temperature').hide();
+                                $('#ex-total-total-estimated-heat-loss').hide();
+                                $('#ex-total-final-temperature').hide();
+
+                                if (data['macro-name'] === 'Emk_Calc_Norm') {
+                                    $('#ex-emk-recommended-thickness').show(); //1
+                                    $('#ex-emk-permissible-temperature').show();  //2
+                                    $('#ex-emk-surface-temperature').show(); //3
+                                    $('#ex-emk-heat-loss-SP').show(); //4
+                                    $('#ex-emk-estimated-heat-loss').show(); //5
+                                    $('#ex-emk-total-estimated-heat-loss').show();
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-total-estimated-heat-loss').show();
+                                }
+                                if (data['macro-name'] === 'Emk_Calc_T') {
+                                    $('#ex-emk-recommended-thickness').show(); //1
+                                    $('#ex-emk-permissible-temperature').show();  //2
+                                    $('#ex-emk-surface-temperature').show(); //3
+                                    $('#ex-emk-heat-loss-SP').show(); //4
+                                    $('#ex-emk-estimated-heat-loss').show(); //5
+                                    $('#ex-emk-total-estimated-heat-loss').show(); //7
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-total-estimated-heat-loss').show(); //7
+                                }
+                                if (data['macro-name'] === 'Emk_Calc_MaxT') {
+                                    $('#ex-emk-recommended-thickness').show(); //1
+                                    $('#ex-emk-permissible-temperature').show();  //2
+                                    $('#ex-emk-surface-temperature').show(); //3
+                                    $('#ex-emk-heat-loss-SP').show(); //4
+                                    $('#ex-emk-estimated-heat-loss').show(); //5
+                                    $('#ex-emk-total-estimated-heat-loss').show(); //7
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-total-estimated-heat-loss').show(); //7
+                                }
+                                if (data['macro-name'] === 'Emk_Calc_Cond') {
+                                    $('#ex-emk-recommended-thickness').show(); //1
+                                    $('#ex-emk-permissible-temperature').show();  //2
+                                    $('#ex-emk-surface-temperature').show(); //3
+                                    $('#ex-emk-heat-loss-SP').show(); //4
+                                    $('#ex-emk-estimated-heat-loss').show(); //5
+                                    $('#ex-emk-layer-temperature').show(); //6
+                                    $('#ex-emk-total-estimated-heat-loss').show(); //7
+
+                                    $('#ex-total-recommended-thickness').show(); //1
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-layer-temperature').show(); //6
+                                    $('#ex-total-total-estimated-heat-loss').show(); //7
+                                }
+                                if (data['macro-name'] === 'Emk_Calc_Man') {
+                                    $('#ex-emk-permissible-temperature').show();  //2
+                                    $('#ex-emk-surface-temperature').show(); //3
+                                    $('#ex-emk-heat-loss-SP').show(); //4
+                                    $('#ex-emk-estimated-heat-loss').show(); //5
+                                    $('#ex-emk-layer-temperature').show(); //6
+                                    $('#ex-emk-total-estimated-heat-loss').show(); //7
+
+                                    $('#ex-total-permissible-temperature').show();  //2
+                                    $('#ex-total-surface-temperature').show(); //3
+                                    $('#ex-total-heat-loss-SP').show(); //4
+                                    $('#ex-total-estimated-heat-loss').show(); //5
+                                    $('#ex-total-layer-temperature').show(); //6
+                                    $('#ex-total-total-estimated-heat-loss').show(); //7
+                                }
+
+                                $('#total_result').show();
                             }
                         }
-
-                        $('#total_result').show();
 
                     }
 
@@ -2600,14 +2854,21 @@
     return string.toString().split ( delimiter.toString() );
 }
 </script>
-
-
 <script>
 
     $(document).ready(function(){
-        $("select.default-select__select").change(function(){
+        $("select.default-select_for_img").change(function(){
             let selectedIns = $(this).children("option:selected").text() + ".jpg";
             link = "/static/mycalc/img/photos/";
+
+            if (selectedIns === "PAROC Pro Loose Wool 80кг/м.jpg"){
+                selectedIns = "PAROC Pro Loose Wool 801.jpg";
+            }
+
+            if (selectedIns === "PAROC Pro Loose Wool 150кг/м.jpg"){
+                selectedIns = "PAROC Pro Loose Wool 1502.jpg";
+            }
+
             document.getElementById("paste-img1").src = link + selectedIns;
             document.getElementById("paste-img2").src = link + selectedIns;
             document.getElementById("paste-img3").src = link + selectedIns;
@@ -2623,8 +2884,121 @@
             document.getElementById("paste-img13").src = link + selectedIns;
             document.getElementById("paste-img14").src = link + selectedIns;
             document.getElementById("paste-img15").src = link + selectedIns;
-            document.getElementById("paste-img16").src = link + selectedIns;
 
+        });
+    });
+
+
+    $("#save-btn1").on( "click", function() {
+        $("#saved-name").text($("#input-name1").val());
+        $("#saved-email").text($("#input-email1").val());
+        $("#saved-phone").text($("#input-phone1").val());
+
+        data = {
+            "name": $('input[id="input-name1"]').val(),
+            "email": $('input[id="input-email1"]').val(),
+            "phone": $('input[id="input-phone1"]').val(),
+        };
+
+        console.log(data);
+        _SentAjax(data);
+        return false;
+    });
+    $("#save-btn2").on( "click", function() {
+        $("#saved-name").text($("#input-name2").val());
+        $("#saved-email").text($("#input-email2").val());
+        $("#saved-phone").text($("#input-phone2").val());
+
+        data = {
+            "name": $('input[id="input-name1"]').val(),
+            "email": $('input[id="input-email1"]').val(),
+            "phone": $('input[id="input-phone1"]').val(),
+        };
+
+        console.log(data);
+        _SentAjax(data);
+        return false;
+    });
+    $("#save-btn3").on( "click", function() {
+        $("#saved-name").text($("#input-name3").val());
+        $("#saved-email").text($("#input-email3").val());
+        $("#saved-phone").text($("#input-phone3").val());
+
+        data = {
+            "name": $('input[id="input-name1"]').val(),
+            "email": $('input[id="input-email1"]').val(),
+            "phone": $('input[id="input-phone1"]').val(),
+        };
+
+        console.log(data);
+        _SentAjax(data);
+        return false;
+    });
+    $("#save-btn4").on( "click", function() {
+        $("#saved-name").text($("#input-name4").val());
+        $("#saved-email").text($("#input-email4").val());
+        $("#saved-phone").text($("#input-phone4").val());
+
+        data = {
+            "name": $('input[id="input-name1"]').val(),
+            "email": $('input[id="input-email1"]').val(),
+            "phone": $('input[id="input-phone1"]').val(),
+        };
+
+        console.log(data);
+        _SentAjax(data);
+        return false;
+    });
+
+    let my_data;
+
+     function _SentAjax($data) {
+            $.ajax({
+                url: "/make_result_file/",
+                type: 'POST',
+                data: {'data': $data, 'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val()},
+                success:function(response){
+                    console.log(response);
+                    if(response == 'false'){
+                        return false;
+                    }
+                    else{
+                        my_data = response;
+                        console.log(my_data);
+                        $("a.default-btn").attr("href", my_data)
+                    }
+                }
+            });
+     }
+
+</script>
+
+<script>
+    let html1 = $('.first_filter').html();
+    let html2 = $('.second_filter').html();
+    let html3 = $('.third_filter').html();
+
+    $(document).ready(function () {
+
+        $("#clear_btn").on("click", function() {
+
+            if ($('#block1').hasClass('main-tabs__content active')){
+                $('.first_filter').html(html1);
+                $('#trub_result').hide();
+                console.log("text1: ", html1);
+            }
+
+            if ($('#block2').hasClass('main-tabs__content active')){
+                $('.second_filter').html(html2);
+                $('#plosk_result').hide();
+                console.log("text2: ", html2);
+            }
+
+            if ($('#block3').hasClass('main-tabs__content active')){
+                $('.third_filter').html(html3);
+                $('#emk_result').hide();
+                console.log("text3: ", html3);
+            }
         });
     });
 
@@ -2635,5 +3009,24 @@
 <script src="{% static 'mycalc/js/vendors.js' %}"></script>
 <script src="{% static 'mycalc/js/base.js' %}"></script>
 <script src="{% static 'mycalc/js/common.js' %}"></script>
+
+<style>
+    .my-img{
+        border: solid 2px;
+    }
+
+    .clear_tab{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        padding:10px 20px;
+        border:1px solid transparent;
+        transition:border-color .3s ease;
+        cursor:pointer
+    }
+</style>
+
+
+
 </body>
 </html>

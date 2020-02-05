@@ -261,6 +261,8 @@ def add_emk(request):
 
         dirty_data = request.POST
 
+        print("dirty data: ", dirty_data)
+
         data = {}
         for k, v in dirty_data.items():
             data[k[5:-1]] = v

@@ -54,28 +54,32 @@
 
                 <form id="trub-calculator">
                     <div class="first_filter">
+
                         <div class="section tabs">
                             <div class="section-top">
                                 <div class="section-top__el tabs__tab active" data-id="1"><span>Секция 1</span></div>
-                                    </div>
-                                    <div class="section-bot tabs__content active" data-id="1">
-                                        <div class="section-label">Название</div>
-                                        <div class="section-input">
-                                            <input type="text" name="name_section" class="name_section"/>
-                                        </div>
-                                        <div class="section-btn">
-                                            <div id="add_trub_section" class="default-btn add_section" >Добавить следующую секцию</div>
-                                        </div>
-                                        <div class="section-btn">
-                                            <div id="del_trub_section" class="btn del_cur_section">Удалить текущую секцию</div>
-                                        </div>
-                                    </div>
-                                    <div class="arr_section" >
-                                        <select name="sections" class="trub_arr_section">
-
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="section-bot tabs__content active" data-id="1">
+                                <div class="section-label">Название</div>
+                                <div class="section-input">
+                                    <input type="text" name="name_section_trub" class="name_section-plosk" id="input_sections_name_trub"/>
                                 </div>
+                                <div class="section-btn">
+                                    <div id="add_trub_section" class="default-btn add_section" >Добавить следующую секцию</div>
+                                </div>
+                                <div class="section-btn">
+                                    <div id="del_trub_section" class="btn del_cur_section">Удалить текущую секцию</div>
+                                </div>
+                            </div>
+
+                            <div class="arr_section_trub" >
+                                <select name="sections_trub" class="trub_arr_section" id="arr_sections_trub">
+
+                                </select>
+                        </div>
+
+                    </div>
+
                         <div class="html-trub-calculator">
                             <div class="characteristic">
 
@@ -227,7 +231,7 @@
                                                 </div>
                                             </div>
                                             <div class="default-input default-input--checkbox">
-                                                <input class="default-input__input--checkbox" type="checkbox" id="390" checked="checked" name="ChB_Trub_5000"/>
+                                                <input class="default-input__input--checkbox" type="checkbox" id="390" name="ChB_Trub_5000"/>
                                                 <label class="default-input__label--checkbox" for="390">Наработка системы более
                                                     5000 часов</label>
                                             </div>
@@ -650,68 +654,70 @@
                         </div>
 
                         <div class="arr_section_plosk" >
-                            <select name="sections_plosk" class="trub_arr_section_plosk" id="sections_plosk">
+                            <select name="sections_plosk" class="plosk_arr_section" id="arr_sections_plosk">
 
                             </select>
                         </div>
 
                     </div>
+
                     <div class="characteristic" id="html-plosk-calculator">
-                        {% comment %}<input class="default-input__input--checkbox" type="checkbox" id="91"/>
-                        <label class="default-input__label--checkbox" for="91">Показать дополнительные параметры</label>{% endcomment %}
-                        <div class="characteristic__list">
-                            <div class="characteristic__item">
-                                <div class="characteristic__item-top">
-                                    <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
+                        <div class="html-plosk-calculator">
+                            {% comment %}<input class="default-input__input--checkbox" type="checkbox" id="91"/>
+                            <label class="default-input__label--checkbox" for="91">Показать дополнительные параметры</label>{% endcomment %}
+                            <div class="characteristic__list">
+                                <div class="characteristic__item">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
+                                        </div>
+                                        <div class="title-icon"
+                                             style="color: #e6f6fe; background-image: url('{% static "mycalc/img/ico-pipe-1.png" %}')"></div>
                                     </div>
-                                    <div class="title-icon"
-                                         style="color: #e6f6fe; background-image: url('{% static "mycalc/img/ico-pipe-1.png" %}')"></div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Регион прокладки</div>
+                                            <select class="default-select__select" name="CB_Plosk_Region" id="CB_Plosk_Region">
+                                                <option value="0">Европейская часть России</option>
+                                                <option value="1">Урал</option>
+                                                <option value="2">Западная Сибирь</option>
+                                                <option value="3">Восточная Сибирь</option>
+                                                <option value="4">Дальний Восток</option>
+                                                <option value="5">Районы Крайнего Севера</option>
+                                                {% for reg in regions %}
+                                                    <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Внешняя среда</div>
+                                            <select class="default-select__select" name="CB_Plosk_Sreda" id="CB_Plosk_Sreda">
+                                                <option value="0">Открытый воздух</option>
+                                                <option value="1">Помещение</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="20" name="L_Plosk_T_Sredi" id="L_Plosk_T_Sredi"/>
+                                            <label class="default-input__label">Температура окружающей среды</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="100" name="L_Plosk_NosT" id="L_Plosk_NosT"/>
+                                            <label class="default-input__label">Начальная температура носителя</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>м/c</span>
+                                            <input class="default-input__input" type="text" value="10" name="L_Plosk_WindSpeed" id="L_Plosk_WindSpeed"/>
+                                            <label class="default-input__label">Скорость ветра</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="characteristic__item-filter">
-                                    <div class="default-select">
-                                        <div class="default-input__label">Регион прокладки</div>
-                                        <select class="default-select__select" name="CB_Plosk_Region" id="CB_Plosk_Region">
-                                            <option value="0">Европейская часть России</option>
-                                            <option value="1">Урал</option>
-                                            <option value="2">Западная Сибирь</option>
-                                            <option value="3">Восточная Сибирь</option>
-                                            <option value="4">Дальний Восток</option>
-                                            <option value="5">Районы Крайнего Севера</option>
-                                            {% for reg in regions %}
-                                                <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div class="default-select">
-                                        <div class="default-input__label">Внешняя среда</div>
-                                        <select class="default-select__select" name="CB_Plosk_Sreda">
-                                            <option value="0">Открытый воздух</option>
-                                            <option value="1">Помещение</option>
-                                        </select>
-                                    </div>
-                                    <div class="default-input"><span>°C</span>
-                                        <input class="default-input__input" type="text" value="20" name="L_Plosk_T_Sredi"/>
-                                        <label class="default-input__label">Температура окружающей среды</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>°C</span>
-                                        <input class="default-input__input" type="text" value="100" name="L_Plosk_NosT"/>
-                                        <label class="default-input__label">Начальная температура носителя</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                    <div class="default-input"><span>м/c</span>
-                                        <input class="default-input__input" type="text" value="10" name="L_Plosk_WindSpeed"/>
-                                        <label class="default-input__label">Скорость ветра</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="characteristic__item">
                                 <div class="characteristic__item-top">
                                     <div class="characteristic__item-title">Параметры плоскости</div>
@@ -721,14 +727,14 @@
                                 <div class="characteristic__item-filter">
                                     <div class="default-select">
                                         <div class="default-input__label">Материал</div>
-                                        <select class="default-select__select" name="CB_Plosk_Mater">
+                                        <select class="default-select__select" name="CB_Plosk_Mater" id="CB_Plosk_Mater">
                                             <option value="0">Металл</option>
                                             <option value="1">Не металл</option>
                                         </select>
                                     </div>
                                     <div class="default-select">
                                         <div class="default-input__label">Внешнее покрытие</div>
-                                        <select class="default-select__select" name="CB_Plosk_VneshPokr">
+                                        <select class="default-select__select" name="CB_Plosk_VneshPokr" id="CB_Plosk_VneshPokr">
                                             <option value="0">Без покровного слоя</option>
                                             <option value="1">Битум</option>
                                             <option value="2">Черный метал</option>
@@ -743,21 +749,21 @@
                                         </select>
                                     </div>
                                     <div class="default-input"><span>м</span>
-                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Width"/>
+                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Width" id="L_Plosk_Width"/>
                                         <label class="default-input__label">Ширина</label>
                                         <div class="default-input__error">
                                             <div class="error-text"><!-- текст ошибки --></div>
                                         </div>
                                     </div>
                                     <div class="default-input"><span>м</span>
-                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Length"/>
+                                        <input class="default-input__input" type="text" value="1" name="L_Plosk_Length" id="L_Plosk_Length"/>
                                         <label class="default-input__label">Длинна</label>
                                         <div class="default-input__error">
                                             <div class="error-text"><!-- текст ошибки --></div>
                                         </div>
                                     </div>
                                     <div class="default-input"><span>мм</span>
-                                        <input class="default-input__input" type="text" value="3" name="L_Plosk_WWidth"/>
+                                        <input class="default-input__input" type="text" value="3" name="L_Plosk_WWidth" id="L_Plosk_WWidth"/>
                                         <label class="default-input__label">Толщина стенки</label>
                                         <div class="default-input__error">
                                             <div class="error-text"><!-- текст ошибки --></div>
@@ -771,64 +777,68 @@
                                 </div>
                             </div>
                             <div class="characteristic__item characteristic__item--dop" style="display: none">
-                                <div class="characteristic__item-top">
-                                    <div class="characteristic__item-title">Дополнительные параметры</div>
-                                    <div class="title-icon"
-                                         style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-pipe-3.png' %}')"></div>
-                                </div>
-                                <div class="characteristic__item-filter">
-                                    <div class="default-select">
-                                        <div class="default-input__label">Способ крепления</div>
-                                        <select class="default-select__select">
-                                            <option value="1">Подвижные опоры</option>
-                                            <option value="2">Подвижные опоры 2</option>
-                                        </select>
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Дополнительные параметры</div>
+                                        <div class="title-icon"
+                                             style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-pipe-3.png' %}')"></div>
                                     </div>
-                                    <div class="default-select">
-                                        <div class="default-input__label">Направление секции</div>
-                                        <select class="default-select__select">
-                                            <option value="1">Горизонтальное</option>
-                                            <option value="2">Вертикальное</option>
-                                        </select>
-                                    </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="190"/>
-                                        <label class="default-input__label--checkbox" for="190">Учесть потери через
-                                            опорные кольца покровного слоя</label>
-                                    </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="290"/>
-                                        <label class="default-input__label--checkbox" for="290">Учитывать дополнительные
-                                            теплопотери в СН</label>
-                                    </div>
-                                    <div class="default-input"><span>%</span>
-                                        <input class="default-input__input" type="text" value="25"/>
-                                        <label class="default-input__label">Потери на кольцах</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Способ крепления</div>
+                                            <select class="default-select__select">
+                                                <option value="1">Подвижные опоры</option>
+                                                <option value="2">Подвижные опоры 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Направление секции</div>
+                                            <select class="default-select__select">
+                                                <option value="1">Горизонтальное</option>
+                                                <option value="2">Вертикальное</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="1901"/>
+                                            <label class="default-input__label--checkbox" for="190">Учесть потери через
+                                                опорные кольца покровного слоя</label>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="290"/>
+                                            <label class="default-input__label--checkbox" for="290">Учитывать дополнительные
+                                                теплопотери в СН</label>
+                                        </div>
+                                        <div class="default-input"><span>%</span>
+                                            <input class="default-input__input" type="text" value="25"/>
+                                            <label class="default-input__label">Потери на кольцах</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="390"/>
+                                            <label class="default-input__label--checkbox" for="390">Наработка системы более
+                                                5000 часов</label>
                                         </div>
                                     </div>
-                                    <div class="default-input default-input--checkbox">
-                                        <input class="default-input__input--checkbox" type="checkbox" id="390"/>
-                                        <label class="default-input__label--checkbox" for="390">Наработка системы более
-                                            5000 часов</label>
-                                    </div>
                                 </div>
-                            </div>
                         </div>
+                    </div>
+                </form>
+
+
                     <div class="isolation tabs">
                 <div class="isolation-head">
                     <div class="title">Изоляция</div>
                     <div class="title-icon"
                          style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-isolation.png' %}')"></div>
                 </div>
-                <div class="isolation-top solation-top-plosk" id="isolation-top-plsk-id">
-                    <div class="tabs__tab active" data-id="1">СН</div>
-                    <div class="tabs__tab" data-id="3">ТБ</div>
-                    <div class="tabs__tab" data-id="4">ПК</div>
-                    <div class="tabs__tab" data-id="6">Ручной расчет</div>
+                <div class="isolation-top solation-top-plosk" id="isolation-top-plosk-id">
+                    <div class="tabs__tab active" data-id="1" id="isolation-top-plosk-1">СН</div>
+                    <div class="tabs__tab" data-id="3" id="isolation-top-plosk-2">ТБ</div>
+                    <div class="tabs__tab" data-id="4" id="isolation-top-plosk-3">ПК</div>
+                    <div class="tabs__tab" data-id="6" id="isolation-top-plosk-4">Ручной расчет</div>
                 </div>
-                <div class="isolation-bot tabs__content active" data-id="1">
+                <div class="isolation-bot tabs__content active" data-id="1" id="isolation-bot-plosk-1" >
                     <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
                         61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
                     </div>
@@ -880,7 +890,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="isolation-bot tabs__content" data-id="3">
+                <div class="isolation-bot tabs__content" data-id="3" id="isolation-bot-plosk-2">
                     <div class="isolation-info">Соблюдение требований безопасности</div>
                     <div class="isolation-results" id="isl_hide_4">
                         <div class="isolation-results__top">
@@ -928,7 +938,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="isolation-bot tabs__content" data-id="4">
+                <div class="isolation-bot tabs__content" data-id="4" id="isolation-bot-plosk-3">
                     <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
                         оборудования<br> или трубопровода
                     </div>
@@ -991,7 +1001,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="isolation-bot tabs__content" data-id="6">
+                <div class="isolation-bot tabs__content" data-id="6" id="isolation-bot-plosk-4">
                     <div class="isolation-results" id="isl_hide_6">
                         <div class="isolation-results__top">
                             <div class="title">Результат</div>
@@ -1067,10 +1077,7 @@
                     </div>
                 </div>
             </div>
-                </form>
             </div>
-
-
 
             <div class="plosk_result" id = "plosk_result">
                 <div class="results-top">
@@ -1167,179 +1174,188 @@
 
             <div class="main-tabs__content" data-id="3" id = "block3">
                 <div class="third_filter">
-                    <div class="section">
-                        <div class="section-top">
-                            <div class="section-top__el"><span>Секция 1</span></div>
+                    <form id="emk-calculator">
+                        <div class="section tabs">
+                            <div class="section-top">
+                                <div class="section-top__el tabs__tab active" data-id="1"><span>Секция 1</span></div>
+                            </div>
+                            <div class="section-bot tabs__content active" data-id="1">
+                                <div class="section-label">Название</div>
+                                <div class="section-input">
+                                    <input type="text" name="name_section_emk" class="name_section-emk" id="input_sections_name_emk"/>
+                                </div>
+                                <div class="section-btn">
+                                    <div id="add_emk_section" class="default-btn add_section" >Добавить следующую секцию</div>
+                                </div>
+                                <div class="section-btn">
+                                    <div id="del_emk_section" class="btn del_cur_section">Удалить текущую секцию</div>
+                                </div>
+                            </div>
+
+                            <div class="arr_section_emk" >
+                                <select name="sections_emk" class="emk_arr_section" id="arr_sections_emk">
+
+                                </select>
+                            </div>
+
                         </div>
-                        <div class="section-bot">
-                            <div class="section-label">Название</div>
-                            <div class="section-input">
-                                <input type="text" name="name_section" class="name_section"/>
-                            </div>
-                            <div class="section-btn">
-                                <div id="add_emk_section" class="default-btn add_section">Добавить следующую секцию</div>
-                            </div>
-                            <div class="section-btn">
-                                <div id="del_emk_section" class="btn del_cur_section">Удалить текущую секцию</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="characteristic" id="html-emk-calculator">
-                    <div class="characteristic__list">
-                        <div class="characteristic__item">
-                            <div class="characteristic__item-top">
-                                <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
-                                </div>
-                                <div class="title-icon"
-                                     style="color: #e6f6fe; background-image: url('{% static 'mycalc/img/ico-pipe-1.png' %}')"></div>
-                            </div>
-                            <div class="characteristic__item-filter">
-                                <div class="default-select">
-                                    <div class="default-input__label">Регион прокладки</div>
-                                    <select class="default-select__select" name="CB_Emk_Region">
-                                        <option value="0">Европейская часть России</option>
-                                        <option value="1">Урал</option>
-                                        <option value="2">Западная Сибирь</option>
-                                        <option value="3">Восточная Сибирь</option>
-                                        <option value="4">Дальний Восток</option>
-                                        <option value="5">Районы Крайнего Севера</option>
-                                        {% for reg in regions %}
-                                            <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="default-select">
-                                    <div class="default-input__label">Внешняя среда</div>
-                                    <select class="default-select__select" name="CB_Emk_Sreda">
-                                        <option value="0">Открытый воздух</option>
-                                        <option value="1">Помещение</option>
-                                    </select>
-                                </div>
-                                <div class="default-input"><span>°C</span>
-                                    <input class="default-input__input" type="text" value="20" name="L_Emk_T_Sredi"/>
-                                    <label class="default-input__label">Температура окружающей среды</label>
-                                    <div class="default-input__error">
-                                        <div class="error-text"><!-- текст ошибки --></div>
-                                    </div>
-                                </div>
-                                <div class="default-input"><span>°C</span>
-                                    <input class="default-input__input" type="text" value="100" name="L_Emk_NosT"/>
-                                    <label class="default-input__label">Начальная температура носителя</label>
-                                    <div class="default-input__error">
-                                        <div class="error-text"><!-- текст ошибки --></div>
-                                    </div>
-                                </div>
-                                <div class="default-input"><span>м/c</span>
-                                    <input class="default-input__input" type="text" value="10" name="L_Emk_WindSpeed"/>
-                                    <label class="default-input__label">Скорость ветра</label>
-                                    <div class="default-input__error">
-                                        <div class="error-text"><!-- текст ошибки --></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="characteristic__item">
-                            <div class="characteristic__item-top">
-                                <div class="characteristic__item-title">Параметры емкости</div>
-                                <div class="title-icon"
-                                     style="color: #fee6e6; background-image: url('{% static 'mycalc/img/ico-pipe-2.png' %}')"></div>
-                            </div>
-                            <div class="characteristic__item-filter">
-                                <div class="default-select">
-                                    <div class="default-input__label">Материал</div>
-                                    <select class="default-select__select" name="CB_Emk_Mater">
-                                        <option value="0">Металл</option>
-                                        <option value="1">Не металл</option>
-                                    </select>
-                                </div>
-                                <div class="default-input--row">
-                                    <div class="default-input"><span>мм</span>
-                                        <input class="default-input__input" type="number" value="3" min="1"
-                                               max="100" step="1" name="L_Emk_WWidth"/>
-                                        <div class="default-input__label">Толщина стенки</div>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
+                        <div class="characteristic">
+                            <div class="html-emk-calculator">
+                                <div class="characteristic__list">
+                                <div class="characteristic__item">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Окружающая среда<br> и параметры носителя
                                         </div>
+                                        <div class="title-icon"
+                                             style="color: #e6f6fe; background-image: url('{% static 'mycalc/img/ico-pipe-1.png' %}')"></div>
                                     </div>
-                                    <div class="default-input"><span>кг/м3</span>
-                                        <input class="default-input__input" type="number" value="7856" min="1"
-                                               max="100" step="1" name="L_Emk_WPlotn"/>
-                                        <div class="default-input__label">Плотность материала<br> стенки</div>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Регион прокладки</div>
+                                            <select class="default-select__select" name="CB_Emk_Region" id="CB_Emk_Region">
+                                                <option value="0">Европейская часть России</option>
+                                                <option value="1">Урал</option>
+                                                <option value="2">Западная Сибирь</option>
+                                                <option value="3">Восточная Сибирь</option>
+                                                <option value="4">Дальний Восток</option>
+                                                <option value="5">Районы Крайнего Севера</option>
+                                                {% for reg in regions %}
+                                                    <option value="{{ forloop.counter|add:5 }}">{{ reg }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Внешняя среда</div>
+                                            <select class="default-select__select" name="CB_Emk_Sreda" id="CB_Emk_Sreda">
+                                                <option value="0">Открытый воздух</option>
+                                                <option value="1">Помещение</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="20" name="L_Emk_T_Sredi" id="L_Emk_T_Sredi"/>
+                                            <label class="default-input__label">Температура окружающей среды</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>°C</span>
+                                            <input class="default-input__input" type="text" value="100" name="L_Emk_NosT" id="L_Emk_NosT"/>
+                                            <label class="default-input__label">Начальная температура носителя</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>м/c</span>
+                                            <input class="default-input__input" type="text" value="10" name="L_Emk_WindSpeed" id="L_Emk_WindSpeed"/>
+                                            <label class="default-input__label">Скорость ветра</label>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="default-input"><span>кДж/(кг °C)</span>
-                                    <input class="default-input__input" type="number" value="91" min="1" max="100"
-                                           step="1" name="L_Emk_WC"/>
-                                    <div class="default-input__label">Теплоёмкость материала<br> стенки</div>
-                                    <div class="default-input__error">
-                                        <div class="error-text"><!-- текст ошибки --></div>
+                                <div class="characteristic__item">
+                                    <div class="characteristic__item-top">
+                                        <div class="characteristic__item-title">Параметры емкости</div>
+                                        <div class="title-icon"
+                                             style="color: #fee6e6; background-image: url('{% static 'mycalc/img/ico-pipe-2.png' %}')"></div>
                                     </div>
-                                </div>
-                                <div class="default-input--row">
-                                    <div class="default-input"><span>м/c</span>
-                                        <input class="default-input__input" type="text" value="3" name="L_Emk_Height"/>
-                                        <label class="default-input__label">высота</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
+                                    <div class="characteristic__item-filter">
+                                        <div class="default-select">
+                                            <div class="default-input__label">Материал</div>
+                                            <select class="default-select__select" name="CB_Emk_Mater" id="CB_Emk_Mater">
+                                                <option value="0">Металл</option>
+                                                <option value="1">Не металл</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input--row">
+                                            <div class="default-input"><span>мм</span>
+                                                <input class="default-input__input" type="number" value="3" min="1"
+                                                       max="100" step="1" name="L_Emk_WWidth" id="L_Emk_WWidth"/>
+                                                <div class="default-input__label">Толщина стенки</div>
+                                                <div class="default-input__error">
+                                                    <div class="error-text"><!-- текст ошибки --></div>
+                                                </div>
+                                            </div>
+                                            <div class="default-input"><span>кг/м3</span>
+                                                <input class="default-input__input" type="number" value="7856" min="1"
+                                                       max="100" step="1" name="L_Emk_WPlotn"/>
+                                                <div class="default-input__label">Плотность материала<br> стенки</div>
+                                                <div class="default-input__error">
+                                                    <div class="error-text"><!-- текст ошибки --></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input"><span>кДж/(кг °C)</span>
+                                            <input class="default-input__input" type="number" value="91" min="1" max="100"
+                                                   step="1" name="L_Emk_WC" id="L_Emk_WC"/>
+                                            <div class="default-input__label">Теплоёмкость материала<br> стенки</div>
+                                            <div class="default-input__error">
+                                                <div class="error-text"><!-- текст ошибки --></div>
+                                            </div>
+                                        </div>
+                                        <div class="default-input--row">
+                                            <div class="default-input"><span>м/c</span>
+                                                <input class="default-input__input" type="text" value="3" name="L_Emk_Height" id="L_Emk_Height"/>
+                                                <label class="default-input__label">высота</label>
+                                                <div class="default-input__error">
+                                                    <div class="error-text"><!-- текст ошибки --></div>
+                                                </div>
+                                            </div>
+                                            <div class="default-input"><span>м/c</span>
+                                                <input class="default-input__input" type="text" value="3" name="L_Emk_Diam" id="L_Emk_Diam"/>
+                                                <label class="default-input__label">Диаметр</label>
+                                                <div class="default-input__error">
+                                                    <div class="error-text"><!-- текст ошибки --></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="default-select">
+                                            <div class="default-input__label">Внешнее покрытие</div>
+                                            <select class="default-select__select" name="CB_Emk_VneshPokr" id="CB_Emk_VneshPokr">
+                                                <option value="0">Без покровного слоя</option>
+                                                <option value="1">Битум</option>
+                                                <option value="2">Черный метал</option>
+                                                <option value="3">Чугун</option>
+                                                <option value="4">Оцинкованная сталь</option>
+                                                <option value="5">Краска</option>
+                                                <option value="6">Резина</option>
+                                                <option value="7">Нержавеющая сталь</option>
+                                                <option value="8">Алюминий</option>
+                                                <option value="9">Алюмоцинк</option>
+                                                <option value="10">ПВХ</option>
+                                            </select>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="2901"
+                                                   name="ChB_Emk_5000"/>
+                                            <label class="default-input__label--checkbox" for="2901">Наработка системы более
+                                                5000 часов</label>
+                                        </div>
+                                        <div class="default-input default-input--checkbox">
+                                            <input class="default-input__input--checkbox" type="checkbox" id="2902"
+                                                   name="ChB_UseDnishe"/>
+                                            <label class="default-input__label--checkbox" for="2902">Учитывать дополнительные теплопотери в СН</label>
                                         </div>
                                     </div>
-                                    <div class="default-input"><span>м/c</span>
-                                        <input class="default-input__input" type="text" value="3" name="L_Emk_Diam"/>
-                                        <label class="default-input__label">Диаметр</label>
-                                        <div class="default-input__error">
-                                            <div class="error-text"><!-- текст ошибки --></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="default-select">
-                                    <div class="default-input__label">Внешнее покрытие</div>
-                                    <select class="default-select__select" name="CB_Emk_VneshPokr">
-                                        <option value="0">Без покровного слоя</option>
-                                        <option value="1">Битум</option>
-                                        <option value="2">Черный метал</option>
-                                        <option value="3">Чугун</option>
-                                        <option value="4">Оцинкованная сталь</option>
-                                        <option value="5">Краска</option>
-                                        <option value="6">Резина</option>
-                                        <option value="7">Нержавеющая сталь</option>
-                                        <option value="8">Алюминий</option>
-                                        <option value="9">Алюмоцинк</option>
-                                        <option value="10">ПВХ</option>
-                                    </select>
-                                </div>
-                                <div class="default-input default-input--checkbox">
-                                    <input class="default-input__input--checkbox" type="checkbox" id="2901"
-                                           checked="checked" name="ChB_Emk_5000"/>
-                                    <label class="default-input__label--checkbox" for="2901">Наработка системы более
-                                        5000 часов</label>
-                                </div>
-                                <div class="default-input default-input--checkbox">
-                                    <input class="default-input__input--checkbox" type="checkbox" id="2902"
-                                           checked="checked" name="ChB_UseDnishe"/>
-                                    <label class="default-input__label--checkbox" for="2902">Учитывать дополнительные теплопотери в СН</label>
                                 </div>
                             </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                </div>
-                <div class="isolation tabs">
+                        <div class="isolation tabs">
                     <div class="isolation-head">
                         <div class="title">Изоляция</div>
                         <div class="title-icon"
                              style="color: #e7faec; background-image: url('{% static 'mycalc/img/ico-isolation.png' %}')"></div>
                     </div>
-                    <div class="isolation-top solation-top-emk">
-                        <div class="tabs__tab active" data-id="1">СН</div>
-                        <div class="tabs__tab" data-id="2">СТ</div>
-                        <div class="tabs__tab" data-id="3">ТБ</div>
-                        <div class="tabs__tab" data-id="4">ПК</div>
-                        <div class="tabs__tab" data-id="6">Ручной расчет</div>
+                    <div class="isolation-top solation-top-emk" id="isolation-top-emk-id">
+                        <div class="tabs__tab active" data-id="1" id="isolation-top-emk-1">СН</div>
+                        <div class="tabs__tab" data-id="2" id="isolation-top-emk-2">СТ</div>
+                        <div class="tabs__tab" data-id="3" id="isolation-top-emk-3">ТБ</div>
+                        <div class="tabs__tab" data-id="4" id="isolation-top-emk-4">ПК</div>
+                        <div class="tabs__tab" data-id="6" id="isolation-top-emk-5">Ручной расчет</div>
                     </div>
-                    <div class="isolation-bot tabs__content active" data-id="1">
+                    <div class="isolation-bot tabs__content active" data-id="1" id="isolation-bot-emk-1">
                         <div class="isolation-info">Соблюдение норм плотности теплового потока (согласно СП
                             61.13330.2012,<br> актуализированная редакция СНиП 41-03-2003)
                         </div>
@@ -1392,7 +1408,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="isolation-bot tabs__content" data-id="2">
+                    <div class="isolation-bot tabs__content" data-id="2" id="isolation-bot-emk-2">
                         <div class="isolation-info">Расчет толщины изоляции по заданному снижению (повышению)
                             температуры<br> вещества, хранимого в емкости
                         </div>
@@ -1464,7 +1480,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="isolation-bot tabs__content" data-id="3">
+                    <div class="isolation-bot tabs__content" data-id="3" id="isolation-bot-emk-3">
                         <div class="isolation-info">Соблюдение требований безопасности</div>
                         <div class="isolation-results" id="isl_hide_9">
                             <div class="isolation-results__top">
@@ -1515,7 +1531,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="isolation-bot tabs__content" data-id="4">
+                    <div class="isolation-bot tabs__content" data-id="4" id="isolation-bot-emk-4">
                         <div class="isolation-info">Предотвращение конденсации влаги на поверхности изолируемого
                             оборудования<br> или трубопровода
                         </div>
@@ -1576,7 +1592,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="isolation-bot tabs__content" data-id="6">
+                    <div class="isolation-bot tabs__content" data-id="6" id="isolation-bot-emk-5">
                         <div class="isolation-results" id="isl_hide_11">
                             <div class="isolation-results__top">
                                 <div class="title">Результат</div>
@@ -1648,6 +1664,9 @@
                         </div>
                     </div>
                 </div>
+                    </form>
+                </div>
+
                 <div class="emk-result" id = "emk_result">
                     <div class="results-top">
                         <div class="title">Результат</div>
@@ -2240,6 +2259,16 @@
         $('#isl_hide_10').hide();
         $('#isl_hide_11').hide();
         $('#isl_hide_12').hide();
+
+        if ($('#arr_sections_trub option').length) $('#arr_sections_trub').show();
+        else $('#arr_sections_trub').hide();
+
+        if ($('#arr_sections_plosk option').length) $('#arr_sections_plosk').show();
+        else $('#arr_sections_plosk').hide();
+
+        if ($('#arr_sections_emk option').length) $('#arr_sections_emk').show();
+        else $('#arr_sections_emk').hide();
+
     });
 
     $(document).ready(function () {
@@ -2994,6 +3023,9 @@
 <!-- Секции -->
 <script>
     let html_trub = $('.html-trub-calculator').html();
+    let html_plosk = $('.html-plosk-calculator').html();
+    let html_emk = $('.html-emk-calculator').html();
+
     let html_trub_isolations_select = $('.trub-isolations-select').html();
 
     function fullValues(html_calculator){
@@ -3001,11 +3033,16 @@
         return str1;
     }
 
+    //добавить секцию trub
     let trub_sections_array = {};
-
-    //добавить секцию
+    let trub_counter = 0;
     $('#add_trub_section').click(function(e){
         e.preventDefault();
+        let name = document.getElementById('input_sections_name_trub').value;
+        trub_counter++;
+        let plsk_name_section = (trub_counter) + ' - ' + name;
+        $('#arr_sections_trub').append('<option id="`' + name + '`" value="`' + trub_counter + '`">' + plsk_name_section + '</option>');
+        //console.log(name);
         let full_section = fullValues("#trub-calculator");
         let name_section = full_section[0]['value'];
 
@@ -3016,11 +3053,12 @@
 
         trub_sections_array[name_section] = clear_dist;
 
-        for (let i = 1; i < 6; i++){
+        for (let i = 1; i < 7; i++){
             if ($("#isolation-top-trub-"+i.toString()).hasClass("tabs__tab active")){
                 trub_sections_array[name_section]['active tab'] = i;
             }
         }
+
         console.log(trub_sections_array);
 
         //очистка
@@ -3032,23 +3070,25 @@
         document.getElementById("isolation-top-trub-1").className = "tabs__tab active";
         document.getElementById("isolation-bot-trub-1").className = "isolation-bot tabs__content active";
 
-        for (let i = 2; i < 6; i++){
+        for (let i = 2; i < 7; i++){
             document.getElementById("isolation-top-trub-"+i.toString()).className = "tabs__tab";
             document.getElementById("isolation-bot-trub-"+i.toString()).className = "isolation-bot tabs__content";
         }
 
         $('#trub_result').hide();
+        $('#arr_sections_trub').show();
     });
-    /*
+
+    //добавить секцию plosk
     let plosk_sections_array = {};
     let plosk_counter = 0;
     $('#add_plosk_section').click(function(e){
         e.preventDefault();
+        let name = document.getElementById('input_sections_name_plosk').value;
         plosk_counter++;
-        let plsk_name_section = (plosk_counter) + ' - ' +
-            document.getElementById('input_sections_name_plosk').value;
-        $('#sections_plosk').append('<option value="`' + plosk_counter + '`">' + plsk_name_section + '</option>');
-
+        let plsk_name_section = (plosk_counter) + ' - ' + name;
+        $('#arr_sections_plosk').append('<option id="`' + name + '`" value="`' + plosk_counter + '`">' + plsk_name_section + '</option>');
+        //console.log(name);
         let full_section = fullValues("#plosk-calculator");
         let name_section = full_section[0]['value'];
 
@@ -3059,43 +3099,148 @@
 
         plosk_sections_array[name_section] = clear_dist;
 
-        for (let i = 1; i < 6; i++){
+        for (let i = 1; i < 5; i++){
             if ($("#isolation-top-plosk-"+i.toString()).hasClass("tabs__tab active")){
-                trub_sections_array[name_section]['active tab'] = i;
+                plosk_sections_array[name_section]['active tab'] = i;
             }
         }
 
         console.log(plosk_sections_array);
+
+        //очистка
+        link = "/static/mycalc/img/photos/";
+        $('.html-plosk-calculator').html(html_plosk);
+        $('#CB_Plosk_Iz_Norm').val('0');
+        document.getElementById("paste-img7").src = link + "PAROC Pro Slab 40.jpg";
+
+        document.getElementById("isolation-top-plosk-1").className = "tabs__tab active";
+        document.getElementById("isolation-bot-plosk-1").className = "isolation-bot tabs__content active";
+
+        for (let i = 2; i < 5; i++){
+            document.getElementById("isolation-top-plosk-"+i.toString()).className = "tabs__tab";
+            document.getElementById("isolation-bot-plosk-"+i.toString()).className = "isolation-bot tabs__content";
+        }
+
+        $('#plosk_result').hide();
+        $('#arr_sections_plosk').show();
     });
-    */
-    //удалить секцию
+
+    //добавить секцию emk
+    let emk_sections_array = {};
+    let emk_counter = 0;
+    $('#add_emk_section').click(function(e){
+        e.preventDefault();
+        let name = document.getElementById('input_sections_name_emk').value;
+        emk_counter++;
+        let plsk_name_section = (emk_counter) + ' - ' + name;
+        //console.log(plsk_name_section);
+        $('#arr_sections_emk').append('<option id="`' + name + '`" value="`' + emk_counter + '`">' + plsk_name_section + '</option>');
+
+        let full_section = fullValues("#emk-calculator");
+        let name_section = full_section[0]['value'];
+
+        let clear_dist = {};
+        for (let i = 2; i < full_section.length; i++){
+            clear_dist[full_section[i].name] = full_section[i].value;
+        }
+
+        emk_sections_array[name_section] = clear_dist;
+
+        for (let i = 1; i < 6; i++){
+            if ($("#isolation-top-emk-"+i.toString()).hasClass("tabs__tab active")){
+                emk_sections_array[name_section]['active tab'] = i;
+            }
+        }
+
+        console.log(emk_sections_array);
+
+        //очистка
+        link = "/static/mycalc/img/photos/";
+        $('.html-emk-calculator').html(html_emk);
+        $('#CB_Plosk_Iz_Norm').val('0');
+        document.getElementById("paste-img11").src = link + "PAROC Pro Slab 40.jpg";
+
+        document.getElementById("isolation-top-emk-1").className = "tabs__tab active";
+        document.getElementById("isolation-bot-emk-1").className = "isolation-bot tabs__content active";
+
+        for (let i = 2; i < 6; i++){
+            document.getElementById("isolation-top-emk-"+i.toString()).className = "tabs__tab";
+            document.getElementById("isolation-bot-emk-"+i.toString()).className = "isolation-bot tabs__content";
+        }
+
+        $('#emk_result').hide();
+        $('#arr_sections_emk').show();
+
+
+    });
+
+
+
+    //удалить секцию trub
     $('#del_trub_section').click(function(e){
+        $('#arr_sections_trub option:selected').remove();
         e.preventDefault();
         $(document).ready(function() {
             $("select.trub_arr_section").change(function () {
                 let selectedIns = $(this).children("option:selected").text();
                 selectedIns = selectedIns.slice(4);
-                delete sections_array[selectedIns];
+                //console.log(selectedIns);
+                delete trub_sections_array[selectedIns];
             });
+            if ($('#arr_sections_trub option').length === 0) $('#arr_sections_trub').hide();
         });
-        console.log(sections_array);
     });
+
+    //удалить секцию plosk
+    $('#del_plosk_section').click(function(e){
+        $('#arr_sections_plosk option:selected').remove();
+        e.preventDefault();
+        $(document).ready(function() {
+            $("select.plosk_arr_section").change(function () {
+                let selectedIns = $(this).children("option:selected").text();
+                selectedIns = selectedIns.slice(4);
+                //console.log(selectedIns);
+                delete plosk_sections_array[selectedIns];
+            });
+            if ($('#arr_sections_plosk option').length === 0) $('#arr_sections_plosk').hide();
+        });
+    });
+
+    //удалить секцию emk
+    $('#del_emk_section').click(function(e){
+        $('#arr_sections_emk option:selected').remove();
+        e.preventDefault();
+        $(document).ready(function() {
+            $("select.emk_arr_section").change(function () {
+                let selectedIns = $(this).children("option:selected").text();
+                selectedIns = selectedIns.slice(4);
+                //console.log(selectedIns);
+                delete emk_sections_array[selectedIns];
+            });
+            if ($('#arr_sections_emk option').length === 0) $('#arr_sections_emk').hide();
+        });
+    });
+
+
 
     //переключение между секциями
     $(document).ready(function(){
+        //trub
         $("select.trub_arr_section").change(function(){
             let selectedIns = $(this).children("option:selected").text();
             selectedIns = selectedIns.slice(4);
 
-            for (key in sections_array[selectedIns]){
-                console.log(key);
+            document.getElementById('190').checked = '';
+            document.getElementById('290').checked = '';
+            document.getElementById('390').checked = '';
+
+            for (key in trub_sections_array[selectedIns]){
+                //console.log(key);
                 if (key !== 'active tab') {
-                    if(key === "") $('#' + key).trigger('click');
-                    else $('#' + key).val(sections_array[selectedIns][key]);
                 } else {
-                    for (let i = 1; i < 6; i++){
-                        console.log(i, sections_array[selectedIns][key]);
-                        if (i === sections_array[selectedIns][key]){
+                    for (let i = 1; i < 7; i++){
+                        //console.log(i, trub_sections_array[selectedIns][key]);
+                        if (i === trub_sections_array[selectedIns][key]){
                             document.getElementById("isolation-top-trub-" + i.toString()).className = "tabs__tab active";
                             document.getElementById("isolation-bot-trub-" + i.toString()).className = "isolation-bot tabs__content active";
                         } else {
@@ -3104,6 +3249,70 @@
                         }
                     }
                 }
+                if(key === "ChB_Trub_Koltsa") $('#190').trigger('click');
+                if(key === "ChB_UsePoteri") $('#290').trigger('click');
+                if(key === "ChB_Trub_5000") $('#390').trigger('click');
+            }
+
+
+        });
+
+        //plosk
+        $("select.plosk_arr_section").change(function(){
+            let selectedIns = $(this).children("option:selected").text();
+            selectedIns = selectedIns.slice(4);
+
+            document.getElementById('2904').checked = '';
+
+            for (key in plosk_sections_array[selectedIns]){
+                //console.log(key);
+                if (key !== 'active tab') {
+                    if(key === "") $('#' + key).trigger('click');
+                    else $('#' + key).val(plosk_sections_array[selectedIns][key]);
+                } else {
+                    for (let i = 1; i < 5; i++){
+                        //console.log(i, plosk_sections_array[selectedIns][key]);
+                        if (i === plosk_sections_array[selectedIns][key]){
+                            document.getElementById("isolation-top-plosk-" + i.toString()).className = "tabs__tab active";
+                            document.getElementById("isolation-bot-plosk-" + i.toString()).className = "isolation-bot tabs__content active";
+                        } else {
+                            document.getElementById("isolation-top-plosk-" + i.toString()).className = "tabs__tab";
+                            document.getElementById("isolation-bot-plosk-" + i.toString()).className = "isolation-bot tabs__content";
+                        }
+                    }
+                }
+                if(key === "ChB_Plosk_5000") $('#2904').trigger('click');
+            }
+
+        });
+
+        //emk
+        $("select.emk_arr_section").change(function(){
+            let selectedIns = $(this).children("option:selected").text();
+            selectedIns = selectedIns.slice(4);
+
+            document.getElementById('2901').checked = '';
+            document.getElementById('2902').checked = '';
+
+            for (key in emk_sections_array[selectedIns]){
+                //console.log(key);
+                if (key !== 'active tab') {
+                    if(key === "") $('#' + key).trigger('click');
+                    else $('#' + key).val(emk_sections_array[selectedIns][key]);
+                } else {
+                    for (let i = 1; i < 6; i++){
+                        //console.log(i, emk_sections_array[selectedIns][key]);
+                        if (i === emk_sections_array[selectedIns][key]){
+                            document.getElementById("isolation-top-emk-" + i.toString()).className = "tabs__tab active";
+                            document.getElementById("isolation-bot-emk-" + i.toString()).className = "isolation-bot tabs__content active";
+                        } else {
+                            document.getElementById("isolation-top-emk-" + i.toString()).className = "tabs__tab";
+                            document.getElementById("isolation-bot-emk-" + i.toString()).className = "isolation-bot tabs__content";
+                        }
+                    }
+                }
+                if(key === "ChB_Emk_5000") $('#2901').trigger('click');
+                if(key === "ChB_UseDnishe") $('#2902').trigger('click');
             }
 
         });
